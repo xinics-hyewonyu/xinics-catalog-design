@@ -14,9 +14,9 @@ export function CatalogCard({ catalog }: Props) {
       href={`/?catalog=${catalog.id}`}
       scroll={false}
       aria-label={`${catalog.site_name} (${catalog.customer_name}) 상세 보기`}
-      className="block focus-visible:outline-none"
+      className="block h-full focus-visible:outline-none"
     >
-      <Card elevation="interactive" className="group">
+      <Card elevation="interactive" className="group flex h-full flex-col">
         <div className="relative aspect-video w-full overflow-hidden bg-surface-muted">
           <Image
             src={catalog.thumbnail_url ?? "/placeholder-16x9.svg"}
