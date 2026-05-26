@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# user-uploaded catalog images (saved by the Stage 6 upload action)
+/public/uploads/

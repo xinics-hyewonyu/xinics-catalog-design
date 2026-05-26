@@ -67,7 +67,10 @@ export default async function Home({
             전체 {catalogs.length}건
           </p>
         </div>
-        <NewCatalogButton />
+        <NewCatalogButton
+          proposalTypes={proposalTypes}
+          siteTypes={siteTypes}
+        />
       </header>
 
       <CatalogListHeader
