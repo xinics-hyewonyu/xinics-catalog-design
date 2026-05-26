@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState, useTransition } from "react";
 import { CatalogLightbox } from "./catalog-lightbox";
@@ -172,15 +171,16 @@ function CatalogDetailModalContent({
                 onClick={() => c.image_url && setLightboxOpen(true)}
                 aria-label="이미지 크게 보기"
                 disabled={!c.image_url}
-                className="group relative aspect-video w-full overflow-hidden rounded-md bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] disabled:cursor-not-allowed"
+                className="group relative block w-full overflow-hidden rounded-md bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] disabled:cursor-not-allowed"
               >
-                <Image
+                {/* Plain <img> so the container hugs the image's intrinsic
+                    aspect — no letterboxing and no vertical crop. Lightbox
+                    handles full-size viewing. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={c.image_url ?? "/placeholder-16x9.svg"}
                   alt={`${c.site_name} 시안 이미지`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 60vw"
-                  className="object-cover object-top transition-transform duration-200 group-hover:scale-[1.01] motion-reduce:transition-none"
-                  priority
+                  className="block h-auto w-full transition-transform duration-200 group-hover:scale-[1.01] motion-reduce:transition-none"
                 />
                 <span
                   aria-hidden
