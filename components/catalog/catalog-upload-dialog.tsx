@@ -158,7 +158,7 @@ export function CatalogUploadDialog({
               <div className="flex flex-col gap-xs">
                 <Label required>이미지</Label>
                 {previewUrl ? (
-                  <div className="relative aspect-video w-full overflow-hidden rounded-md border border-border-default bg-surface-muted">
+                  <div className="relative h-40 w-full overflow-hidden rounded-md border border-border-default bg-surface-muted">
                     <Image
                       src={previewUrl}
                       alt="업로드 미리보기"
@@ -186,13 +186,13 @@ export function CatalogUploadDialog({
                     onDragLeave={() => setDragOver(false)}
                     onDrop={handleDrop}
                     className={[
-                      "flex aspect-video w-full flex-col items-center justify-center gap-xs rounded-md border-2 border-dashed text-text-caption transition-colors motion-reduce:transition-none",
+                      "flex h-40 w-full flex-col items-center justify-center gap-xs rounded-md border-2 border-dashed text-text-caption transition-colors motion-reduce:transition-none",
                       dragOver
                         ? "border-primary bg-primary-bg text-primary-text"
                         : "border-border-default bg-surface-muted hover:border-border-strong",
                     ].join(" ")}
                   >
-                    <ImagePlus aria-hidden className="size-10" />
+                    <ImagePlus aria-hidden className="size-8" />
                     <div className="text-sm font-medium text-text-body">
                       클릭 또는 드래그해서 이미지 업로드
                     </div>
