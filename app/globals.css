@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@import "../design-system/tokens/tokens_v0.1.0_20260526.css";
+@config "../tailwind.config.cjs";
+
+@layer base {
+  html {
+    font-family: var(--xds-seed-font-family);
+    font-size: var(--xds-seed-font-size);
+    color: var(--xds-text-body);
+    background: var(--xds-surface-base);
+  }
+
+  body {
+    line-height: var(--xds-line-height-korean, 1.5);
+    letter-spacing: var(--xds-letter-spacing-korean, -0.02em);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  *:focus-visible {
+    outline: var(--xds-focus-ring-width, 2px) solid
+      var(--xds-focus-ring-color, var(--xds-seed-color-primary));
+    outline-offset: var(--xds-focus-ring-offset, 2px);
+  }
+}
