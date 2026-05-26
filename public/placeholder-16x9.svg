@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Catalog thumbnail placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef0f4"/>
+      <stop offset="1" stop-color="#dde0e7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g fill="#aab0bb" font-family="Pretendard, system-ui, sans-serif">
+    <text x="50%" y="50%" font-size="64" font-weight="600" text-anchor="middle" dominant-baseline="middle">Catalog Preview</text>
+    <text x="50%" y="63%" font-size="28" text-anchor="middle" dominant-baseline="middle">16 : 9 placeholder</text>
+  </g>
+</svg>
