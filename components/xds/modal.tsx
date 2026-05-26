@@ -26,12 +26,23 @@ const toneRingClasses: Record<Tone, string> = {
 interface ModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /**
+   * When false, the dialog stops applying inert/aria-hidden to its body
+   * siblings — useful when another portaled UI (e.g. a lightbox) needs to
+   * take over interaction while the dialog stays mounted underneath.
+   */
+  modal?: boolean;
   children: ReactNode;
 }
 
-export function Modal({ open, onOpenChange, children }: ModalProps) {
+export function Modal({
+  open,
+  onOpenChange,
+  modal = true,
+  children,
+}: ModalProps) {
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root open={open} onOpenChange={onOpenChange} modal={modal}>
       {children}
     </Dialog.Root>
   );

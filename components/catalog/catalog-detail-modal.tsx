@@ -51,7 +51,13 @@ export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isDownloading, startDownload] = useTransition();
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const open = Boolean(catalog);
+
+  // Reset lightbox state whenever the dialog closes.
+  if (!open && lightboxOpen) {
+    setLightboxOpen(false);
+  }
 
   function handleOpenChange(next: boolean) {
     if (!next) {
@@ -63,13 +69,21 @@ export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
   }
 
   return (
-    <Modal open={open} onOpenChange={handleOpenChange}>
+    // Lightbox renders its own portal; while it's open we flip the dialog to
+    // non-modal so Radix stops marking the lightbox sibling as inert.
+    <Modal
+      open={open}
+      onOpenChange={handleOpenChange}
+      modal={!lightboxOpen}
+    >
       {catalog ? (
         <CatalogDetailModalContent
           catalog={catalog}
           downloadIndex={downloadIndex}
           isDownloading={isDownloading}
           startDownload={startDownload}
+          lightboxOpen={lightboxOpen}
+          setLightboxOpen={setLightboxOpen}
         />
       ) : null}
     </Modal>
@@ -81,13 +95,16 @@ function CatalogDetailModalContent({
   downloadIndex: idx,
   isDownloading,
   startDownload,
+  lightboxOpen,
+  setLightboxOpen,
 }: {
   catalog: CatalogWithLabels;
   downloadIndex: number;
   isDownloading: boolean;
   startDownload: (cb: () => void) => void;
+  lightboxOpen: boolean;
+  setLightboxOpen: (open: boolean) => void;
 }) {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   function handleDownload() {
     if (!c.image_url) {
