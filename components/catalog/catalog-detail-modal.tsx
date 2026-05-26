@@ -111,10 +111,10 @@ function CatalogDetailModalContent({
   }
 
   async function handleCopyPath() {
-    if (!c.local_path) return;
-    const ok = await copyToClipboard(c.local_path);
+    if (!c.file_path) return;
+    const ok = await copyToClipboard(c.file_path);
     if (ok) {
-      toast.success("폴더 경로를 복사했습니다");
+      toast.success("파일 경로를 복사했습니다");
     } else {
       toast.error("복사에 실패했습니다");
     }
@@ -180,31 +180,31 @@ function CatalogDetailModalContent({
                   <InfoRow label="디자인 툴">{c.design_tool}</InfoRow>
                 ) : null}
 
-                {c.figma_url ? (
-                  <InfoRow label="Figma">
+                {c.catalog_url ? (
+                  <InfoRow label="카탈로그 주소">
                     <Link
-                      href={c.figma_url}
+                      href={c.catalog_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-xxs text-primary hover:underline"
+                      className="inline-flex min-w-0 items-center gap-xxs text-primary hover:underline"
                     >
-                      <span className="truncate">파일 열기</span>
-                      <ExternalLink aria-hidden className="size-3" />
+                      <span className="truncate">{c.catalog_url}</span>
+                      <ExternalLink aria-hidden className="size-3 shrink-0" />
                     </Link>
                   </InfoRow>
                 ) : null}
 
-                {c.local_path ? (
-                  <InfoRow label="사내 폴더">
+                {c.file_path ? (
+                  <InfoRow label="파일 경로">
                     <span className="flex items-center gap-xs">
                       <code className="flex-1 min-w-0 truncate rounded bg-surface-muted px-xs py-[2px] text-xs font-mono text-text-body">
-                        {c.local_path}
+                        {c.file_path}
                       </code>
                       <Tooltip content="경로 복사">
                         <button
                           type="button"
                           onClick={handleCopyPath}
-                          aria-label="폴더 경로 복사"
+                          aria-label="파일 경로 복사"
                           className="inline-flex size-7 items-center justify-center rounded-md text-text-caption hover:bg-surface-muted hover:text-text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] transition-colors motion-reduce:transition-none"
                         >
                           <Copy aria-hidden className="size-3.5" />

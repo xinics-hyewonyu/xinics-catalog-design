@@ -119,8 +119,8 @@ export type Database = {
           proposal_type_id: string | null;
           site_type_id: string | null;
           design_tool: string | null;
-          figma_url: string | null;
-          local_path: string | null;
+          file_path: string | null;
+          catalog_url: string | null;
           memo: string | null;
           image_url: string | null;
           thumbnail_url: string | null;
@@ -137,8 +137,8 @@ export type Database = {
           proposal_type_id?: string | null;
           site_type_id?: string | null;
           design_tool?: string | null;
-          figma_url?: string | null;
-          local_path?: string | null;
+          file_path?: string | null;
+          catalog_url?: string | null;
           memo?: string | null;
           image_url?: string | null;
           thumbnail_url?: string | null;
@@ -155,8 +155,8 @@ export type Database = {
           proposal_type_id?: string | null;
           site_type_id?: string | null;
           design_tool?: string | null;
-          figma_url?: string | null;
-          local_path?: string | null;
+          file_path?: string | null;
+          catalog_url?: string | null;
           memo?: string | null;
           image_url?: string | null;
           thumbnail_url?: string | null;

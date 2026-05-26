@@ -54,8 +54,8 @@ create table if not exists public.catalogs (
   proposal_type_id uuid references public.catalog_proposal_types(id) on delete restrict,
   site_type_id uuid references public.catalog_site_types(id) on delete restrict,
   design_tool text,
-  figma_url text,
-  local_path text,
+  file_path text,        -- 디자인 파일 경로 (Figma URL이든 사내 UNC `\\etc\...`든 자유 텍스트)
+  catalog_url text,      -- 게시된 카탈로그 페이지 URL
   memo text,
   image_url text,
   thumbnail_url text,
