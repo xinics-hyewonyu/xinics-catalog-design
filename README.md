@@ -28,18 +28,12 @@ pnpm dev
 
 1. [supabase.com](https://supabase.com)에서 새 프로젝트 생성 (region: ap-northeast-2 권장).
 2. 프로젝트 설정 → API → URL, anon key, service role key 를 `.env.local`에 복사.
-3. **Google OAuth 활성화** (Stage 2):
-   - [Google Cloud Console](https://console.cloud.google.com)에서 새 프로젝트 → "OAuth client ID"(웹 애플리케이션) 발급.
-   - 승인된 리디렉션 URI: `https://<project-ref>.supabase.co/auth/v1/callback`.
-   - Supabase Dashboard → Authentication → Providers → Google에 client ID/secret 입력 후 활성화.
-   - Supabase Dashboard → Authentication → URL Configuration → Site URL = `http://localhost:3000`(개발) 또는 배포 도메인. Redirect URLs에 `http://localhost:3000/auth/callback`, 배포 도메인 콜백을 모두 추가.
-   - 도메인 제한(`@xinics.com`)은 `/app/auth/callback/route.ts`에서 서버사이드로 검증함.
-4. 마이그레이션 적용 (Stage 3에서 추가됨):
+3. 마이그레이션 적용 (Stage 3에서 추가됨):
    ```bash
    pnpm dlx supabase link --project-ref <project-ref>
    pnpm dlx supabase db push
    ```
-5. 타입 재생성:
+4. 타입 재생성:
    ```bash
    pnpm dlx supabase gen types typescript --linked > types/database.types.ts
    ```

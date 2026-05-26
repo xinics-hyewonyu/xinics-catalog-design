@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
-import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 
@@ -30,8 +29,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <div className="flex flex-1 flex-col">{children}</div>
+          {children}
           <Toaster richColors closeButton position="top-right" />
         </ThemeProvider>
       </body>
