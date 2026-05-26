@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import { CatalogLightbox } from "./catalog-lightbox";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -86,6 +87,7 @@ function CatalogDetailModalContent({
   isDownloading: boolean;
   startDownload: (cb: () => void) => void;
 }) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   function handleDownload() {
     if (!c.image_url) {
@@ -121,7 +123,8 @@ function CatalogDetailModalContent({
   }
 
   return (
-    <ModalContent size="lg">
+    <>
+      <ModalContent size="lg">
         <ModalHeader>
           <ModalTitle>{c.site_name}</ModalTitle>
           <ModalDescription>
@@ -134,16 +137,28 @@ function CatalogDetailModalContent({
           <div className="grid gap-md p-lg md:grid-cols-[3fr_2fr] md:gap-lg">
             {/* 이미지 영역 */}
             <div className="flex min-w-0 flex-col gap-sm">
-              <div className="relative aspect-video w-full overflow-hidden rounded-md bg-surface-muted">
+              <button
+                type="button"
+                onClick={() => c.image_url && setLightboxOpen(true)}
+                aria-label="이미지 크게 보기"
+                disabled={!c.image_url}
+                className="group relative aspect-video w-full overflow-hidden rounded-md bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] disabled:cursor-not-allowed"
+              >
                 <Image
                   src={c.image_url ?? "/placeholder-16x9.svg"}
                   alt={`${c.site_name} 시안 이미지`}
                   fill
                   sizes="(max-width: 768px) 100vw, 60vw"
-                  className="object-contain"
+                  className="object-contain transition-transform duration-200 group-hover:scale-[1.01] motion-reduce:transition-none"
                   priority
                 />
-              </div>
+                <span
+                  aria-hidden
+                  className="absolute inset-0 flex items-center justify-center bg-black/0 text-sm font-medium text-transparent transition-colors group-hover:bg-black/40 group-hover:text-white motion-reduce:transition-none"
+                >
+                  크게 보기
+                </span>
+              </button>
               <Button
                 variant="default"
                 iconLeading={<Download aria-hidden className="size-4" />}
@@ -263,6 +278,15 @@ function CatalogDetailModalContent({
           </Button>
         </ModalFooter>
       </ModalContent>
+      {c.image_url ? (
+        <CatalogLightbox
+          open={lightboxOpen}
+          onOpenChange={setLightboxOpen}
+          imageUrl={c.image_url}
+          alt={`${c.site_name} 시안 이미지`}
+        />
+      ) : null}
+    </>
   );
 }
 
