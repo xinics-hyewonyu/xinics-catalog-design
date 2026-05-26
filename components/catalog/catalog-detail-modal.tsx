@@ -121,9 +121,9 @@ function CatalogDetailModalContent({
   }
 
   return (
-    <ModalContent size="lg" aria-labelledby="catalog-modal-title">
+    <ModalContent size="lg">
         <ModalHeader>
-          <ModalTitle id="catalog-modal-title">{c.site_name}</ModalTitle>
+          <ModalTitle>{c.site_name}</ModalTitle>
           <ModalDescription>
             {c.customer_name}
             {c.domain ? ` · ${c.domain}` : ""}
