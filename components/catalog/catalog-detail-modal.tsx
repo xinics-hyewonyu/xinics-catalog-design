@@ -50,15 +50,6 @@ export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isDownloading, startDownload] = useTransition();
-
-  if (typeof window !== "undefined") {
-    console.log("[CatalogDetailModal] render", {
-      catalog: catalog?.id ?? null,
-      downloadIndex,
-      open: Boolean(catalog),
-    });
-  }
-
   const open = Boolean(catalog);
 
   function handleOpenChange(next: boolean) {

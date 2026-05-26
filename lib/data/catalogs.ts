@@ -17,7 +17,13 @@ export interface ListCatalogsParams {
   proposalTypeIds?: string[];
   siteTypeIds?: string[];
   sort?: "newest" | "oldest" | "customer" | "name";
-  includeDeleted?: boolean;
+  /**
+   * Which deleted-state to include.
+   * - 'active'  (default) — deleted_at IS NULL
+   * - 'deleted' — deleted_at IS NOT NULL (휴지통)
+   * - 'all'     — both
+   */
+  scope?: "active" | "deleted" | "all";
 }
 
 async function readAll(): Promise<Catalog[]> {
@@ -39,10 +45,11 @@ export async function listCatalogs(
   const q = params.q?.trim().toLowerCase() ?? "";
   const proposalSet = new Set(params.proposalTypeIds ?? []);
   const siteSet = new Set(params.siteTypeIds ?? []);
+  const scope = params.scope ?? "active";
 
   let filtered = rows.filter((row) => {
-    if (!params.includeDeleted && row.deleted_at) return false;
-    if (params.includeDeleted && !row.deleted_at) return false;
+    if (scope === "active" && row.deleted_at) return false;
+    if (scope === "deleted" && !row.deleted_at) return false;
 
     if (q) {
       const hay =
@@ -88,7 +95,7 @@ export async function listCatalogs(
 export async function getCatalog(
   id: string,
 ): Promise<CatalogWithLabels | null> {
-  const all = await listCatalogs({ includeDeleted: true });
+  const all = await listCatalogs({ scope: "all" });
   return all.find((c) => c.id === id) ?? null;
 }
 
