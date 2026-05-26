@@ -28,7 +28,7 @@ export function CatalogCard({ catalog }: Props) {
         </div>
         <div className="flex flex-col gap-xs p-md">
           <div className="flex flex-col gap-xxs">
-            <h3 className="line-clamp-2 text-md font-semibold text-text-heading">
+            <h3 className="break-keep text-md font-semibold text-text-heading">
               {catalog.site_name}
             </h3>
             <p className="text-xs text-text-caption">
