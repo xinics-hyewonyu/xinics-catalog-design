@@ -119,30 +119,32 @@ export function CatalogLightbox({ open, onOpenChange, imageUrl, alt }: Props) {
         onClose={() => onOpenChange(false)}
       />
 
-      <TransformWrapper
-        ref={(ref) => {
-          apiRef.current = ref;
-        }}
-        initialScale={1}
-        minScale={MIN_SCALE}
-        maxScale={MAX_SCALE}
-        wheel={{ step: 0.15 }}
-        doubleClick={{ mode: "toggle", step: 1 }}
-        panning={{ disabled: false, velocityDisabled: true }}
-        onTransform={(ref) => setScale(ref.state.scale)}
-        limitToBounds={false}
+      <div
+        className={`relative flex-1 min-h-0 w-full overflow-hidden ${
+          isZoomed ? "cursor-grab active:cursor-grabbing" : "cursor-zoom-in"
+        }`}
       >
-        <TransformComponent
-          wrapperClass="!w-full !h-full"
-          contentClass="flex items-center justify-center"
+        <TransformWrapper
+          ref={(ref) => {
+            apiRef.current = ref;
+          }}
+          initialScale={1}
+          minScale={MIN_SCALE}
+          maxScale={MAX_SCALE}
+          wheel={{ step: 0.15 }}
+          doubleClick={{ mode: "toggle", step: 1 }}
+          panning={{ disabled: false, velocityDisabled: true }}
+          onTransform={(ref) => setScale(ref.state.scale)}
+          limitToBounds={false}
         >
-          <div
-            className={`flex items-center justify-center select-none ${
-              isZoomed ? "cursor-grab active:cursor-grabbing" : "cursor-zoom-in"
-            }`}
-            style={{
-              width: "100vw",
-              height: "100vh",
+          <TransformComponent
+            wrapperStyle={{ width: "100%", height: "100%" }}
+            contentStyle={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Image
@@ -152,12 +154,12 @@ export function CatalogLightbox({ open, onOpenChange, imageUrl, alt }: Props) {
               height={1080}
               draggable={false}
               priority
-              className="max-h-full max-w-full object-contain"
+              className="max-h-full max-w-full select-none object-contain"
               unoptimized
             />
-          </div>
-        </TransformComponent>
-      </TransformWrapper>
+          </TransformComponent>
+        </TransformWrapper>
+      </div>
     </div>
   );
 

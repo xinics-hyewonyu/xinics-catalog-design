@@ -124,7 +124,23 @@ function CatalogDetailModalContent({
 
   return (
     <>
-      <ModalContent size="lg">
+      <ModalContent
+        size="lg"
+        onPointerDownOutside={(e) => {
+          // Lightbox is portaled to body; its clicks register as 'outside'
+          // the Dialog content. Keep the dialog open while the lightbox owns
+          // the interaction.
+          if (lightboxOpen) e.preventDefault();
+        }}
+        onInteractOutside={(e) => {
+          if (lightboxOpen) e.preventDefault();
+        }}
+        onEscapeKeyDown={(e) => {
+          // Let the lightbox swallow Esc instead of bubbling up to close the
+          // dialog underneath.
+          if (lightboxOpen) e.preventDefault();
+        }}
+      >
         <ModalHeader>
           <ModalTitle>{c.site_name}</ModalTitle>
           <ModalDescription>
