@@ -179,7 +179,7 @@ function CatalogDetailModalContent({
                   alt={`${c.site_name} 시안 이미지`}
                   fill
                   sizes="(max-width: 768px) 100vw, 60vw"
-                  className="object-contain transition-transform duration-200 group-hover:scale-[1.01] motion-reduce:transition-none"
+                  className="object-cover object-top transition-transform duration-200 group-hover:scale-[1.01] motion-reduce:transition-none"
                   priority
                 />
                 <span
