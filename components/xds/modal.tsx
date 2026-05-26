@@ -152,7 +152,10 @@ export const ModalBody = forwardRef<
   return (
     <div
       ref={ref}
-      className={["flex-1 overflow-y-auto", className ?? ""].join(" ")}
+      className={[
+        "min-w-0 flex-1 overflow-y-auto overflow-x-hidden",
+        className ?? "",
+      ].join(" ")}
       {...rest}
     />
   );

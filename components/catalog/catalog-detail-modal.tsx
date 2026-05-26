@@ -133,7 +133,7 @@ function CatalogDetailModalContent({
         <ModalBody>
           <div className="grid gap-md p-lg md:grid-cols-[3fr_2fr] md:gap-lg">
             {/* 이미지 영역 */}
-            <div className="flex flex-col gap-sm">
+            <div className="flex min-w-0 flex-col gap-sm">
               <div className="relative aspect-video w-full overflow-hidden rounded-md bg-surface-muted">
                 <Image
                   src={c.image_url ?? "/placeholder-16x9.svg"}
@@ -156,7 +156,7 @@ function CatalogDetailModalContent({
             </div>
 
             {/* 정보 패널 */}
-            <div className="flex flex-col gap-md">
+            <div className="flex min-w-0 flex-col gap-md">
               <div className="flex flex-wrap gap-xs">
                 {c.proposal_type ? (
                   <Tag tone="info">{c.proposal_type.name}</Tag>
@@ -186,9 +186,11 @@ function CatalogDetailModalContent({
                       href={c.catalog_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex min-w-0 items-center gap-xxs text-primary hover:underline"
+                      className="flex min-w-0 items-center gap-xxs text-primary hover:underline"
                     >
-                      <span className="truncate">{c.catalog_url}</span>
+                      <span className="min-w-0 flex-1 truncate">
+                        {c.catalog_url}
+                      </span>
                       <ExternalLink aria-hidden className="size-3 shrink-0" />
                     </Link>
                   </InfoRow>
