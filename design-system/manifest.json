@@ -1,0 +1,354 @@
+{
+  "$schema": "https://xds.xinics.com/schemas/manifest-v1.json",
+  "generator": {
+    "name": "XDS Generator",
+    "version": "0.3.0-rc.1",
+    "exportedAt": "2026-05-26T05:07:34.357Z"
+  },
+  "project": {
+    "id": "proj_04hmdzhd",
+    "name": "카탈로그 포트폴리오",
+    "type": "b2c",
+    "version": "0.1.0",
+    "createdBy": "유혜원",
+    "createdByVerified": false,
+    "createdAt": "2026-05-26T05:06:53.194Z"
+  },
+  "style": {
+    "preset": "glass",
+    "darkMode": "auto-derived",
+    "locale": [
+      "ko"
+    ],
+    "locale_structure_ready_for": []
+  },
+  "files": [
+    {
+      "path": "tokens/tokens_v0.1.0_20260526.css",
+      "type": "tokens",
+      "size": 14228,
+      "checksum": "sha256:2fddb93b8b4a1b8aa576ed62c935c4928c7a7b77d98d9ea902581553dd502a51",
+      "version": "0.1.0"
+    },
+    {
+      "path": "tokens/tokens_v0.1.0_20260526.json",
+      "type": "tokens",
+      "size": 35988,
+      "checksum": "sha256:6acea2c11f79d62490f4a8351fb811ca9ce7e675f7f03c62efb5fbfc09054837",
+      "version": "0.1.0"
+    },
+    {
+      "path": "tokens/tokens_v0.1.0_20260526.ts",
+      "type": "tokens",
+      "size": 6159,
+      "checksum": "sha256:c5940813103a1ce460741fa08ec5228ccf0e981df2850def46ca7b0eae6363db",
+      "version": "0.1.0"
+    },
+    {
+      "path": "tokens/tokens.seed_v0.1.0_20260526.json",
+      "type": "tokens",
+      "size": 1984,
+      "checksum": "sha256:d1a618e468f32a108b7868a55f8174b458189792f8ac5abaced563e14e825819",
+      "version": "0.1.0"
+    },
+    {
+      "path": "tokens/tokens.map_v0.1.0_20260526.json",
+      "type": "tokens",
+      "size": 31609,
+      "checksum": "sha256:a5bfd3e522704932abfac491404f76f029710ef83c50462b60851aaf05ab0359",
+      "version": "0.1.0"
+    },
+    {
+      "path": "tokens/tokens.alias_v0.1.0_20260526.json",
+      "type": "tokens",
+      "size": 4481,
+      "checksum": "sha256:3c98aa6e3941fe7a4f0f8c4bc26b2008d317ac6f71bdc48e5ad7e23e53e4fec9",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Button_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2191,
+      "checksum": "sha256:3e07ef5cfae2ea55753c7b041dc06fcc0753218ab8fa0fcc5ebcd63231e8e038",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Input_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1720,
+      "checksum": "sha256:61e9229497d696aad86be8ea2d8e0aaa0d67a1d3a32decbf8f84007e62457bc3",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Card_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1501,
+      "checksum": "sha256:31e1ff3de86ed2f42c5da7024a4bce51900bc8426f02ec662d680f8ac46cf340",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Modal_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1939,
+      "checksum": "sha256:9105bd2df4a70942daac36899f32169aea2bb49ad302f9201a1684f658f5e69b",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Form_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1627,
+      "checksum": "sha256:94ad1cf4a8d306284a25c4e78c5e8cdff03981ffda36da1d15830a7f11fe12c3",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Switch_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1671,
+      "checksum": "sha256:ac79259305744f6d64d951d2f89b2f1d7dd3b0bce88fb19ca96e97db08e2cedc",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Checkbox_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1564,
+      "checksum": "sha256:2148c3400864750a5c9f75a172528cfd962b7c9712de08a35bda374d010b1a3b",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Radio_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1701,
+      "checksum": "sha256:059355657735b71b40a7c29873f0c8a0675e5fa10c098d203aef8f1fb72e8142",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Tag_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1705,
+      "checksum": "sha256:77bb3b0f2d39a7a008c0f32255d6822f51a142ca849fb8d556b3299925fcbdb6",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Tabs_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1855,
+      "checksum": "sha256:2021cbfd746d3d577701cd4c070282c919f67c6a78f4e202ea7b42a45c1065d4",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Tooltip_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1710,
+      "checksum": "sha256:61d49750f77f28348de3bd744b39bb1015ff29a221cf2789042668a04e88c4bc",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Avatar_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1603,
+      "checksum": "sha256:d5f0a2aacc98dd118a3a579274815c9ac6c61a2a98dbb39712239fcbd10f19fc",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Badge_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1709,
+      "checksum": "sha256:185607ca3ce963be1c5e81d6e85936def31fd57292308d7c6ea87317b1db2c53",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Pagination_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1795,
+      "checksum": "sha256:45cc7e123be30e76f01e8c83f8feb78c278facd4a7586781b1bd1599516d9dc4",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Breadcrumb_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1634,
+      "checksum": "sha256:a236b6382170f2de3252ba9e75688f4baaaecc9b0b8d72720ce79cdd7d3dc527",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Steps_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1755,
+      "checksum": "sha256:19229b905bfc0bb00f16af01786a41b004558dc111f128d24c224b610c7c6192",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/DatePicker_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1993,
+      "checksum": "sha256:bbb2b538486d82fb2d32ec18c4745889e6e7df9a22dd0498a150b075c5ca592f",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Slider_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1884,
+      "checksum": "sha256:921ab779a06d64dd7a68bd06f70b564af83ea69c52418167d82d9b831e850873",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Toast_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2057,
+      "checksum": "sha256:75aef0f832c6808d0c4ae147a4895ee1acf2dc9a5ca417ff4bbe5c9114cda1b9",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Spinner_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1526,
+      "checksum": "sha256:261b1a4162707b0fbf9b784ab7cdeaa9d82c3563201ee26c9ce029478df66380",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Progress_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1903,
+      "checksum": "sha256:8341b2363444bf6bea09b918381925e28da0d7845398344443aabc7554cc9e4d",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Skeleton_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1803,
+      "checksum": "sha256:42689d100025db0385accf6993a7b7a3b7c9e3b2749074fd3bbe3302b0036796",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Empty_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2064,
+      "checksum": "sha256:0f77370a73e1b629c96673867994cbcf347be1411081dda1172bd70589bc577b",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Alert_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2292,
+      "checksum": "sha256:a867eade02e339d9597a4a8725be0b7129379c3ed5d25e0064b8ce5a0099dd2a",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Divider_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1482,
+      "checksum": "sha256:668d7e48daeab6be10f3cefcc98130c30b3c42a66cea7b1ff43aede7222817c0",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Accordion_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2031,
+      "checksum": "sha256:effa0b3fd3c627fe6813044724c1cc5c7ba6a9a7839a05a69c54c22e7f45f7e9",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Menu_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2293,
+      "checksum": "sha256:38a91764a46937dcbcc8eafffef534dd52098ec82075f4efa96ec054ecc4be62",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Drawer_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2056,
+      "checksum": "sha256:e8b99940e3922eaf94b56f4cd87d1198fc67f94c2dce488081e11095581e1e71",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Result_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2107,
+      "checksum": "sha256:ec393aa0286d7febc4a18e92b27bfbae26a28d543cab9ae02105c929ba0cb4fb",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Popover_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2032,
+      "checksum": "sha256:f3d8f53deeb7b1f69af667a83f26f58c3978cdf6eae6e3a86bd26f2e2d892728",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Statistic_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2099,
+      "checksum": "sha256:086270997b137530f7d8e92f89354f4fc69176ac136fba59c78fa88b0ffbf602",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/List_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1996,
+      "checksum": "sha256:d7bab58677854377aa5a2ae00cbbea10562282ef81f70fd7db121f25151cac2c",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/SegmentedControl_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 2094,
+      "checksum": "sha256:0c5fb32bc0e21765bfc315eff4ddf11ca4c62a734866d6b1852d504ba26c377a",
+      "version": "0.1.0"
+    },
+    {
+      "path": "components/Rate_v0.1.0_20260526.md",
+      "type": "component",
+      "size": 1908,
+      "checksum": "sha256:eff1c410e4e2873a8d4b717ff5be76ea599294559e5663f30c644e9c09017449",
+      "version": "0.1.0"
+    },
+    {
+      "path": "guides/accessibility-report_v0.1.0_20260526.md",
+      "type": "guide",
+      "size": 6015,
+      "checksum": "sha256:d8684b6d3b044c0c3c9c13bfa06c4ae26f20d20d45520e26705de9d37dfc78c2",
+      "version": "0.1.0"
+    },
+    {
+      "path": "guides/ux-patterns_v0.1.0_20260526.md",
+      "type": "guide",
+      "size": 8175,
+      "checksum": "sha256:af8f83b70d2f22edd8003216533b5a431fe68b4d113604f6e66e3c5fe0072d96",
+      "version": "0.1.0"
+    },
+    {
+      "path": "tailwind.preset.cjs",
+      "type": "tokens",
+      "size": 9583,
+      "checksum": "sha256:5d145989897b33dab0921823c18c8f76ee62914eb273166a921334c982e4b8ac",
+      "version": "0.1.0"
+    },
+    {
+      "path": "README.md",
+      "type": "readme",
+      "size": 1670,
+      "checksum": "sha256:d3ca7baa1d7f9d27de1bb0ad32b44ad13a5919828e0a3d374a65539e5408e06d",
+      "version": "0.1.0"
+    }
+  ],
+  "accessibility": {
+    "wcag_2_2_aa": "passed",
+    "kwcag_2_2": "passed",
+    "lastChecked": "2026-05-26T05:07:34.353Z",
+    "report": "guides/accessibility-report_v0.1.0_20260526.md"
+  },
+  "components": {
+    "core": 34,
+    "domain": 0,
+    "total": 34
+  },
+  "dependencies": {
+    "fontStack": [
+      "Pretendard",
+      "system-ui",
+      "sans-serif"
+    ],
+    "iconLibrary": "lucide-react"
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "$metadata": {
+    "name": "카탈로그 포트폴리오",
+    "version": "0.1.0",
+    "generatorVersion": "0.3.0-rc.1",
+    "derivedAt": "2026-05-26T05:07:34.337Z"
+  },
+  "alias": {
+    "text": {
+      "body": {
+        "$value": "{map.color.neutral.900}",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "heading": {
+        "$value": "{map.color.neutral.950}",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "caption": {
+        "$value": "{map.color.neutral.700}",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "disabled": {
+        "$value": "{map.color.neutral.500}",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "link": {
+        "$value": "{seed.color.primary}",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "onPrimary": {
+        "$value": "oklch(1 0 0)",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "onDanger": {
+        "$value": "oklch(1 0 0)",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      }
+    },
+    "surface": {
+      "base": {
+        "$value": "{seed.color.bgBase}",
+        "$type": "color",
+        "$description": "페이지·카드 등 표면"
+      },
+      "elevated": {
+        "$value": "oklch(1 0 0)",
+        "$type": "color",
+        "$description": "페이지·카드 등 표면"
+      },
+      "muted": {
+        "$value": "{map.color.neutral.50}",
+        "$type": "color",
+        "$description": "페이지·카드 등 표면"
+      }
+    },
+    "border": {
+      "subtle": {
+        "$value": "{map.color.neutral.100}",
+        "$type": "color",
+        "$description": "경계선 강도"
+      },
+      "default": {
+        "$value": "{map.color.neutral.200}",
+        "$type": "color",
+        "$description": "경계선 강도"
+      },
+      "strong": {
+        "$value": "{map.color.neutral.500}",
+        "$type": "color",
+        "$description": "경계선 강도"
+      }
+    },
+    "action": {
+      "primary": {
+        "$value": "{seed.color.primary}",
+        "$type": "color",
+        "$description": "주요 액션·위험 액션"
+      },
+      "danger": {
+        "$value": "{seed.color.error}",
+        "$type": "color",
+        "$description": "주요 액션·위험 액션"
+      }
+    },
+    "feedback": {
+      "success": {
+        "$value": "{map.color.success.default}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "warning": {
+        "$value": "{map.color.warning.default}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "error": {
+        "$value": "{map.color.error.default}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "info": {
+        "$value": "{map.color.info.default}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "successEmphasis": {
+        "$value": "{map.color.success.700}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "warningEmphasis": {
+        "$value": "{map.color.warning.700}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "errorEmphasis": {
+        "$value": "{map.color.error.700}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "infoEmphasis": {
+        "$value": "{map.color.info.700}",
+        "$type": "color",
+        "$description": "상태 색"
+      }
+    },
+    "control": {
+      "height": {
+        "sm": {
+          "$value": "24px",
+          "$type": "dimension"
+        },
+        "md": {
+          "$value": "32px",
+          "$type": "dimension"
+        },
+        "lg": {
+          "$value": "40px",
+          "$type": "dimension"
+        }
+      },
+      "padding": {
+        "x": {
+          "$value": "12px",
+          "$type": "dimension"
+        }
+      }
+    },
+    "focus": {
+      "ring": {
+        "width": {
+          "$value": "2px",
+          "$type": "dimension"
+        },
+        "color": {
+          "$value": "{seed.color.primary}",
+          "$type": "color"
+        },
+        "offset": {
+          "$value": "2px",
+          "$type": "dimension"
+        }
+      }
+    }
+  }
+}

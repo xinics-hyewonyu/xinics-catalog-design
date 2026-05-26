@@ -1,0 +1,81 @@
+{
+  "$metadata": {
+    "name": "카탈로그 포트폴리오",
+    "version": "0.1.0",
+    "generatorVersion": "0.3.0-rc.1",
+    "derivedAt": "2026-05-26T05:07:34.337Z"
+  },
+  "seed": {
+    "color": {
+      "primary": {
+        "$value": "oklch(0.50 0.20 290)",
+        "$type": "color",
+        "$description": "주요 액션·강조 색상"
+      },
+      "success": {
+        "$value": "oklch(0.65 0.18 150)",
+        "$type": "color",
+        "$description": "성공·완료"
+      },
+      "warning": {
+        "$value": "oklch(0.78 0.15 80)",
+        "$type": "color",
+        "$description": "주의"
+      },
+      "error": {
+        "$value": "oklch(0.50 0.22 22)",
+        "$type": "color",
+        "$description": "위험·오류"
+      },
+      "info": {
+        "$value": "oklch(0.55 0.22 280)",
+        "$type": "color",
+        "$description": "정보"
+      },
+      "bgBase": {
+        "$value": "oklch(0.97 0.005 230)",
+        "$type": "color",
+        "$description": "페이지 배경"
+      },
+      "textBase": {
+        "$value": "oklch(0.18 0.02 280)",
+        "$type": "color",
+        "$description": "본문 텍스트"
+      }
+    },
+    "borderRadius": {
+      "$value": "20px",
+      "$type": "dimension",
+      "$description": "모서리 반경 기본"
+    },
+    "fontSize": {
+      "$value": "14px",
+      "$type": "dimension",
+      "$description": "본문 기본 크기"
+    },
+    "fontFamily": {
+      "$value": [
+        "Pretendard",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$type": "fontFamily",
+      "$description": "본문 폰트 스택"
+    },
+    "spacingBase": {
+      "$value": "4px",
+      "$type": "dimension",
+      "$description": "spacing 스케일 단위"
+    },
+    "density": {
+      "$value": "default",
+      "$type": "xds.density",
+      "$description": "데이터 밀도"
+    },
+    "wireframe": {
+      "$value": false,
+      "$type": "boolean",
+      "$description": "와이어프레임 모드"
+    }
+  }
+}

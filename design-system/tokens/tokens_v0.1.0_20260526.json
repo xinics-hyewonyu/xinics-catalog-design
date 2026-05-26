@@ -1,0 +1,1407 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$metadata": {
+    "name": "카탈로그 포트폴리오",
+    "version": "0.1.0",
+    "generatorVersion": "0.3.0-rc.1",
+    "derivedAt": "2026-05-26T05:07:34.337Z"
+  },
+  "seed": {
+    "color": {
+      "primary": {
+        "$value": "oklch(0.50 0.20 290)",
+        "$type": "color",
+        "$description": "주요 액션·강조 색상"
+      },
+      "success": {
+        "$value": "oklch(0.65 0.18 150)",
+        "$type": "color",
+        "$description": "성공·완료"
+      },
+      "warning": {
+        "$value": "oklch(0.78 0.15 80)",
+        "$type": "color",
+        "$description": "주의"
+      },
+      "error": {
+        "$value": "oklch(0.50 0.22 22)",
+        "$type": "color",
+        "$description": "위험·오류"
+      },
+      "info": {
+        "$value": "oklch(0.55 0.22 280)",
+        "$type": "color",
+        "$description": "정보"
+      },
+      "bgBase": {
+        "$value": "oklch(0.97 0.005 230)",
+        "$type": "color",
+        "$description": "페이지 배경"
+      },
+      "textBase": {
+        "$value": "oklch(0.18 0.02 280)",
+        "$type": "color",
+        "$description": "본문 텍스트"
+      }
+    },
+    "borderRadius": {
+      "$value": "20px",
+      "$type": "dimension",
+      "$description": "모서리 반경 기본"
+    },
+    "fontSize": {
+      "$value": "14px",
+      "$type": "dimension",
+      "$description": "본문 기본 크기"
+    },
+    "fontFamily": {
+      "$value": [
+        "Pretendard",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$type": "fontFamily",
+      "$description": "본문 폰트 스택"
+    },
+    "spacingBase": {
+      "$value": "4px",
+      "$type": "dimension",
+      "$description": "spacing 스케일 단위"
+    },
+    "density": {
+      "$value": "default",
+      "$type": "xds.density",
+      "$description": "데이터 밀도"
+    },
+    "wireframe": {
+      "$value": false,
+      "$type": "boolean",
+      "$description": "와이어프레임 모드"
+    }
+  },
+  "map": {
+    "color": {
+      "primary": {
+        "50": {
+          "$value": "oklch(0.97 0.024 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "100": {
+          "$value": "oklch(0.93 0.044 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "200": {
+          "$value": "oklch(0.87 0.07 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "300": {
+          "$value": "oklch(0.78 0.12 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "400": {
+          "$value": "oklch(0.68 0.17 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "500": {
+          "$value": "oklch(0.58 0.2 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "600": {
+          "$value": "oklch(0.5 0.2 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "700": {
+          "$value": "oklch(0.42 0.19 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "800": {
+          "$value": "oklch(0.32 0.17 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "900": {
+          "$value": "oklch(0.22 0.14 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "950": {
+          "$value": "oklch(0.13 0.11 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bg": {
+          "$value": "oklch(0.97 0.024 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bgHover": {
+          "$value": "oklch(0.93 0.044 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "border": {
+          "$value": "oklch(0.87 0.07 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "borderHover": {
+          "$value": "oklch(0.78 0.12 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "hover": {
+          "$value": "oklch(0.68 0.17 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "default": {
+          "$value": "oklch(0.58 0.2 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "active": {
+          "$value": "oklch(0.5 0.2 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "text": {
+          "$value": "oklch(0.42 0.19 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textHover": {
+          "$value": "oklch(0.5 0.2 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textActive": {
+          "$value": "oklch(0.32 0.17 290)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        }
+      },
+      "success": {
+        "50": {
+          "$value": "oklch(0.97 0.0216 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "100": {
+          "$value": "oklch(0.93 0.0396 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "200": {
+          "$value": "oklch(0.87 0.063 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "300": {
+          "$value": "oklch(0.78 0.108 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "400": {
+          "$value": "oklch(0.68 0.153 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "500": {
+          "$value": "oklch(0.58 0.18 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "600": {
+          "$value": "oklch(0.5 0.18 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "700": {
+          "$value": "oklch(0.42 0.171 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "800": {
+          "$value": "oklch(0.32 0.153 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "900": {
+          "$value": "oklch(0.22 0.126 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "950": {
+          "$value": "oklch(0.13 0.099 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bg": {
+          "$value": "oklch(0.97 0.0216 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bgHover": {
+          "$value": "oklch(0.93 0.0396 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "border": {
+          "$value": "oklch(0.87 0.063 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "borderHover": {
+          "$value": "oklch(0.78 0.108 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "hover": {
+          "$value": "oklch(0.68 0.153 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "default": {
+          "$value": "oklch(0.58 0.18 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "active": {
+          "$value": "oklch(0.5 0.18 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "text": {
+          "$value": "oklch(0.42 0.171 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textHover": {
+          "$value": "oklch(0.5 0.18 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textActive": {
+          "$value": "oklch(0.32 0.153 150)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        }
+      },
+      "warning": {
+        "50": {
+          "$value": "oklch(0.97 0.018 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "100": {
+          "$value": "oklch(0.93 0.033 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "200": {
+          "$value": "oklch(0.87 0.0525 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "300": {
+          "$value": "oklch(0.78 0.09 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "400": {
+          "$value": "oklch(0.68 0.1275 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "500": {
+          "$value": "oklch(0.58 0.15 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "600": {
+          "$value": "oklch(0.5 0.15 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "700": {
+          "$value": "oklch(0.42 0.1425 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "800": {
+          "$value": "oklch(0.32 0.1275 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "900": {
+          "$value": "oklch(0.22 0.105 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "950": {
+          "$value": "oklch(0.13 0.0825 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bg": {
+          "$value": "oklch(0.97 0.018 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bgHover": {
+          "$value": "oklch(0.93 0.033 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "border": {
+          "$value": "oklch(0.87 0.0525 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "borderHover": {
+          "$value": "oklch(0.78 0.09 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "hover": {
+          "$value": "oklch(0.68 0.1275 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "default": {
+          "$value": "oklch(0.58 0.15 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "active": {
+          "$value": "oklch(0.5 0.15 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "text": {
+          "$value": "oklch(0.42 0.1425 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textHover": {
+          "$value": "oklch(0.5 0.15 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textActive": {
+          "$value": "oklch(0.32 0.1275 80)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        }
+      },
+      "error": {
+        "50": {
+          "$value": "oklch(0.97 0.0264 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "100": {
+          "$value": "oklch(0.93 0.0484 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "200": {
+          "$value": "oklch(0.87 0.077 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "300": {
+          "$value": "oklch(0.78 0.132 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "400": {
+          "$value": "oklch(0.68 0.187 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "500": {
+          "$value": "oklch(0.58 0.22 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "600": {
+          "$value": "oklch(0.5 0.22 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "700": {
+          "$value": "oklch(0.42 0.209 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "800": {
+          "$value": "oklch(0.32 0.187 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "900": {
+          "$value": "oklch(0.22 0.154 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "950": {
+          "$value": "oklch(0.13 0.121 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bg": {
+          "$value": "oklch(0.97 0.0264 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bgHover": {
+          "$value": "oklch(0.93 0.0484 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "border": {
+          "$value": "oklch(0.87 0.077 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "borderHover": {
+          "$value": "oklch(0.78 0.132 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "hover": {
+          "$value": "oklch(0.68 0.187 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "default": {
+          "$value": "oklch(0.58 0.22 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "active": {
+          "$value": "oklch(0.5 0.22 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "text": {
+          "$value": "oklch(0.42 0.209 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textHover": {
+          "$value": "oklch(0.5 0.22 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textActive": {
+          "$value": "oklch(0.32 0.187 22)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        }
+      },
+      "info": {
+        "50": {
+          "$value": "oklch(0.97 0.0264 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "100": {
+          "$value": "oklch(0.93 0.0484 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "200": {
+          "$value": "oklch(0.87 0.077 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "300": {
+          "$value": "oklch(0.78 0.132 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "400": {
+          "$value": "oklch(0.68 0.187 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "500": {
+          "$value": "oklch(0.58 0.22 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "600": {
+          "$value": "oklch(0.5 0.22 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "700": {
+          "$value": "oklch(0.42 0.209 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "800": {
+          "$value": "oklch(0.32 0.187 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "900": {
+          "$value": "oklch(0.22 0.154 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "950": {
+          "$value": "oklch(0.13 0.121 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bg": {
+          "$value": "oklch(0.97 0.0264 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bgHover": {
+          "$value": "oklch(0.93 0.0484 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "border": {
+          "$value": "oklch(0.87 0.077 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "borderHover": {
+          "$value": "oklch(0.78 0.132 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "hover": {
+          "$value": "oklch(0.68 0.187 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "default": {
+          "$value": "oklch(0.58 0.22 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "active": {
+          "$value": "oklch(0.5 0.22 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "text": {
+          "$value": "oklch(0.42 0.209 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textHover": {
+          "$value": "oklch(0.5 0.22 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textActive": {
+          "$value": "oklch(0.32 0.187 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        }
+      },
+      "neutral": {
+        "50": {
+          "$value": "oklch(0.97 0.0024 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "100": {
+          "$value": "oklch(0.93 0.0044 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "200": {
+          "$value": "oklch(0.87 0.007 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "300": {
+          "$value": "oklch(0.78 0.012 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "400": {
+          "$value": "oklch(0.68 0.017 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "500": {
+          "$value": "oklch(0.58 0.02 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "600": {
+          "$value": "oklch(0.5 0.02 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "700": {
+          "$value": "oklch(0.42 0.019 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "800": {
+          "$value": "oklch(0.32 0.017 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "900": {
+          "$value": "oklch(0.22 0.014 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "950": {
+          "$value": "oklch(0.13 0.011 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bg": {
+          "$value": "oklch(0.97 0.0024 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "bgHover": {
+          "$value": "oklch(0.93 0.0044 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "border": {
+          "$value": "oklch(0.87 0.007 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "borderHover": {
+          "$value": "oklch(0.78 0.012 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "hover": {
+          "$value": "oklch(0.68 0.017 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "default": {
+          "$value": "oklch(0.58 0.02 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "active": {
+          "$value": "oklch(0.5 0.02 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "text": {
+          "$value": "oklch(0.42 0.019 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textHover": {
+          "$value": "oklch(0.5 0.02 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        },
+        "textActive": {
+          "$value": "oklch(0.32 0.017 280)",
+          "$type": "color",
+          "$extensions": {
+            "xds.derived": true,
+            "xds.source": "algorithm"
+          }
+        }
+      }
+    },
+    "size": {
+      "xxs": {
+        "$value": "4px",
+        "$type": "dimension"
+      },
+      "xs": {
+        "$value": "8px",
+        "$type": "dimension"
+      },
+      "sm": {
+        "$value": "12px",
+        "$type": "dimension"
+      },
+      "md": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "lg": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "xl": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "xxl": {
+        "$value": "32px",
+        "$type": "dimension"
+      },
+      "xxxl": {
+        "$value": "48px",
+        "$type": "dimension"
+      }
+    },
+    "radius": {
+      "none": {
+        "$value": "0px",
+        "$type": "dimension"
+      },
+      "xs": {
+        "$value": "7px",
+        "$type": "dimension"
+      },
+      "sm": {
+        "$value": "13px",
+        "$type": "dimension"
+      },
+      "md": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "lg": {
+        "$value": "27px",
+        "$type": "dimension"
+      },
+      "xl": {
+        "$value": "40px",
+        "$type": "dimension"
+      },
+      "full": {
+        "$value": "9999px",
+        "$type": "dimension"
+      }
+    },
+    "font": {
+      "size": {
+        "xs": {
+          "$value": "12px",
+          "$type": "dimension"
+        },
+        "sm": {
+          "$value": "14px",
+          "$type": "dimension"
+        },
+        "md": {
+          "$value": "16px",
+          "$type": "dimension"
+        },
+        "lg": {
+          "$value": "18px",
+          "$type": "dimension"
+        },
+        "xl": {
+          "$value": "20px",
+          "$type": "dimension"
+        },
+        "xxl": {
+          "$value": "24px",
+          "$type": "dimension"
+        },
+        "xxxl": {
+          "$value": "32px",
+          "$type": "dimension"
+        }
+      },
+      "lineHeight": {
+        "tight": {
+          "$value": 1.25,
+          "$type": "number"
+        },
+        "normal": {
+          "$value": 1.5,
+          "$type": "number"
+        },
+        "loose": {
+          "$value": 1.75,
+          "$type": "number"
+        },
+        "korean": {
+          "$value": 1.6,
+          "$type": "number"
+        },
+        "latin": {
+          "$value": 1.5,
+          "$type": "number"
+        }
+      },
+      "letterSpacing": {
+        "tight": {
+          "$value": "-0.02em",
+          "$type": "dimension"
+        },
+        "normal": {
+          "$value": "0",
+          "$type": "dimension"
+        },
+        "korean": {
+          "$value": "-0.01em",
+          "$type": "dimension"
+        },
+        "latin": {
+          "$value": "-0.005em",
+          "$type": "dimension"
+        }
+      }
+    }
+  },
+  "alias": {
+    "text": {
+      "body": {
+        "$value": "{map.color.neutral.900}",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "heading": {
+        "$value": "{map.color.neutral.950}",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "caption": {
+        "$value": "{map.color.neutral.700}",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "disabled": {
+        "$value": "{map.color.neutral.500}",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "link": {
+        "$value": "{seed.color.primary}",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "onPrimary": {
+        "$value": "oklch(1 0 0)",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      },
+      "onDanger": {
+        "$value": "oklch(1 0 0)",
+        "$type": "color",
+        "$description": "본문·헤더·캡션 등 의미 텍스트"
+      }
+    },
+    "surface": {
+      "base": {
+        "$value": "{seed.color.bgBase}",
+        "$type": "color",
+        "$description": "페이지·카드 등 표면"
+      },
+      "elevated": {
+        "$value": "oklch(1 0 0)",
+        "$type": "color",
+        "$description": "페이지·카드 등 표면"
+      },
+      "muted": {
+        "$value": "{map.color.neutral.50}",
+        "$type": "color",
+        "$description": "페이지·카드 등 표면"
+      }
+    },
+    "border": {
+      "subtle": {
+        "$value": "{map.color.neutral.100}",
+        "$type": "color",
+        "$description": "경계선 강도"
+      },
+      "default": {
+        "$value": "{map.color.neutral.200}",
+        "$type": "color",
+        "$description": "경계선 강도"
+      },
+      "strong": {
+        "$value": "{map.color.neutral.500}",
+        "$type": "color",
+        "$description": "경계선 강도"
+      }
+    },
+    "action": {
+      "primary": {
+        "$value": "{seed.color.primary}",
+        "$type": "color",
+        "$description": "주요 액션·위험 액션"
+      },
+      "danger": {
+        "$value": "{seed.color.error}",
+        "$type": "color",
+        "$description": "주요 액션·위험 액션"
+      }
+    },
+    "feedback": {
+      "success": {
+        "$value": "{map.color.success.default}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "warning": {
+        "$value": "{map.color.warning.default}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "error": {
+        "$value": "{map.color.error.default}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "info": {
+        "$value": "{map.color.info.default}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "successEmphasis": {
+        "$value": "{map.color.success.700}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "warningEmphasis": {
+        "$value": "{map.color.warning.700}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "errorEmphasis": {
+        "$value": "{map.color.error.700}",
+        "$type": "color",
+        "$description": "상태 색"
+      },
+      "infoEmphasis": {
+        "$value": "{map.color.info.700}",
+        "$type": "color",
+        "$description": "상태 색"
+      }
+    },
+    "control": {
+      "height": {
+        "sm": {
+          "$value": "24px",
+          "$type": "dimension"
+        },
+        "md": {
+          "$value": "32px",
+          "$type": "dimension"
+        },
+        "lg": {
+          "$value": "40px",
+          "$type": "dimension"
+        }
+      },
+      "padding": {
+        "x": {
+          "$value": "12px",
+          "$type": "dimension"
+        }
+      }
+    },
+    "focus": {
+      "ring": {
+        "width": {
+          "$value": "2px",
+          "$type": "dimension"
+        },
+        "color": {
+          "$value": "{seed.color.primary}",
+          "$type": "color"
+        },
+        "offset": {
+          "$value": "2px",
+          "$type": "dimension"
+        }
+      }
+    }
+  }
+}
