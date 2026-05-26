@@ -28,15 +28,31 @@ pnpm dev
 
 1. [supabase.com](https://supabase.com)에서 새 프로젝트 생성 (region: ap-northeast-2 권장).
 2. 프로젝트 설정 → API → URL, anon key, service role key 를 `.env.local`에 복사.
-3. 마이그레이션 적용 (Stage 3에서 추가됨):
+3. 마이그레이션 적용:
    ```bash
+   # 최초 1회: 프로젝트와 로컬 디렉터리 링크
    pnpm dlx supabase link --project-ref <project-ref>
+
+   # /supabase/migrations/ 폴더의 SQL을 원격 DB에 적용
    pnpm dlx supabase db push
    ```
-4. 타입 재생성:
+   - `20260526120000_initial_schema.sql` — 테이블·인덱스·RLS·트리거·시드 분류값(1차/2차/최종, 기본형/오픈캠퍼스형)
+   - `20260526120001_storage.sql` — `catalog-images` 버킷 + 정책
+4. 타입 재생성 (마이그레이션 변경 시):
    ```bash
    pnpm dlx supabase gen types typescript --linked > types/database.types.ts
    ```
+   `types/database.types.ts`는 마이그레이션 기준으로 손으로 작성되어 있으니, 프로젝트 연결 후 위 명령으로 덮어쓰면 됨.
+
+## 로컬 Supabase (선택)
+
+매번 원격에 push하기 부담스럽다면 로컬 개발용 컨테이너를 사용:
+```bash
+pnpm dlx supabase init     # 최초 1회 — /supabase/config.toml 생성
+pnpm dlx supabase start    # 로컬 컨테이너(Auth/DB/Storage) 기동
+pnpm dlx supabase db reset # /supabase/migrations + /supabase/seed.sql 재적용
+```
+로컬용 URL/key는 `supabase start` 출력에서 확인.
 
 ## 디자인 시스템(XDS)
 
