@@ -14,7 +14,15 @@ import {
   Trash2,
 } from "lucide-react";
 import { Button } from "@/components/xds/button";
-import { Modal } from "@/components/xds/modal";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from "@/components/xds/modal";
 import { Tag } from "@/components/xds/tag";
 import { Tooltip } from "@/components/xds/tooltip";
 import { Avatar } from "@/components/xds/avatar";
@@ -103,16 +111,16 @@ export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
 
   return (
     <Modal open={open} onOpenChange={handleOpenChange}>
-      <Modal.Content size="lg" aria-labelledby="catalog-modal-title">
-        <Modal.Header>
-          <Modal.Title id="catalog-modal-title">{c.site_name}</Modal.Title>
-          <Modal.Description>
+      <ModalContent size="lg" aria-labelledby="catalog-modal-title">
+        <ModalHeader>
+          <ModalTitle id="catalog-modal-title">{c.site_name}</ModalTitle>
+          <ModalDescription>
             {c.customer_name}
             {c.domain ? ` · ${c.domain}` : ""}
-          </Modal.Description>
-        </Modal.Header>
+          </ModalDescription>
+        </ModalHeader>
 
-        <Modal.Body>
+        <ModalBody>
           <div className="grid gap-md p-lg md:grid-cols-[3fr_2fr] md:gap-lg">
             {/* 이미지 영역 */}
             <div className="flex flex-col gap-sm">
@@ -222,9 +230,9 @@ export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
               </Accordion>
             </div>
           </div>
-        </Modal.Body>
+        </ModalBody>
 
-        <Modal.Footer>
+        <ModalFooter>
           <Button
             variant="default"
             iconLeading={<Pencil aria-hidden className="size-4" />}
@@ -241,8 +249,8 @@ export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
           >
             삭제
           </Button>
-        </Modal.Footer>
-      </Modal.Content>
+        </ModalFooter>
+      </ModalContent>
     </Modal>
   );
 }
