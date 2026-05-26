@@ -27,14 +27,7 @@ import {
 import { Textarea } from "@/components/xds/textarea";
 import type { ProposalType, SiteType } from "@/lib/data/types";
 
-const DESIGN_TOOLS = [
-  "Figma",
-  "Sketch",
-  "XD",
-  "Photoshop",
-  "Illustrator",
-  "기타",
-];
+const DESIGN_TOOLS = ["피그마", "HTML", "XD", "포토샵"];
 
 interface Props {
   open: boolean;
