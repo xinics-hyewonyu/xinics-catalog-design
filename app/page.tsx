@@ -1,9 +1,13 @@
-import { Plus } from "lucide-react";
-import { Button } from "@/components/xds/button";
 import { CatalogCard } from "@/components/catalog/catalog-card";
+import { CatalogDetailModal } from "@/components/catalog/catalog-detail-modal";
 import { CatalogEmpty } from "@/components/catalog/catalog-empty";
 import { CatalogListHeader } from "@/components/catalog/catalog-list-header";
-import { listCatalogs } from "@/lib/data/catalogs";
+import { NewCatalogButton } from "@/components/catalog/new-catalog-button";
+import {
+  getCatalog,
+  getCatalogDownloadIndex,
+  listCatalogs,
+} from "@/lib/data/catalogs";
 import { listProposalTypes, listSiteTypes } from "@/lib/data/types";
 
 export const dynamic = "force-dynamic";
@@ -28,6 +32,7 @@ export default async function Home({
     proposal?: string;
     site?: string;
     sort?: string;
+    catalog?: string;
   }>;
 }) {
   const params = await searchParams;
@@ -36,11 +41,17 @@ export default async function Home({
   const siteTypeIds = parseIds(params.site);
   const q = params.q?.trim() || undefined;
 
-  const [proposalTypes, siteTypes, catalogs] = await Promise.all([
-    listProposalTypes(),
-    listSiteTypes(),
-    listCatalogs({ q, proposalTypeIds, siteTypeIds, sort }),
-  ]);
+  const [proposalTypes, siteTypes, catalogs, selectedCatalog] =
+    await Promise.all([
+      listProposalTypes(),
+      listSiteTypes(),
+      listCatalogs({ q, proposalTypeIds, siteTypeIds, sort }),
+      params.catalog ? getCatalog(params.catalog) : Promise.resolve(null),
+    ]);
+
+  const downloadIndex = selectedCatalog
+    ? await getCatalogDownloadIndex(selectedCatalog)
+    : 1;
 
   const filtered =
     Boolean(q) || proposalTypeIds.length > 0 || siteTypeIds.length > 0;
@@ -56,14 +67,7 @@ export default async function Home({
             전체 {catalogs.length}건
           </p>
         </div>
-        <Button
-          variant="primary"
-          iconLeading={<Plus aria-hidden className="size-4" />}
-          disabled
-          title="Stage 6에서 추가 예정"
-        >
-          새 카탈로그 등록
-        </Button>
+        <NewCatalogButton />
       </header>
 
       <CatalogListHeader
@@ -83,6 +87,11 @@ export default async function Home({
           ))}
         </section>
       )}
+
+      <CatalogDetailModal
+        catalog={selectedCatalog}
+        downloadIndex={downloadIndex}
+      />
     </main>
   );
 }

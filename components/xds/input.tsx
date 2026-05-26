@@ -26,7 +26,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   return (
     <div
       className={[
-        "relative inline-flex w-full items-center rounded-md border bg-surface-elevated text-text-body",
+        "relative flex w-full items-center rounded-md border bg-surface-elevated text-text-body",
         "transition-colors duration-150",
         error
           ? "border-error-border focus-within:border-error"
@@ -39,7 +39,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       {iconLeading ? (
         <span
           aria-hidden
-          className="pointer-events-none flex items-center pl-sm text-text-caption"
+          className="pointer-events-none flex shrink-0 items-center pl-sm text-text-caption"
         >
           {iconLeading}
         </span>
@@ -48,7 +48,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         ref={ref}
         aria-invalid={error || undefined}
         className={[
-          "w-full bg-transparent outline-none placeholder:text-text-disabled",
+          "min-w-0 flex-1 bg-transparent outline-none placeholder:text-text-disabled",
           iconLeading ? "pl-xs pr-sm" : "px-[var(--xds-control-padding-x)]",
         ].join(" ")}
         {...rest}

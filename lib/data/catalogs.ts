@@ -92,6 +92,28 @@ export async function getCatalog(
   return all.find((c) => c.id === id) ?? null;
 }
 
+export async function getCatalogDownloadIndex(
+  catalog: Pick<
+    Catalog,
+    "id" | "customer_name" | "proposal_type_id" | "created_at"
+  >,
+): Promise<number> {
+  const rows = await readAll();
+  const peers = rows
+    .filter(
+      (r) =>
+        r.deleted_at == null &&
+        r.customer_name === catalog.customer_name &&
+        r.proposal_type_id === catalog.proposal_type_id,
+    )
+    .sort(
+      (a, b) =>
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+    );
+  const idx = peers.findIndex((r) => r.id === catalog.id);
+  return idx >= 0 ? idx + 1 : 1;
+}
+
 export async function createCatalog(input: CatalogInsert): Promise<Catalog> {
   const rows = await readAll();
   const now = new Date().toISOString();

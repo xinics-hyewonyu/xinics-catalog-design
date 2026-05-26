@@ -8,7 +8,7 @@ import {
   useState,
   useTransition,
 } from "react";
-import { Search } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import { Input } from "@/components/xds/input";
 import { Tag } from "@/components/xds/tag";
 import type {
@@ -99,7 +99,7 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
   return (
     <section className="flex flex-col gap-md">
       <div className="flex flex-col gap-md sm:flex-row sm:items-center sm:justify-between">
-        <div className="w-full sm:max-w-md">
+        <div className="w-full sm:max-w-xl sm:flex-1">
           <label htmlFor="catalog-search" className="sr-only">
             사이트명·고객명·도메인 검색
           </label>
@@ -112,25 +112,31 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
             iconLeading={<Search className="size-4" aria-hidden />}
           />
         </div>
-        <div className="flex items-center gap-sm">
+        <div className="flex shrink-0 items-center gap-sm sm:pl-md">
           <label
             htmlFor="catalog-sort"
             className="text-xs text-text-caption"
           >
             정렬
           </label>
-          <select
-            id="catalog-sort"
-            value={sort}
-            onChange={(e) => changeSort(e.target.value as SortKey)}
-            className="h-[var(--xds-control-height-md)] rounded-md border border-border-default bg-surface-elevated px-sm text-sm text-text-body focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--xds-focus-ring-color)]"
-          >
-            {SORT_OPTIONS.map((o) => (
-              <option key={o.value} value={o.value}>
-                {o.label}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <select
+              id="catalog-sort"
+              value={sort}
+              onChange={(e) => changeSort(e.target.value as SortKey)}
+              className="h-[var(--xds-control-height-md)] appearance-none rounded-md border border-border-default bg-surface-elevated pl-sm pr-[2rem] text-sm text-text-body focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[var(--xds-focus-ring-color)]"
+            >
+              {SORT_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              aria-hidden
+              className="pointer-events-none absolute right-sm top-1/2 size-4 -translate-y-1/2 text-text-caption"
+            />
+          </div>
         </div>
       </div>
 
