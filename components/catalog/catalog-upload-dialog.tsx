@@ -151,7 +151,10 @@ export function CatalogUploadDialog({
             표시는 필수.
           </ModalDescription>
         </ModalHeader>
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={handleSubmit}
+          className="flex min-h-0 flex-1 flex-col overflow-hidden"
+        >
           <ModalBody>
             <div className="flex flex-col gap-md p-lg">
               {/* Image upload */}
