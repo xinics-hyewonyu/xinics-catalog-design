@@ -50,7 +50,6 @@ create table if not exists public.catalogs (
   id uuid primary key default gen_random_uuid(),
   site_name text not null,
   customer_name text not null,
-  domain text,
   proposal_type_id uuid references public.catalog_proposal_types(id) on delete restrict,
   site_type_id uuid references public.catalog_site_types(id) on delete restrict,
   design_tool text,

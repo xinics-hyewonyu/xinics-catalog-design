@@ -56,7 +56,6 @@ export function CatalogUploadDialog({
 
   const [siteName, setSiteName] = useState("");
   const [customerName, setCustomerName] = useState("");
-  const [domain, setDomain] = useState("");
   const [proposalTypeId, setProposalTypeId] = useState("");
   const [siteTypeId, setSiteTypeId] = useState("");
   const [designTool, setDesignTool] = useState("");
@@ -74,7 +73,6 @@ export function CatalogUploadDialog({
     setDragOver(false);
     setSiteName("");
     setCustomerName("");
-    setDomain("");
     setProposalTypeId("");
     setSiteTypeId("");
     setDesignTool("");
@@ -114,7 +112,6 @@ export function CatalogUploadDialog({
     fd.set("image", file);
     fd.set("site_name", siteName);
     fd.set("customer_name", customerName);
-    fd.set("domain", domain);
     fd.set("proposal_type_id", proposalTypeId);
     fd.set("site_type_id", siteTypeId);
     fd.set("design_tool", designTool);
@@ -224,25 +221,15 @@ export function CatalogUploadDialog({
                 />
               </FieldRow>
 
-              {/* Customer + Domain */}
-              <div className="grid gap-md sm:grid-cols-2">
-                <FieldRow label="고객명" htmlFor="up-customer" required error={errors.customer_name?.[0]}>
-                  <Input
-                    id="up-customer"
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    placeholder="예: 한양대학교"
-                  />
-                </FieldRow>
-                <FieldRow label="도메인" htmlFor="up-domain" error={errors.domain?.[0]}>
-                  <Input
-                    id="up-domain"
-                    value={domain}
-                    onChange={(e) => setDomain(e.target.value)}
-                    placeholder="예: hanyang.ac.kr"
-                  />
-                </FieldRow>
-              </div>
+              {/* Customer */}
+              <FieldRow label="고객명" htmlFor="up-customer" required error={errors.customer_name?.[0]}>
+                <Input
+                  id="up-customer"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  placeholder="예: 한양대학교"
+                />
+              </FieldRow>
 
               {/* Proposal type + Site type */}
               <div className="grid gap-md sm:grid-cols-2">

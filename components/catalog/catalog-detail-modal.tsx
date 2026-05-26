@@ -160,10 +160,7 @@ function CatalogDetailModalContent({
       >
         <ModalHeader>
           <ModalTitle>{c.site_name}</ModalTitle>
-          <ModalDescription>
-            {c.customer_name}
-            {c.domain ? ` · ${c.domain}` : ""}
-          </ModalDescription>
+          <ModalDescription>{c.customer_name}</ModalDescription>
         </ModalHeader>
 
         <ModalBody>

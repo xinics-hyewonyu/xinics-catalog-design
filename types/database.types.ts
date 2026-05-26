@@ -115,7 +115,6 @@ export type Database = {
           id: string;
           site_name: string;
           customer_name: string;
-          domain: string | null;
           proposal_type_id: string | null;
           site_type_id: string | null;
           design_tool: string | null;
@@ -133,7 +132,6 @@ export type Database = {
           id?: string;
           site_name: string;
           customer_name: string;
-          domain?: string | null;
           proposal_type_id?: string | null;
           site_type_id?: string | null;
           design_tool?: string | null;
@@ -151,7 +149,6 @@ export type Database = {
           id?: string;
           site_name?: string;
           customer_name?: string;
-          domain?: string | null;
           proposal_type_id?: string | null;
           site_type_id?: string | null;
           design_tool?: string | null;

@@ -18,7 +18,6 @@ const EXT_BY_TYPE: Record<string, string> = {
 const schema = z.object({
   site_name: z.string().min(1, "사이트명을 입력해주세요"),
   customer_name: z.string().min(1, "고객명을 입력해주세요"),
-  domain: z.string().trim().optional().or(z.literal("")),
   proposal_type_id: z.string().min(1, "시안 종류를 선택해주세요"),
   site_type_id: z.string().optional().or(z.literal("")),
   design_tool: z.string().optional().or(z.literal("")),
@@ -59,7 +58,6 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
   const parsed = schema.safeParse({
     site_name: formData.get("site_name") ?? "",
     customer_name: formData.get("customer_name") ?? "",
-    domain: formData.get("domain") ?? "",
     proposal_type_id: formData.get("proposal_type_id") ?? "",
     site_type_id: formData.get("site_type_id") ?? "",
     design_tool: formData.get("design_tool") ?? "",
@@ -104,7 +102,6 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
       id,
       site_name: parsed.data.site_name,
       customer_name: parsed.data.customer_name,
-      domain: nullish(parsed.data.domain ?? null),
       proposal_type_id: parsed.data.proposal_type_id,
       site_type_id: nullish(parsed.data.site_type_id ?? null),
       design_tool: nullish(parsed.data.design_tool ?? null),

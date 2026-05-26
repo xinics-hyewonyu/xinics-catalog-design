@@ -108,14 +108,14 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
       <div className="grid gap-md sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
         <div>
           <label htmlFor="catalog-search" className="sr-only">
-            사이트명·고객명·도메인 검색
+            사이트명·고객명·주소 검색
           </label>
           <Input
             id="catalog-search"
             type="search"
             value={qInput}
             onChange={(e) => setQInput(e.target.value)}
-            placeholder="사이트명·고객명·도메인 검색"
+            placeholder="사이트명·고객명·주소 검색"
             iconLeading={<Search className="size-4" aria-hidden />}
           />
         </div>

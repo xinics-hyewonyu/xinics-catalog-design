@@ -53,7 +53,7 @@ export async function listCatalogs(
 
     if (q) {
       const hay =
-        `${row.site_name} ${row.customer_name} ${row.domain ?? ""}`.toLowerCase();
+        `${row.site_name} ${row.customer_name} ${row.catalog_url ?? ""}`.toLowerCase();
       if (!hay.includes(q)) return false;
     }
     if (proposalSet.size > 0) {
@@ -128,7 +128,6 @@ export async function createCatalog(input: CatalogInsert): Promise<Catalog> {
     id: input.id ?? crypto.randomUUID(),
     site_name: input.site_name,
     customer_name: input.customer_name,
-    domain: input.domain ?? null,
     proposal_type_id: input.proposal_type_id ?? null,
     site_type_id: input.site_type_id ?? null,
     design_tool: input.design_tool ?? null,
