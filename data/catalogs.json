@@ -1,6 +1,7 @@
 [
   {
     "id": "demo-001",
+    "site_name": "한양대학교 입학처 2026 카탈로그",
     "customer_name": "한양대학교",
     "domain": "hanyang.ac.kr",
     "proposal_type_id": "final",
@@ -18,13 +19,14 @@
   },
   {
     "id": "demo-002",
+    "site_name": "한양대학교 오픈캠퍼스 2026",
     "customer_name": "한양대학교",
     "domain": "hanyang.ac.kr",
     "proposal_type_id": "second",
-    "site_type_id": "basic",
+    "site_type_id": "open_campus",
     "design_tool": "Figma",
     "figma_url": "https://www.figma.com/file/example-hanyang-v2",
-    "local_path": "\\\\etc\\catalogs\\hanyang\\2026\\v2",
+    "local_path": "\\\\etc\\catalogs\\hanyang\\2026\\open_campus",
     "memo": "2차 시안 (히어로 영역 수정안)",
     "image_url": "/placeholder-16x9.svg",
     "thumbnail_url": "/placeholder-16x9.svg",
@@ -35,6 +37,7 @@
   },
   {
     "id": "demo-003",
+    "site_name": "부산대학교 오픈캠퍼스 2026",
     "customer_name": "부산대학교",
     "domain": "pusan.ac.kr",
     "proposal_type_id": "first",
@@ -52,13 +55,14 @@
   },
   {
     "id": "demo-004",
+    "site_name": "서울대학교 AI학과 카탈로그",
     "customer_name": "서울대학교",
     "domain": "snu.ac.kr",
     "proposal_type_id": "final",
     "site_type_id": "open_campus",
     "design_tool": "Figma",
     "figma_url": "https://www.figma.com/file/example-snu",
-    "local_path": "\\\\etc\\catalogs\\snu\\2026",
+    "local_path": "\\\\etc\\catalogs\\snu\\ai\\2026",
     "memo": "최종 확정안",
     "image_url": "/placeholder-16x9.svg",
     "thumbnail_url": "/placeholder-16x9.svg",

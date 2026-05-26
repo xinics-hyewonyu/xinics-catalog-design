@@ -113,6 +113,7 @@ export type Database = {
       catalogs: {
         Row: {
           id: string;
+          site_name: string;
           customer_name: string;
           domain: string | null;
           proposal_type_id: string | null;
@@ -130,6 +131,7 @@ export type Database = {
         };
         Insert: {
           id?: string;
+          site_name: string;
           customer_name: string;
           domain?: string | null;
           proposal_type_id?: string | null;
@@ -147,6 +149,7 @@ export type Database = {
         };
         Update: {
           id?: string;
+          site_name?: string;
           customer_name?: string;
           domain?: string | null;
           proposal_type_id?: string | null;

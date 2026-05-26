@@ -16,7 +16,7 @@ export interface ListCatalogsParams {
   q?: string;
   proposalTypeIds?: string[];
   siteTypeIds?: string[];
-  sort?: "newest" | "oldest" | "customer";
+  sort?: "newest" | "oldest" | "customer" | "name";
   includeDeleted?: boolean;
 }
 
@@ -45,7 +45,8 @@ export async function listCatalogs(
     if (params.includeDeleted && !row.deleted_at) return false;
 
     if (q) {
-      const hay = `${row.customer_name} ${row.domain ?? ""}`.toLowerCase();
+      const hay =
+        `${row.site_name} ${row.customer_name} ${row.domain ?? ""}`.toLowerCase();
       if (!hay.includes(q)) return false;
     }
     if (proposalSet.size > 0) {
@@ -61,7 +62,12 @@ export async function listCatalogs(
   const sort = params.sort ?? "newest";
   filtered = filtered.sort((a, b) => {
     if (sort === "customer") {
-      return a.customer_name.localeCompare(b.customer_name, "ko");
+      const cmp = a.customer_name.localeCompare(b.customer_name, "ko");
+      if (cmp !== 0) return cmp;
+      return a.site_name.localeCompare(b.site_name, "ko");
+    }
+    if (sort === "name") {
+      return a.site_name.localeCompare(b.site_name, "ko");
     }
     const at = new Date(a.created_at).getTime();
     const bt = new Date(b.created_at).getTime();
@@ -91,6 +97,7 @@ export async function createCatalog(input: CatalogInsert): Promise<Catalog> {
   const now = new Date().toISOString();
   const row: Catalog = {
     id: input.id ?? crypto.randomUUID(),
+    site_name: input.site_name,
     customer_name: input.customer_name,
     domain: input.domain ?? null,
     proposal_type_id: input.proposal_type_id ?? null,

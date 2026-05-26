@@ -45,8 +45,10 @@ create table if not exists public.catalog_site_types (
 );
 
 -- catalogs — 시안 카드 (1 row = 1 image = 1 card)
+-- site_name이 메인 식별자(한 고객사가 여러 카탈로그/사이트를 가짐), customer_name은 보조.
 create table if not exists public.catalogs (
   id uuid primary key default gen_random_uuid(),
+  site_name text not null,
   customer_name text not null,
   domain text,
   proposal_type_id uuid references public.catalog_proposal_types(id) on delete restrict,
@@ -79,6 +81,7 @@ create table if not exists public.catalog_edit_logs (
 
 create index if not exists catalogs_deleted_at_idx on public.catalogs (deleted_at);
 create index if not exists catalogs_created_at_idx on public.catalogs (created_at desc);
+create index if not exists catalogs_site_name_idx on public.catalogs (site_name);
 create index if not exists catalogs_customer_name_idx on public.catalogs (customer_name);
 
 create index if not exists catalog_edit_logs_catalog_id_created_at_idx

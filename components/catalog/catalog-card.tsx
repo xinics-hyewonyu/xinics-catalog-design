@@ -13,7 +13,7 @@ export function CatalogCard({ catalog }: Props) {
     <Link
       href={`/?catalog=${catalog.id}`}
       scroll={false}
-      aria-label={`${catalog.customer_name} 상세 보기`}
+      aria-label={`${catalog.site_name} (${catalog.customer_name}) 상세 보기`}
       className="block focus-visible:outline-none"
     >
       <Card elevation="interactive" className="group">
@@ -27,9 +27,14 @@ export function CatalogCard({ catalog }: Props) {
           />
         </div>
         <div className="flex flex-col gap-xs p-md">
-          <h3 className="text-md font-semibold text-text-heading">
-            {catalog.customer_name}
-          </h3>
+          <div className="flex flex-col gap-xxs">
+            <h3 className="line-clamp-2 text-md font-semibold text-text-heading">
+              {catalog.site_name}
+            </h3>
+            <p className="text-xs text-text-caption">
+              {catalog.customer_name}
+            </p>
+          </div>
           <div className="flex flex-wrap gap-xs">
             {catalog.proposal_type ? (
               <Tag tone="info">{catalog.proposal_type.name}</Tag>

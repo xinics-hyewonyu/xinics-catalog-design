@@ -16,11 +16,12 @@ import type {
   SiteType,
 } from "@/lib/data/types";
 
-type SortKey = "newest" | "oldest" | "customer";
+type SortKey = "newest" | "oldest" | "name" | "customer";
 
 const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: "newest", label: "최신순" },
   { value: "oldest", label: "오래된순" },
+  { value: "name", label: "사이트명 가나다순" },
   { value: "customer", label: "고객명 가나다순" },
 ];
 
@@ -100,14 +101,14 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
       <div className="flex flex-col gap-md sm:flex-row sm:items-center sm:justify-between">
         <div className="w-full sm:max-w-md">
           <label htmlFor="catalog-search" className="sr-only">
-            고객명 또는 도메인 검색
+            사이트명·고객명·도메인 검색
           </label>
           <Input
             id="catalog-search"
             type="search"
             value={qInput}
             onChange={(e) => setQInput(e.target.value)}
-            placeholder="고객명·도메인 검색"
+            placeholder="사이트명·고객명·도메인 검색"
             iconLeading={<Search className="size-4" aria-hidden />}
           />
         </div>

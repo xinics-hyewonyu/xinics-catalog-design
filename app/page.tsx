@@ -8,10 +8,10 @@ import { listProposalTypes, listSiteTypes } from "@/lib/data/types";
 
 export const dynamic = "force-dynamic";
 
-type SortKey = "newest" | "oldest" | "customer";
+type SortKey = "newest" | "oldest" | "name" | "customer";
 
 function parseSort(v: string | undefined): SortKey {
-  if (v === "oldest" || v === "customer") return v;
+  if (v === "oldest" || v === "customer" || v === "name") return v;
   return "newest";
 }
 
