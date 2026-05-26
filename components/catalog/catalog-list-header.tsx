@@ -120,7 +120,10 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
           />
         </div>
         <div className="flex items-center gap-sm">
-          <span id="catalog-sort-label" className="text-xs text-text-caption">
+          <span
+            id="catalog-sort-label"
+            className="shrink-0 whitespace-nowrap text-xs text-text-caption"
+          >
             정렬
           </span>
           <Select

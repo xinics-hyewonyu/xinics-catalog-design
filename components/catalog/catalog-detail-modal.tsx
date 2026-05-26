@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, useTransition } from "react";
+import { useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -49,20 +49,17 @@ const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
 export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [lastData, setLastData] = useState<{
-    catalog: CatalogWithLabels;
-    downloadIndex: number;
-  } | null>(null);
   const [isDownloading, startDownload] = useTransition();
 
-  useEffect(() => {
-    if (catalog) {
-      setLastData({ catalog, downloadIndex });
-    }
-  }, [catalog, downloadIndex]);
+  if (typeof window !== "undefined") {
+    console.log("[CatalogDetailModal] render", {
+      catalog: catalog?.id ?? null,
+      downloadIndex,
+      open: Boolean(catalog),
+    });
+  }
 
   const open = Boolean(catalog);
-  const data = catalog ? { catalog, downloadIndex } : lastData;
 
   function handleOpenChange(next: boolean) {
     if (!next) {
@@ -73,8 +70,31 @@ export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
     }
   }
 
-  if (!data) return null;
-  const { catalog: c, downloadIndex: idx } = data;
+  return (
+    <Modal open={open} onOpenChange={handleOpenChange}>
+      {catalog ? (
+        <CatalogDetailModalContent
+          catalog={catalog}
+          downloadIndex={downloadIndex}
+          isDownloading={isDownloading}
+          startDownload={startDownload}
+        />
+      ) : null}
+    </Modal>
+  );
+}
+
+function CatalogDetailModalContent({
+  catalog: c,
+  downloadIndex: idx,
+  isDownloading,
+  startDownload,
+}: {
+  catalog: CatalogWithLabels;
+  downloadIndex: number;
+  isDownloading: boolean;
+  startDownload: (cb: () => void) => void;
+}) {
 
   function handleDownload() {
     if (!c.image_url) {
@@ -110,8 +130,7 @@ export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
   }
 
   return (
-    <Modal open={open} onOpenChange={handleOpenChange}>
-      <ModalContent size="lg" aria-labelledby="catalog-modal-title">
+    <ModalContent size="lg" aria-labelledby="catalog-modal-title">
         <ModalHeader>
           <ModalTitle id="catalog-modal-title">{c.site_name}</ModalTitle>
           <ModalDescription>
@@ -251,7 +270,6 @@ export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
           </Button>
         </ModalFooter>
       </ModalContent>
-    </Modal>
   );
 }
 
