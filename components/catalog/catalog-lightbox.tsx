@@ -131,7 +131,7 @@ export function CatalogLightbox({ open, onOpenChange, imageUrl, alt }: Props) {
           initialScale={1}
           minScale={MIN_SCALE}
           maxScale={MAX_SCALE}
-          wheel={{ step: 0.15 }}
+          wheel={{ step: 0.05 }}
           doubleClick={{ mode: "toggle", step: 1 }}
           panning={{ disabled: false, velocityDisabled: true }}
           onTransform={(ref) => setScale(ref.state.scale)}
