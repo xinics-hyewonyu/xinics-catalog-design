@@ -147,18 +147,20 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
         </div>
       </div>
 
-      <FilterRow
-        legend="시안 종류"
-        options={proposalTypes}
-        selected={selectedProposal}
-        onToggle={(id) => toggleSetParam("proposal", id)}
-      />
-      <FilterRow
-        legend="사이트 종류"
-        options={siteTypes}
-        selected={selectedSite}
-        onToggle={(id) => toggleSetParam("site", id)}
-      />
+      <div className="flex flex-wrap items-center gap-x-xl gap-y-sm">
+        <FilterRow
+          legend="시안 종류"
+          options={proposalTypes}
+          selected={selectedProposal}
+          onToggle={(id) => toggleSetParam("proposal", id)}
+        />
+        <FilterRow
+          legend="사이트 종류"
+          options={siteTypes}
+          selected={selectedSite}
+          onToggle={(id) => toggleSetParam("site", id)}
+        />
+      </div>
     </section>
   );
 }
@@ -176,8 +178,14 @@ function FilterRow({
 }) {
   if (options.length === 0) return null;
   return (
-    <fieldset className="flex flex-wrap items-center gap-xs">
-      <legend className="mr-sm text-xs text-text-caption">{legend}</legend>
+    <div
+      role="group"
+      aria-label={legend}
+      className="flex flex-wrap items-center gap-xs"
+    >
+      <span className="mr-xs shrink-0 text-xs text-text-caption">
+        {legend}
+      </span>
       {options.map((o) => {
         const active = selected.has(o.id);
         return (
@@ -186,18 +194,23 @@ function FilterRow({
             type="button"
             onClick={() => onToggle(o.id)}
             aria-pressed={active}
-            className="appearance-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] rounded-full"
+            className="appearance-none rounded-full transition-transform duration-150 hover:-translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
           >
             <Tag
               tone={active ? "info" : "default"}
               size="md"
-              className={active ? "ring-1 ring-info-border" : ""}
+              className={[
+                "transition-colors duration-150 motion-reduce:transition-none",
+                active
+                  ? "ring-1 ring-info-border hover:bg-info-bg-hover"
+                  : "hover:bg-neutral-bg-hover hover:border-neutral-border-hover",
+              ].join(" ")}
             >
               {o.name}
             </Tag>
           </button>
         );
       })}
-    </fieldset>
+    </div>
   );
 }

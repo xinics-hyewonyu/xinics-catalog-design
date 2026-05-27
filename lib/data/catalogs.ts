@@ -18,7 +18,6 @@ export interface ListCatalogsParams {
   siteTypeIds?: string[];
   sort?: "newest" | "oldest" | "customer" | "name";
   /**
-   * Which deleted-state to include.
    * - 'active'  (default) — deleted_at IS NULL
    * - 'deleted' — deleted_at IS NOT NULL (휴지통)
    * - 'all'     — both
