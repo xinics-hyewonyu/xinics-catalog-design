@@ -17,7 +17,7 @@ const ROOT = path.resolve("bulk-upload");
 const CSV_PATH = path.join(ROOT, "catalogs.csv");
 const IMG_DIR = path.join(ROOT, "images");
 
-const VIEWPORT = { width: 1600, height: 900 } as const;
+const VIEWPORT = { width: 1920, height: 1080 } as const;
 const NAV_TIMEOUT_MS = 25_000;
 const SETTLE_MS = 1_500;
 
@@ -115,10 +115,30 @@ async function capture(
   } catch (err) {
     return `goto: ${err instanceof Error ? err.message : String(err)}`;
   }
-  // Give it a moment to render hero / fonts / lazy images.
+  // Give it a moment to render hero / fonts / lazy images, then nudge a
+  // scroll so lazy-loaded sections below the fold start fetching.
   await page.waitForTimeout(SETTLE_MS);
   try {
-    await page.screenshot({ path: outPath, type: "png", fullPage: false });
+    await page.evaluate(async () => {
+      const step = window.innerHeight * 0.9;
+      let y = 0;
+      const max = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+      );
+      while (y < max) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 120));
+        y += step;
+      }
+      window.scrollTo(0, 0);
+      await new Promise((r) => setTimeout(r, 300));
+    });
+  } catch {
+    // ignore — fallback to whatever rendered without the lazy nudge
+  }
+  try {
+    await page.screenshot({ path: outPath, type: "png", fullPage: true });
   } catch (err) {
     return `screenshot: ${err instanceof Error ? err.message : String(err)}`;
   }
