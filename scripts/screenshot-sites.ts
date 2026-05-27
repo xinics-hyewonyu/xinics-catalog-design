@@ -11,7 +11,7 @@
  */
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { chromium, type Page } from "playwright";
+import { chromium, type BrowserContext } from "playwright";
 
 const ROOT = path.resolve("bulk-upload");
 const CSV_PATH = path.join(ROOT, "catalogs.csv");
@@ -96,53 +96,55 @@ function writeCsv(rows: string[][]): string {
 }
 
 async function capture(
-  page: Page,
+  context: BrowserContext,
   url: string,
   outPath: string,
 ): Promise<string | null> {
-  // Park on about:blank first so any pending redirect from the previous
-  // visit can't interrupt this goto.
+  // Fresh page per URL — reusing a single page across 100+ sites
+  // accumulates pending redirects / dialogs / service-worker state that
+  // eventually breaks every subsequent goto with
+  // "Navigation interrupted by another navigation".
+  const page = await context.newPage();
   try {
-    await page.goto("about:blank", { timeout: 5_000 });
-  } catch {
-    // ignore — worst case we still try the real goto below
+    try {
+      await page.goto(url, {
+        waitUntil: "domcontentloaded",
+        timeout: NAV_TIMEOUT_MS,
+      });
+    } catch (err) {
+      return `goto: ${err instanceof Error ? err.message : String(err)}`;
+    }
+    // Give it a moment to render hero / fonts / lazy images, then nudge a
+    // scroll so lazy-loaded sections below the fold start fetching.
+    await page.waitForTimeout(SETTLE_MS);
+    try {
+      await page.evaluate(async () => {
+        const step = window.innerHeight * 0.9;
+        let y = 0;
+        const max = Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight,
+        );
+        while (y < max) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 120));
+          y += step;
+        }
+        window.scrollTo(0, 0);
+        await new Promise((r) => setTimeout(r, 300));
+      });
+    } catch {
+      // ignore — fallback to whatever rendered without the lazy nudge
+    }
+    try {
+      await page.screenshot({ path: outPath, type: "png", fullPage: true });
+    } catch (err) {
+      return `screenshot: ${err instanceof Error ? err.message : String(err)}`;
+    }
+    return null;
+  } finally {
+    await page.close().catch(() => {});
   }
-  try {
-    await page.goto(url, {
-      waitUntil: "domcontentloaded",
-      timeout: NAV_TIMEOUT_MS,
-    });
-  } catch (err) {
-    return `goto: ${err instanceof Error ? err.message : String(err)}`;
-  }
-  // Give it a moment to render hero / fonts / lazy images, then nudge a
-  // scroll so lazy-loaded sections below the fold start fetching.
-  await page.waitForTimeout(SETTLE_MS);
-  try {
-    await page.evaluate(async () => {
-      const step = window.innerHeight * 0.9;
-      let y = 0;
-      const max = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-      );
-      while (y < max) {
-        window.scrollTo(0, y);
-        await new Promise((r) => setTimeout(r, 120));
-        y += step;
-      }
-      window.scrollTo(0, 0);
-      await new Promise((r) => setTimeout(r, 300));
-    });
-  } catch {
-    // ignore — fallback to whatever rendered without the lazy nudge
-  }
-  try {
-    await page.screenshot({ path: outPath, type: "png", fullPage: true });
-  } catch (err) {
-    return `screenshot: ${err instanceof Error ? err.message : String(err)}`;
-  }
-  return null;
 }
 
 async function main() {
@@ -172,7 +174,6 @@ async function main() {
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
     ignoreHTTPSErrors: true,
   });
-  const page = await context.newPage();
 
   let success = 0;
   let skipped = 0;
@@ -199,7 +200,7 @@ async function main() {
     const filename = `cap-${String(i).padStart(3, "0")}.png`;
     const outPath = path.join(IMG_DIR, filename);
     process.stdout.write(`[cap]  ${tag}: ${url} … `);
-    const err = await capture(page, url, outPath);
+    const err = await capture(context, url, outPath);
     if (err) {
       console.log(`FAIL — ${err}`);
       failure++;
