@@ -42,3 +42,7 @@ next-env.d.ts
 
 # user-uploaded catalog images (saved by the Stage 6 upload action)
 /public/uploads/
+
+# bulk upload working files — user's actual data stays local
+/bulk-upload/catalogs.csv
+/bulk-upload/images/
