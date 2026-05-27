@@ -52,6 +52,13 @@ const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
   timeStyle: "short",
 });
 
+const logDateFormatter = new Intl.DateTimeFormat("ko-KR", {
+  month: "numeric",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
 const FIELD_LABELS: Record<string, string> = {
   site_name: "사이트명",
   customer_name: "고객명",
@@ -439,25 +446,25 @@ function EditLogList({
   }
 
   return (
-    <ol className="flex flex-col gap-sm">
+    <ol className="divide-y divide-border-subtle text-xs">
       {logs.map((log) => (
         <li
           key={log.id}
-          className="flex flex-col gap-xxs rounded-md border border-border-subtle bg-surface-base p-sm"
+          className="flex flex-wrap items-baseline gap-x-sm gap-y-xxs py-xs"
         >
-          <div className="flex items-center justify-between gap-xs text-xs">
-            <span className="font-medium text-text-body">
-              {ACTION_LABELS[log.action] ?? log.action}
-            </span>
-            <time className="text-text-caption" dateTime={log.created_at}>
-              {dateFormatter.format(new Date(log.created_at))}
-            </time>
-          </div>
-          <ul className="flex flex-col gap-xxs text-xs text-text-body">
-            {summarize(log).map((s, i) => (
-              <li key={i}>{s}</li>
-            ))}
-          </ul>
+          <time
+            className="shrink-0 tabular-nums text-text-caption"
+            dateTime={log.created_at}
+            title={dateFormatter.format(new Date(log.created_at))}
+          >
+            {logDateFormatter.format(new Date(log.created_at))}
+          </time>
+          <span className="shrink-0 font-medium text-text-body">
+            {ACTION_LABELS[log.action] ?? log.action}
+          </span>
+          <span className="min-w-0 text-text-body">
+            {summarize(log).join(", ")}
+          </span>
         </li>
       ))}
     </ol>
