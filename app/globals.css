@@ -69,6 +69,14 @@
   src: url("/fonts/Paperlogy-9Black.woff") format("woff");
 }
 
+/* Override the XDS seed token so any place that resolves
+ * var(--xds-seed-font-family) — Tailwind's font-sans preset, design-system
+ * components — also gets Paperlogy.
+ */
+:root {
+  --xds-seed-font-family: "Paperlogy", Pretendard, system-ui, sans-serif;
+}
+
 @layer base {
   html {
     font-family: "Paperlogy", Pretendard, system-ui, sans-serif;
