@@ -1,5 +1,4 @@
 import "server-only";
-import { createClient } from "@/lib/supabase/server";
 import { getAdminClient } from "@/lib/supabase/admin";
 import type { Database, Json, CatalogEditAction } from "@/types/database.types";
 
@@ -16,8 +15,12 @@ export interface WriteEditLogInput {
 export async function listEditLogsForCatalog(
   catalogId: string,
 ): Promise<EditLog[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
+  // RLS on catalog_edit_logs requires an authenticated user (auth.uid() is
+  // not null). Auth is deferred (Stage 2), so reads go through the admin
+  // client and bypass RLS. Swap back to the anon server client when Stage 2
+  // re-introduces the logged-in session.
+  const admin = getAdminClient();
+  const { data, error } = await admin
     .from("catalog_edit_logs")
     .select("*")
     .eq("catalog_id", catalogId)
