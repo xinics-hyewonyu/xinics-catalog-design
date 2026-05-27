@@ -100,6 +100,13 @@ async function capture(
   url: string,
   outPath: string,
 ): Promise<string | null> {
+  // Park on about:blank first so any pending redirect from the previous
+  // visit can't interrupt this goto.
+  try {
+    await page.goto("about:blank", { timeout: 5_000 });
+  } catch {
+    // ignore — worst case we still try the real goto below
+  }
   try {
     await page.goto(url, {
       waitUntil: "domcontentloaded",
