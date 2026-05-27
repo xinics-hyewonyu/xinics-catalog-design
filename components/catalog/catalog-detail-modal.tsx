@@ -52,12 +52,11 @@ const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
   timeStyle: "short",
 });
 
-const logDateFormatter = new Intl.DateTimeFormat("ko-KR", {
-  month: "numeric",
-  day: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-});
+function formatLogDate(iso: string): string {
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
 
 const FIELD_LABELS: Record<string, string> = {
   site_name: "사이트명",
@@ -455,13 +454,9 @@ function EditLogList({
           <time
             className="shrink-0 tabular-nums text-text-caption"
             dateTime={log.created_at}
-            title={dateFormatter.format(new Date(log.created_at))}
           >
-            {logDateFormatter.format(new Date(log.created_at))}
+            {formatLogDate(log.created_at)}
           </time>
-          <span className="shrink-0 font-medium text-text-body">
-            {ACTION_LABELS[log.action] ?? log.action}
-          </span>
           <span className="min-w-0 text-text-body">
             {summarize(log).join(", ")}
           </span>
