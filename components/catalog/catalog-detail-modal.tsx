@@ -142,11 +142,11 @@ export function CatalogDetailModal({
   }
 
   // The lightbox renders its own portal (no Radix Dialog); flipping modal=false
-  // while it's open prevents Radix from inert-marking it. The edit dialog is a
-  // sibling Radix Dialog rendered OUTSIDE this Modal (see below) so we don't
-  // re-toggle modal mode here — that swap causes Radix to remount the dialog
-  // contents and flickers the modal away.
-  const isModal = !lightboxOpen;
+  // while it's open prevents Radix from inert-marking it. For the delete
+  // confirm dialog we also flip non-modal — two modal=true Radix Dialogs at
+  // once interfere with each other's DismissableLayer and the delete dialog
+  // appears not to open.
+  const isModal = !lightboxOpen && !deleteOpen;
 
   return (
     <>
@@ -319,8 +319,8 @@ function Content({
 
                 <InfoRow label="게시자">
                   <span className="inline-flex items-center gap-xs">
-                    <Avatar size="xs" name={null} />
-                    <span className="text-text-caption">미지정</span>
+                    <Avatar size="xs" name="자이닉스" />
+                    <span className="text-text-body">자이닉스</span>
                   </span>
                 </InfoRow>
 
@@ -382,7 +382,7 @@ function Content({
                   <AccordionTrigger>
                     <span className="inline-flex items-center gap-xs">
                       <History aria-hidden className="size-4" />
-                      수정 로그 ({editLogs.length})
+                      로그 ({editLogs.length})
                     </span>
                   </AccordionTrigger>
                   <AccordionContent>
