@@ -1,11 +1,11 @@
 "use server";
 
 import { randomUUID } from "node:crypto";
-import { promises as fs } from "node:fs";
-import path from "node:path";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { getAdminClient } from "@/lib/supabase/admin";
 import { createCatalog } from "@/lib/data/catalogs";
+import { writeEditLog } from "@/lib/data/edit-logs";
 
 const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
 const ACCEPTED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
@@ -14,6 +14,8 @@ const EXT_BY_TYPE: Record<string, string> = {
   "image/png": "png",
   "image/webp": "webp",
 };
+
+const STORAGE_BUCKET = "catalog-images";
 
 const schema = z.object({
   site_name: z.string().min(1, "사이트명을 입력해주세요"),
@@ -37,7 +39,7 @@ export type UploadResult =
   | { ok: true; id: string }
   | { ok: false; error: string; fieldErrors?: Record<string, string[]> };
 
-function nullish(value: FormDataEntryValue | null): string | null {
+function nullish(value: FormDataEntryValue | string | null): string | null {
   if (value == null) return null;
   const s = String(value).trim();
   return s.length === 0 ? null : s;
@@ -79,45 +81,46 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
 
   const id = randomUUID();
   const ext = EXT_BY_TYPE[file.type] ?? "jpg";
-  const filename = `original.${ext}`;
-  const uploadsDir = path.join(process.cwd(), "public", "uploads", id);
+  const objectPath = `${id}/original.${ext}`;
+  const admin = getAdminClient();
 
-  try {
-    await fs.mkdir(uploadsDir, { recursive: true });
-    const bytes = Buffer.from(await file.arrayBuffer());
-    await fs.writeFile(path.join(uploadsDir, filename), bytes);
-  } catch (err) {
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  const upload = await admin.storage
+    .from(STORAGE_BUCKET)
+    .upload(objectPath, bytes, { contentType: file.type, upsert: false });
+  if (upload.error) {
     return {
       ok: false,
-      error: `이미지 저장에 실패했어요: ${
-        err instanceof Error ? err.message : String(err)
-      }`,
+      error: `이미지 업로드에 실패했어요: ${upload.error.message}`,
     };
   }
 
-  const publicUrl = `/uploads/${id}/${filename}`;
+  const { data: urlData } = admin.storage
+    .from(STORAGE_BUCKET)
+    .getPublicUrl(objectPath);
+  const publicUrl = urlData.publicUrl;
+
+  const insertPayload = {
+    id,
+    site_name: parsed.data.site_name,
+    customer_name: parsed.data.customer_name,
+    proposal_type_id: parsed.data.proposal_type_id,
+    site_type_id: nullish(parsed.data.site_type_id ?? null),
+    design_tool: nullish(parsed.data.design_tool ?? null),
+    file_path: nullish(parsed.data.file_path ?? null),
+    catalog_url: nullish(parsed.data.catalog_url ?? null),
+    memo: nullish(parsed.data.memo ?? null),
+    image_url: publicUrl,
+    thumbnail_url: publicUrl,
+  };
 
   try {
-    await createCatalog({
-      id,
-      site_name: parsed.data.site_name,
-      customer_name: parsed.data.customer_name,
-      proposal_type_id: parsed.data.proposal_type_id,
-      site_type_id: nullish(parsed.data.site_type_id ?? null),
-      design_tool: nullish(parsed.data.design_tool ?? null),
-      file_path: nullish(parsed.data.file_path ?? null),
-      catalog_url: nullish(parsed.data.catalog_url ?? null),
-      memo: nullish(parsed.data.memo ?? null),
-      image_url: publicUrl,
-      thumbnail_url: publicUrl, // 자동 16:9 크롭은 V2 — 현재는 list 카드의 object-cover로 처리
-    });
+    await createCatalog(insertPayload);
   } catch (err) {
-    // 실패 시 업로드한 파일 정리
-    try {
-      await fs.rm(uploadsDir, { recursive: true, force: true });
-    } catch {
-      // 정리 실패는 무시
-    }
+    await admin.storage
+      .from(STORAGE_BUCKET)
+      .remove([objectPath])
+      .catch(() => {});
     return {
       ok: false,
       error: `카탈로그 저장에 실패했어요: ${
@@ -125,6 +128,13 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
       }`,
     };
   }
+
+  // Best-effort edit log; the row already saved, so a log failure shouldn't roll back.
+  await writeEditLog({
+    catalog_id: id,
+    action: "created",
+    changes: { snapshot: insertPayload },
+  }).catch(() => {});
 
   revalidatePath("/");
   return { ok: true, id };

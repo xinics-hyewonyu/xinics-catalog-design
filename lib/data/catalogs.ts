@@ -1,21 +1,24 @@
 import "server-only";
+import { createClient } from "@/lib/supabase/server";
+import { getAdminClient } from "@/lib/supabase/admin";
 import type { Database } from "@/types/database.types";
-import { readJson, writeJson } from "./_io";
-import { listProposalTypes, listSiteTypes } from "./types";
 
 export type Catalog = Database["public"]["Tables"]["catalogs"]["Row"];
 export type CatalogInsert = Database["public"]["Tables"]["catalogs"]["Insert"];
 export type CatalogUpdate = Database["public"]["Tables"]["catalogs"]["Update"];
 
+type TypeStub = { id: string; slug: string; name: string };
+
 export type CatalogWithLabels = Catalog & {
-  proposal_type: { id: string; slug: string; name: string } | null;
-  site_type: { id: string; slug: string; name: string } | null;
+  proposal_type: TypeStub | null;
+  site_type: TypeStub | null;
 };
 
 export interface ListCatalogsParams {
   q?: string;
-  proposalTypeIds?: string[];
-  siteTypeIds?: string[];
+  /** Slugs (e.g. 'first', 'final') — resolved to UUIDs server-side */
+  proposalSlugs?: string[];
+  siteSlugs?: string[];
   sort?: "newest" | "oldest" | "customer" | "name";
   /**
    * - 'active'  (default) — deleted_at IS NULL
@@ -25,62 +28,35 @@ export interface ListCatalogsParams {
   scope?: "active" | "deleted" | "all";
 }
 
-async function readAll(): Promise<Catalog[]> {
-  return readJson<Catalog[]>("catalogs.json");
+async function fetchTypeLookups(): Promise<{
+  proposalRows: TypeStub[];
+  siteRows: TypeStub[];
+}> {
+  const supabase = await createClient();
+  const [pt, st] = await Promise.all([
+    supabase
+      .from("catalog_proposal_types")
+      .select("id, slug, name")
+      .returns<TypeStub[]>(),
+    supabase
+      .from("catalog_site_types")
+      .select("id, slug, name")
+      .returns<TypeStub[]>(),
+  ]);
+  if (pt.error) throw pt.error;
+  if (st.error) throw st.error;
+  return {
+    proposalRows: pt.data ?? [],
+    siteRows: st.data ?? [],
+  };
 }
 
-export async function listCatalogs(
-  params: ListCatalogsParams = {},
-): Promise<CatalogWithLabels[]> {
-  const [rows, proposalTypes, siteTypes] = await Promise.all([
-    readAll(),
-    listProposalTypes(),
-    listSiteTypes(),
-  ]);
-
-  const proposalById = new Map(proposalTypes.map((t) => [t.id, t]));
-  const siteById = new Map(siteTypes.map((t) => [t.id, t]));
-
-  const q = params.q?.trim().toLowerCase() ?? "";
-  const proposalSet = new Set(params.proposalTypeIds ?? []);
-  const siteSet = new Set(params.siteTypeIds ?? []);
-  const scope = params.scope ?? "active";
-
-  let filtered = rows.filter((row) => {
-    if (scope === "active" && row.deleted_at) return false;
-    if (scope === "deleted" && !row.deleted_at) return false;
-
-    if (q) {
-      const hay =
-        `${row.site_name} ${row.customer_name} ${row.catalog_url ?? ""}`.toLowerCase();
-      if (!hay.includes(q)) return false;
-    }
-    if (proposalSet.size > 0) {
-      if (!row.proposal_type_id || !proposalSet.has(row.proposal_type_id))
-        return false;
-    }
-    if (siteSet.size > 0) {
-      if (!row.site_type_id || !siteSet.has(row.site_type_id)) return false;
-    }
-    return true;
-  });
-
-  const sort = params.sort ?? "newest";
-  filtered = filtered.sort((a, b) => {
-    if (sort === "customer") {
-      const cmp = a.customer_name.localeCompare(b.customer_name, "ko");
-      if (cmp !== 0) return cmp;
-      return a.site_name.localeCompare(b.site_name, "ko");
-    }
-    if (sort === "name") {
-      return a.site_name.localeCompare(b.site_name, "ko");
-    }
-    const at = new Date(a.created_at).getTime();
-    const bt = new Date(b.created_at).getTime();
-    return sort === "oldest" ? at - bt : bt - at;
-  });
-
-  return filtered.map((row) => ({
+function decorate(
+  row: Catalog,
+  proposalById: Map<string, TypeStub>,
+  siteById: Map<string, TypeStub>,
+): CatalogWithLabels {
+  return {
     ...row,
     proposal_type: row.proposal_type_id
       ? (proposalById.get(row.proposal_type_id) ?? null)
@@ -88,14 +64,80 @@ export async function listCatalogs(
     site_type: row.site_type_id
       ? (siteById.get(row.site_type_id) ?? null)
       : null,
-  }));
+  };
+}
+
+export async function listCatalogs(
+  params: ListCatalogsParams = {},
+): Promise<CatalogWithLabels[]> {
+  const supabase = await createClient();
+  const { proposalRows, siteRows } = await fetchTypeLookups();
+
+  const proposalById = new Map(proposalRows.map((t) => [t.id, t]));
+  const siteById = new Map(siteRows.map((t) => [t.id, t]));
+  const slugToProposalId = new Map(proposalRows.map((t) => [t.slug, t.id]));
+  const slugToSiteId = new Map(siteRows.map((t) => [t.slug, t.id]));
+
+  const proposalIds = (params.proposalSlugs ?? [])
+    .map((s) => slugToProposalId.get(s))
+    .filter((v): v is string => Boolean(v));
+  const siteIds = (params.siteSlugs ?? [])
+    .map((s) => slugToSiteId.get(s))
+    .filter((v): v is string => Boolean(v));
+
+  let query = supabase.from("catalogs").select("*");
+
+  const scope = params.scope ?? "active";
+  if (scope === "active") query = query.is("deleted_at", null);
+  else if (scope === "deleted")
+    query = query.not("deleted_at", "is", null);
+
+  const q = params.q?.trim();
+  if (q) {
+    const safe = q.replace(/[%_]/g, "\\$&");
+    query = query.or(
+      `site_name.ilike.%${safe}%,customer_name.ilike.%${safe}%,catalog_url.ilike.%${safe}%`,
+    );
+  }
+
+  if (proposalIds.length > 0) query = query.in("proposal_type_id", proposalIds);
+  if (siteIds.length > 0) query = query.in("site_type_id", siteIds);
+
+  const sort = params.sort ?? "newest";
+  if (sort === "newest") {
+    query = query.order("created_at", { ascending: false });
+  } else if (sort === "oldest") {
+    query = query.order("created_at", { ascending: true });
+  } else if (sort === "name") {
+    query = query.order("site_name", { ascending: true });
+  } else if (sort === "customer") {
+    query = query
+      .order("customer_name", { ascending: true })
+      .order("site_name", { ascending: true });
+  }
+
+  const { data, error } = await query;
+  if (error) throw error;
+
+  return (data ?? []).map((row) => decorate(row, proposalById, siteById));
 }
 
 export async function getCatalog(
   id: string,
 ): Promise<CatalogWithLabels | null> {
-  const all = await listCatalogs({ scope: "all" });
-  return all.find((c) => c.id === id) ?? null;
+  const supabase = await createClient();
+  const { proposalRows, siteRows } = await fetchTypeLookups();
+  const proposalById = new Map(proposalRows.map((t) => [t.id, t]));
+  const siteById = new Map(siteRows.map((t) => [t.id, t]));
+
+  const { data, error } = await supabase
+    .from("catalogs")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) return null;
+  return decorate(data, proposalById, siteById);
 }
 
 export async function getCatalogDownloadIndex(
@@ -104,63 +146,47 @@ export async function getCatalogDownloadIndex(
     "id" | "customer_name" | "proposal_type_id" | "created_at"
   >,
 ): Promise<number> {
-  const rows = await readAll();
-  const peers = rows
-    .filter(
-      (r) =>
-        r.deleted_at == null &&
-        r.customer_name === catalog.customer_name &&
-        r.proposal_type_id === catalog.proposal_type_id,
-    )
-    .sort(
-      (a, b) =>
-        new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
-    );
-  const idx = peers.findIndex((r) => r.id === catalog.id);
+  if (!catalog.proposal_type_id) return 1;
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("catalogs")
+    .select("id, created_at")
+    .is("deleted_at", null)
+    .eq("customer_name", catalog.customer_name)
+    .eq("proposal_type_id", catalog.proposal_type_id)
+    .order("created_at", { ascending: true })
+    .returns<Array<{ id: string; created_at: string }>>();
+  if (error) throw error;
+  const idx = (data ?? []).findIndex((r) => r.id === catalog.id);
   return idx >= 0 ? idx + 1 : 1;
 }
 
+// --- Writes (admin client, bypasses RLS) -----------------------------------
+
 export async function createCatalog(input: CatalogInsert): Promise<Catalog> {
-  const rows = await readAll();
-  const now = new Date().toISOString();
-  const row: Catalog = {
-    id: input.id ?? crypto.randomUUID(),
-    site_name: input.site_name,
-    customer_name: input.customer_name,
-    proposal_type_id: input.proposal_type_id ?? null,
-    site_type_id: input.site_type_id ?? null,
-    design_tool: input.design_tool ?? null,
-    file_path: input.file_path ?? null,
-    catalog_url: input.catalog_url ?? null,
-    memo: input.memo ?? null,
-    image_url: input.image_url ?? null,
-    thumbnail_url: input.thumbnail_url ?? null,
-    created_by: input.created_by ?? null,
-    created_at: input.created_at ?? now,
-    updated_at: input.updated_at ?? now,
-    deleted_at: input.deleted_at ?? null,
-  };
-  rows.unshift(row);
-  await writeJson("catalogs.json", rows);
-  return row;
+  const admin = getAdminClient();
+  const { data, error } = await admin
+    .from("catalogs")
+    .insert(input)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
 }
 
 export async function updateCatalog(
   id: string,
   patch: CatalogUpdate,
 ): Promise<Catalog | null> {
-  const rows = await readAll();
-  const idx = rows.findIndex((r) => r.id === id);
-  if (idx === -1) return null;
-  const next: Catalog = {
-    ...rows[idx],
-    ...patch,
-    id: rows[idx].id,
-    updated_at: new Date().toISOString(),
-  };
-  rows[idx] = next;
-  await writeJson("catalogs.json", rows);
-  return next;
+  const admin = getAdminClient();
+  const { data, error } = await admin
+    .from("catalogs")
+    .update(patch)
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
 }
 
 export async function softDeleteCatalog(id: string): Promise<Catalog | null> {
@@ -172,9 +198,8 @@ export async function restoreCatalog(id: string): Promise<Catalog | null> {
 }
 
 export async function hardDeleteCatalog(id: string): Promise<boolean> {
-  const rows = await readAll();
-  const next = rows.filter((r) => r.id !== id);
-  if (next.length === rows.length) return false;
-  await writeJson("catalogs.json", next);
+  const admin = getAdminClient();
+  const { error } = await admin.from("catalogs").delete().eq("id", id);
+  if (error) throw error;
   return true;
 }

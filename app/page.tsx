@@ -8,6 +8,7 @@ import {
   getCatalogDownloadIndex,
   listCatalogs,
 } from "@/lib/data/catalogs";
+import { listEditLogsForCatalog } from "@/lib/data/edit-logs";
 import { listProposalTypes, listSiteTypes } from "@/lib/data/types";
 
 export const dynamic = "force-dynamic";
@@ -37,24 +38,27 @@ export default async function Home({
 }) {
   const params = await searchParams;
   const sort = parseSort(params.sort);
-  const proposalTypeIds = parseIds(params.proposal);
-  const siteTypeIds = parseIds(params.site);
+  const proposalSlugs = parseIds(params.proposal);
+  const siteSlugs = parseIds(params.site);
   const q = params.q?.trim() || undefined;
 
   const [proposalTypes, siteTypes, catalogs, selectedCatalog] =
     await Promise.all([
       listProposalTypes(),
       listSiteTypes(),
-      listCatalogs({ q, proposalTypeIds, siteTypeIds, sort }),
+      listCatalogs({ q, proposalSlugs, siteSlugs, sort }),
       params.catalog ? getCatalog(params.catalog) : Promise.resolve(null),
     ]);
 
   const downloadIndex = selectedCatalog
     ? await getCatalogDownloadIndex(selectedCatalog)
     : 1;
+  const editLogs = selectedCatalog
+    ? await listEditLogsForCatalog(selectedCatalog.id)
+    : [];
 
   const filtered =
-    Boolean(q) || proposalTypeIds.length > 0 || siteTypeIds.length > 0;
+    Boolean(q) || proposalSlugs.length > 0 || siteSlugs.length > 0;
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-lg p-md sm:p-xl">
@@ -94,6 +98,9 @@ export default async function Home({
       <CatalogDetailModal
         catalog={selectedCatalog}
         downloadIndex={downloadIndex}
+        editLogs={editLogs}
+        proposalTypes={proposalTypes}
+        siteTypes={siteTypes}
       />
     </main>
   );

@@ -172,9 +172,9 @@ function FilterRow({
   onToggle,
 }: {
   legend: string;
-  options: { id: string; name: string }[];
+  options: { id: string; slug: string; name: string }[];
   selected: Set<string>;
-  onToggle: (id: string) => void;
+  onToggle: (slug: string) => void;
 }) {
   if (options.length === 0) return null;
   return (
@@ -187,12 +187,12 @@ function FilterRow({
         {legend}
       </span>
       {options.map((o) => {
-        const active = selected.has(o.id);
+        const active = selected.has(o.slug);
         return (
           <button
             key={o.id}
             type="button"
-            onClick={() => onToggle(o.id)}
+            onClick={() => onToggle(o.slug)}
             aria-pressed={active}
             className="appearance-none rounded-full transition-transform duration-150 hover:-translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
           >

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState, useTransition } from "react";
-import { CatalogLightbox } from "./catalog-lightbox";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -35,10 +34,17 @@ import {
 import { copyToClipboard } from "@/lib/clipboard";
 import { buildCatalogFilename, downloadImage } from "@/lib/download";
 import type { CatalogWithLabels } from "@/lib/data/catalogs";
+import type { EditLog } from "@/lib/data/edit-logs";
+import type { ProposalType, SiteType } from "@/lib/data/types";
+import { CatalogEditDialog } from "./catalog-edit-dialog";
+import { CatalogLightbox } from "./catalog-lightbox";
 
 interface Props {
   catalog: CatalogWithLabels | null;
   downloadIndex: number;
+  editLogs: EditLog[];
+  proposalTypes: ProposalType[];
+  siteTypes: SiteType[];
 }
 
 const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
@@ -46,16 +52,43 @@ const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
   timeStyle: "short",
 });
 
-export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
+const FIELD_LABELS: Record<string, string> = {
+  site_name: "사이트명",
+  customer_name: "고객명",
+  proposal_type_id: "시안 종류",
+  site_type_id: "사이트 종류",
+  design_tool: "디자인 툴",
+  file_path: "파일 경로",
+  catalog_url: "카탈로그 주소",
+  memo: "메모",
+  image_url: "이미지",
+  thumbnail_url: "썸네일",
+};
+
+const ACTION_LABELS: Record<string, string> = {
+  created: "등록",
+  updated: "수정",
+  deleted: "삭제",
+  restored: "복원",
+};
+
+export function CatalogDetailModal({
+  catalog,
+  downloadIndex,
+  editLogs,
+  proposalTypes,
+  siteTypes,
+}: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isDownloading, startDownload] = useTransition();
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const open = Boolean(catalog);
 
-  // Reset lightbox state whenever the dialog closes.
-  if (!open && lightboxOpen) {
-    setLightboxOpen(false);
+  if (!open) {
+    if (lightboxOpen) setLightboxOpen(false);
+    if (editOpen) setEditOpen(false);
   }
 
   function handleOpenChange(next: boolean) {
@@ -67,44 +100,64 @@ export function CatalogDetailModal({ catalog, downloadIndex }: Props) {
     }
   }
 
+  // While the lightbox or edit dialog is open, flip this dialog to non-modal so
+  // Radix stops inert-marking the sibling portals.
+  const isModal = !lightboxOpen && !editOpen;
+
   return (
-    // Lightbox renders its own portal; while it's open we flip the dialog to
-    // non-modal so Radix stops marking the lightbox sibling as inert.
-    <Modal
-      open={open}
-      onOpenChange={handleOpenChange}
-      modal={!lightboxOpen}
-    >
+    <Modal open={open} onOpenChange={handleOpenChange} modal={isModal}>
       {catalog ? (
-        <CatalogDetailModalContent
-          catalog={catalog}
-          downloadIndex={downloadIndex}
-          isDownloading={isDownloading}
-          startDownload={startDownload}
-          lightboxOpen={lightboxOpen}
-          setLightboxOpen={setLightboxOpen}
-        />
+        <>
+          <Content
+            catalog={catalog}
+            downloadIndex={downloadIndex}
+            editLogs={editLogs}
+            proposalTypes={proposalTypes}
+            siteTypes={siteTypes}
+            isDownloading={isDownloading}
+            startDownload={startDownload}
+            lightboxOpen={lightboxOpen}
+            setLightboxOpen={setLightboxOpen}
+            onEdit={() => setEditOpen(true)}
+          />
+          <CatalogEditDialog
+            open={editOpen}
+            onOpenChange={setEditOpen}
+            catalog={catalog}
+            proposalTypes={proposalTypes}
+            siteTypes={siteTypes}
+          />
+        </>
       ) : null}
     </Modal>
   );
 }
 
-function CatalogDetailModalContent({
-  catalog: c,
-  downloadIndex: idx,
-  isDownloading,
-  startDownload,
-  lightboxOpen,
-  setLightboxOpen,
-}: {
+interface ContentProps {
   catalog: CatalogWithLabels;
   downloadIndex: number;
+  editLogs: EditLog[];
+  proposalTypes: ProposalType[];
+  siteTypes: SiteType[];
   isDownloading: boolean;
   startDownload: (cb: () => void) => void;
   lightboxOpen: boolean;
   setLightboxOpen: (open: boolean) => void;
-}) {
+  onEdit: () => void;
+}
 
+function Content({
+  catalog: c,
+  downloadIndex: idx,
+  editLogs,
+  proposalTypes,
+  siteTypes,
+  isDownloading,
+  startDownload,
+  lightboxOpen,
+  setLightboxOpen,
+  onEdit,
+}: ContentProps) {
   function handleDownload() {
     if (!c.image_url) {
       toast.error("다운로드할 이미지가 없습니다");
@@ -131,11 +184,8 @@ function CatalogDetailModalContent({
   async function handleCopyPath() {
     if (!c.file_path) return;
     const ok = await copyToClipboard(c.file_path);
-    if (ok) {
-      toast.success("파일 경로를 복사했습니다");
-    } else {
-      toast.error("복사에 실패했습니다");
-    }
+    if (ok) toast.success("파일 경로를 복사했습니다");
+    else toast.error("복사에 실패했습니다");
   }
 
   return (
@@ -143,17 +193,12 @@ function CatalogDetailModalContent({
       <ModalContent
         size="lg"
         onPointerDownOutside={(e) => {
-          // Lightbox is portaled to body; its clicks register as 'outside'
-          // the Dialog content. Keep the dialog open while the lightbox owns
-          // the interaction.
           if (lightboxOpen) e.preventDefault();
         }}
         onInteractOutside={(e) => {
           if (lightboxOpen) e.preventDefault();
         }}
         onEscapeKeyDown={(e) => {
-          // Let the lightbox swallow Esc instead of bubbling up to close the
-          // dialog underneath.
           if (lightboxOpen) e.preventDefault();
         }}
       >
@@ -171,11 +216,8 @@ function CatalogDetailModalContent({
                 onClick={() => c.image_url && setLightboxOpen(true)}
                 aria-label="이미지 크게 보기"
                 disabled={!c.image_url}
-                className="group relative block w-full overflow-hidden rounded-md bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] disabled:cursor-not-allowed"
+                className="group relative block w-full cursor-pointer overflow-hidden rounded-md bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] disabled:cursor-not-allowed"
               >
-                {/* Plain <img> so the container hugs the image's intrinsic
-                    aspect — no letterboxing and no vertical crop. Lightbox
-                    handles full-size viewing. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={c.image_url ?? "/placeholder-16x9.svg"}
@@ -252,7 +294,7 @@ function CatalogDetailModalContent({
                           type="button"
                           onClick={handleCopyPath}
                           aria-label="파일 경로 복사"
-                          className="inline-flex size-7 items-center justify-center rounded-md text-text-caption hover:bg-surface-muted hover:text-text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] transition-colors motion-reduce:transition-none"
+                          className="inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-text-caption transition-colors hover:bg-surface-muted hover:text-text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] motion-reduce:transition-none"
                         >
                           <Copy aria-hidden className="size-3.5" />
                         </button>
@@ -270,18 +312,24 @@ function CatalogDetailModalContent({
                 ) : null}
               </dl>
 
-              <Accordion type="single" collapsible className="border-t border-border-subtle pt-sm">
+              <Accordion
+                type="single"
+                collapsible
+                className="border-t border-border-subtle pt-sm"
+              >
                 <AccordionItem value="edit-logs">
                   <AccordionTrigger>
                     <span className="inline-flex items-center gap-xs">
                       <History aria-hidden className="size-4" />
-                      수정 로그
+                      수정 로그 ({editLogs.length})
                     </span>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <p className="text-xs text-text-caption">
-                      수정 로그는 Stage 7 구현 시 표시됩니다.
-                    </p>
+                    <EditLogList
+                      logs={editLogs}
+                      proposalTypes={proposalTypes}
+                      siteTypes={siteTypes}
+                    />
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -293,8 +341,7 @@ function CatalogDetailModalContent({
           <Button
             variant="default"
             iconLeading={<Pencil aria-hidden className="size-4" />}
-            disabled
-            title="Stage 7에서 추가 예정"
+            onClick={onEdit}
           >
             수정
           </Button>
@@ -329,8 +376,85 @@ function InfoRow({
 }) {
   return (
     <>
-      <dt className="text-xs font-medium text-text-caption pt-[2px]">{label}</dt>
+      <dt className="pt-[2px] text-xs font-medium text-text-caption">
+        {label}
+      </dt>
       <dd className="min-w-0 text-text-body">{children}</dd>
     </>
+  );
+}
+
+function EditLogList({
+  logs,
+  proposalTypes,
+  siteTypes,
+}: {
+  logs: EditLog[];
+  proposalTypes: ProposalType[];
+  siteTypes: SiteType[];
+}) {
+  if (logs.length === 0) {
+    return (
+      <p className="text-xs text-text-caption">기록된 변경이 없습니다.</p>
+    );
+  }
+  const proposalById = new Map(proposalTypes.map((t) => [t.id, t.name]));
+  const siteById = new Map(siteTypes.map((t) => [t.id, t.name]));
+
+  function resolveName(field: string, value: unknown): string {
+    if (value == null) return "없음";
+    const str = String(value);
+    if (field === "proposal_type_id") return proposalById.get(str) ?? str;
+    if (field === "site_type_id") return siteById.get(str) ?? str;
+    if (field === "image_url" || field === "thumbnail_url") return "이미지";
+    if (str.length > 40) return str.slice(0, 38) + "…";
+    return str;
+  }
+
+  function summarize(log: EditLog): string[] {
+    if (log.action === "created") return ["등록"];
+    if (log.action === "deleted") return ["삭제"];
+    if (log.action === "restored") return ["복원"];
+    const changes = (log.changes ?? {}) as Record<
+      string,
+      { before?: unknown; after?: unknown }
+    >;
+    const entries: string[] = [];
+    for (const [field, val] of Object.entries(changes)) {
+      const label = FIELD_LABELS[field] ?? field;
+      if (field === "image_url" || field === "thumbnail_url") {
+        entries.push(`${label} 교체`);
+        continue;
+      }
+      const before = resolveName(field, val.before);
+      const after = resolveName(field, val.after);
+      entries.push(`${label}: ${before} → ${after}`);
+    }
+    return entries.length > 0 ? entries : ["수정"];
+  }
+
+  return (
+    <ol className="flex flex-col gap-sm">
+      {logs.map((log) => (
+        <li
+          key={log.id}
+          className="flex flex-col gap-xxs rounded-md border border-border-subtle bg-surface-base p-sm"
+        >
+          <div className="flex items-center justify-between gap-xs text-xs">
+            <span className="font-medium text-text-body">
+              {ACTION_LABELS[log.action] ?? log.action}
+            </span>
+            <time className="text-text-caption" dateTime={log.created_at}>
+              {dateFormatter.format(new Date(log.created_at))}
+            </time>
+          </div>
+          <ul className="flex flex-col gap-xxs text-xs text-text-body">
+            {summarize(log).map((s, i) => (
+              <li key={i}>{s}</li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ol>
   );
 }
