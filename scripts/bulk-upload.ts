@@ -49,12 +49,7 @@ const CONTENT_TYPE: Record<string, string> = {
   ".webp": "image/webp",
 };
 
-const REQUIRED_HEADERS = [
-  "image_filename",
-  "site_name",
-  "customer_name",
-  "proposal_type",
-];
+const REQUIRED_HEADERS = ["site_name", "customer_name"];
 const ALL_HEADERS = [
   "image_filename",
   "site_name",
@@ -196,18 +191,24 @@ async function main() {
     const siteName = (get("site_name") ?? "").trim();
     const customerName = (get("customer_name") ?? "").trim();
     const proposalSlug = (get("proposal_type") ?? "").trim();
-    if (!imageFilename || !siteName || !customerName || !proposalSlug) {
-      console.error(`[fail] ${tag}: missing required field`);
-      failure++;
-      continue;
-    }
-    const proposalUuid = proposalMap.get(proposalSlug);
-    if (!proposalUuid) {
+    if (!siteName || !customerName) {
       console.error(
-        `[fail] ${tag}: unknown proposal_type "${proposalSlug}" (expected: ${Array.from(proposalMap.keys()).join(", ")})`,
+        `[fail] ${tag}: missing required field (site_name/customer_name)`,
       );
       failure++;
       continue;
+    }
+    let proposalUuid: string | null = null;
+    if (proposalSlug) {
+      const found = proposalMap.get(proposalSlug);
+      if (!found) {
+        console.error(
+          `[fail] ${tag}: unknown proposal_type "${proposalSlug}" (expected: ${Array.from(proposalMap.keys()).join(", ")})`,
+        );
+        failure++;
+        continue;
+      }
+      proposalUuid = found;
     }
     const siteSlug = (get("site_type") ?? "").trim();
     let siteUuid: string | null = null;
@@ -223,40 +224,45 @@ async function main() {
       siteUuid = found;
     }
 
-    const localImagePath = path.join(IMG_DIR, imageFilename);
-    let bytes: Buffer;
-    try {
-      bytes = await fs.readFile(localImagePath);
-    } catch {
-      console.error(`[fail] ${tag}: image not found at ${localImagePath}`);
-      failure++;
-      continue;
-    }
-    const ext = path.extname(imageFilename).toLowerCase();
-    const contentType = CONTENT_TYPE[ext];
-    if (!contentType) {
-      console.error(
-        `[fail] ${tag}: unsupported image type "${ext}" (jpg/png/webp만 가능)`,
-      );
-      failure++;
-      continue;
-    }
-
     const id = randomUUID();
-    const objectPath = `${id}/original${ext}`;
 
-    const up = await supabase.storage
-      .from(BUCKET)
-      .upload(objectPath, bytes, { contentType, upsert: false });
-    if (up.error) {
-      console.error(`[fail] ${tag}: storage upload — ${up.error.message}`);
-      failure++;
-      continue;
+    // Image is optional — rows without an image will be created with
+    // image_url=null (the card falls back to the placeholder).
+    let publicUrl: string | null = null;
+    let objectPath: string | null = null;
+    if (imageFilename) {
+      const localImagePath = path.join(IMG_DIR, imageFilename);
+      let bytes: Buffer;
+      try {
+        bytes = await fs.readFile(localImagePath);
+      } catch {
+        console.error(`[fail] ${tag}: image not found at ${localImagePath}`);
+        failure++;
+        continue;
+      }
+      const ext = path.extname(imageFilename).toLowerCase();
+      const contentType = CONTENT_TYPE[ext];
+      if (!contentType) {
+        console.error(
+          `[fail] ${tag}: unsupported image type "${ext}" (jpg/png/webp만 가능)`,
+        );
+        failure++;
+        continue;
+      }
+      objectPath = `${id}/original${ext}`;
+      const up = await supabase.storage
+        .from(BUCKET)
+        .upload(objectPath, bytes, { contentType, upsert: false });
+      if (up.error) {
+        console.error(`[fail] ${tag}: storage upload — ${up.error.message}`);
+        failure++;
+        continue;
+      }
+      const { data: urlData } = supabase.storage
+        .from(BUCKET)
+        .getPublicUrl(objectPath);
+      publicUrl = urlData.publicUrl;
     }
-    const { data: urlData } = supabase.storage
-      .from(BUCKET)
-      .getPublicUrl(objectPath);
-    const publicUrl = urlData.publicUrl;
 
     const insertPayload = {
       id,
@@ -274,10 +280,12 @@ async function main() {
 
     const ins = await supabase.from("catalogs").insert(insertPayload);
     if (ins.error) {
-      await supabase.storage
-        .from(BUCKET)
-        .remove([objectPath])
-        .catch(() => {});
+      if (objectPath) {
+        await supabase.storage
+          .from(BUCKET)
+          .remove([objectPath])
+          .catch(() => {});
+      }
       console.error(`[fail] ${tag}: row insert — ${ins.error.message}`);
       failure++;
       continue;
