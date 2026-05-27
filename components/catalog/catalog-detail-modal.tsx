@@ -29,7 +29,6 @@ import {
 } from "@/components/xds/modal";
 import { Tag } from "@/components/xds/tag";
 import { Tooltip } from "@/components/xds/tooltip";
-import { Avatar } from "@/components/xds/avatar";
 import {
   Accordion,
   AccordionContent,
@@ -141,12 +140,12 @@ export function CatalogDetailModal({
     });
   }
 
-  // The lightbox renders its own portal (no Radix Dialog); flipping modal=false
-  // while it's open prevents Radix from inert-marking it. For the delete
-  // confirm dialog we also flip non-modal — two modal=true Radix Dialogs at
-  // once interfere with each other's DismissableLayer and the delete dialog
-  // appears not to open.
-  const isModal = !lightboxOpen && !deleteOpen;
+  // Lightbox uses a plain portal (no Radix Dialog) — flipping modal=false
+  // is what lets it receive pointer events. Edit + delete dialogs are
+  // sibling Radix Dialogs; we keep Detail modal=true and pass modal={false}
+  // on those instead so toggling Detail's modal prop (which remounts its
+  // DialogContent and flickers) is unnecessary.
+  const isModal = !lightboxOpen;
 
   return (
     <>
@@ -317,12 +316,7 @@ function Content({
                   {dateFormatter.format(new Date(c.created_at))}
                 </InfoRow>
 
-                <InfoRow label="게시자">
-                  <span className="inline-flex items-center gap-xs">
-                    <Avatar size="xs" name="자이닉스" />
-                    <span className="text-text-body">자이닉스</span>
-                  </span>
-                </InfoRow>
+                <InfoRow label="작성자">xinics</InfoRow>
 
                 {c.design_tool ? (
                   <InfoRow label="디자인 툴">{c.design_tool}</InfoRow>

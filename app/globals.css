@@ -2,9 +2,20 @@
 @import "../design-system/tokens/tokens_v0.1.0_20260526.css";
 @config "../tailwind.config.cjs";
 
+/* Self-hosted Pretendard — drop the woff2 file at /public/fonts/.
+ * Variable font covers weights 100..900 from a single file.
+ */
+@font-face {
+  font-family: "Pretendard Variable";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/PretendardVariable.woff2") format("woff2-variations");
+}
+
 @layer base {
   html {
-    font-family: var(--xds-seed-font-family);
+    font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif;
     font-size: var(--xds-seed-font-size);
     color: var(--xds-text-body);
     background: var(--xds-surface-base);

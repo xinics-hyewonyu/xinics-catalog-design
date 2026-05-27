@@ -64,7 +64,12 @@ export function DeleteConfirmDialog({
   }
 
   return (
-    <Modal open={open} onOpenChange={handleOpenChange}>
+    // modal={false} — Detail modal is already modal=true and was inert-marking
+    // this dialog's portal. Non-modal still renders the overlay + content
+    // through the portal; we just skip Radix's focus trap / scroll lock,
+    // which is fine for a 1-input confirm dialog stacked on top of another
+    // dialog.
+    <Modal open={open} onOpenChange={handleOpenChange} modal={false}>
       <ModalContent size="sm" tone="danger">
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
