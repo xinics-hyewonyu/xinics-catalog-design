@@ -100,14 +100,17 @@ export function CatalogDetailModal({
     }
   }
 
-  // While the lightbox or edit dialog is open, flip this dialog to non-modal so
-  // Radix stops inert-marking the sibling portals.
-  const isModal = !lightboxOpen && !editOpen;
+  // The lightbox renders its own portal (no Radix Dialog); flipping modal=false
+  // while it's open prevents Radix from inert-marking it. The edit dialog is a
+  // sibling Radix Dialog rendered OUTSIDE this Modal (see below) so we don't
+  // re-toggle modal mode here — that swap causes Radix to remount the dialog
+  // contents and flickers the modal away.
+  const isModal = !lightboxOpen;
 
   return (
-    <Modal open={open} onOpenChange={handleOpenChange} modal={isModal}>
-      {catalog ? (
-        <>
+    <>
+      <Modal open={open} onOpenChange={handleOpenChange} modal={isModal}>
+        {catalog ? (
           <Content
             catalog={catalog}
             downloadIndex={downloadIndex}
@@ -120,16 +123,18 @@ export function CatalogDetailModal({
             setLightboxOpen={setLightboxOpen}
             onEdit={() => setEditOpen(true)}
           />
-          <CatalogEditDialog
-            open={editOpen}
-            onOpenChange={setEditOpen}
-            catalog={catalog}
-            proposalTypes={proposalTypes}
-            siteTypes={siteTypes}
-          />
-        </>
+        ) : null}
+      </Modal>
+      {catalog ? (
+        <CatalogEditDialog
+          open={editOpen}
+          onOpenChange={setEditOpen}
+          catalog={catalog}
+          proposalTypes={proposalTypes}
+          siteTypes={siteTypes}
+        />
       ) : null}
-    </Modal>
+    </>
   );
 }
 
