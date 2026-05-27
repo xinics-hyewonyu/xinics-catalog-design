@@ -8,7 +8,6 @@ import {
   restoreCatalogAction,
   softDeleteCatalogAction,
 } from "@/app/actions/delete-catalog";
-import { DeleteConfirmDialog } from "./delete-confirm-dialog";
 import {
   Copy,
   Download,
@@ -27,6 +26,8 @@ import {
   ModalHeader,
   ModalTitle,
 } from "@/components/xds/modal";
+import { Input } from "@/components/xds/input";
+import { Label } from "@/components/xds/label";
 import { Tag } from "@/components/xds/tag";
 import { Tooltip } from "@/components/xds/tooltip";
 import {
@@ -42,6 +43,8 @@ import type { EditLog } from "@/lib/data/edit-logs";
 import type { ProposalType, SiteType } from "@/lib/data/types";
 import { CatalogEditDialog } from "./catalog-edit-dialog";
 import { CatalogLightbox } from "./catalog-lightbox";
+// DeleteConfirmDialog is still used by /trash; the detail modal swaps content
+// inline via DeleteConfirmInside below to avoid nesting Radix Dialogs.
 
 interface Props {
   catalog: CatalogWithLabels | null;
@@ -151,43 +154,122 @@ export function CatalogDetailModal({
     <>
       <Modal open={open} onOpenChange={handleOpenChange} modal={isModal}>
         {catalog ? (
-          <Content
-            catalog={catalog}
-            downloadIndex={downloadIndex}
-            editLogs={editLogs}
-            proposalTypes={proposalTypes}
-            siteTypes={siteTypes}
-            isDownloading={isDownloading}
-            startDownload={startDownload}
-            lightboxOpen={lightboxOpen}
-            setLightboxOpen={setLightboxOpen}
-            onEdit={() => setEditOpen(true)}
-            onDelete={() => setDeleteOpen(true)}
-          />
+          deleteOpen ? (
+            <DeleteConfirmInside
+              catalog={catalog}
+              onCancel={() => setDeleteOpen(false)}
+              onConfirm={handleConfirmedDelete}
+            />
+          ) : (
+            <Content
+              catalog={catalog}
+              downloadIndex={downloadIndex}
+              editLogs={editLogs}
+              proposalTypes={proposalTypes}
+              siteTypes={siteTypes}
+              isDownloading={isDownloading}
+              startDownload={startDownload}
+              lightboxOpen={lightboxOpen}
+              setLightboxOpen={setLightboxOpen}
+              onEdit={() => setEditOpen(true)}
+              onDelete={() => setDeleteOpen(true)}
+            />
+          )
         ) : null}
       </Modal>
       {catalog ? (
-        <>
-          <CatalogEditDialog
-            open={editOpen}
-            onOpenChange={setEditOpen}
-            catalog={catalog}
-            proposalTypes={proposalTypes}
-            siteTypes={siteTypes}
-          />
-          <DeleteConfirmDialog
-            open={deleteOpen}
-            onOpenChange={setDeleteOpen}
-            confirmText={catalog.customer_name}
-            title="이 카탈로그를 삭제하시겠습니까?"
-            description="삭제된 카탈로그는 30일간 휴지통에 보관되며, 그 후 영구 삭제됩니다."
-            confirmLabel="삭제"
-            hint="삭제 후 토스트의 '실행 취소'로 5초 내 되돌릴 수 있어요."
-            onConfirm={handleConfirmedDelete}
-          />
-        </>
+        <CatalogEditDialog
+          open={editOpen}
+          onOpenChange={setEditOpen}
+          catalog={catalog}
+          proposalTypes={proposalTypes}
+          siteTypes={siteTypes}
+        />
       ) : null}
     </>
+  );
+}
+
+function DeleteConfirmInside({
+  catalog,
+  onCancel,
+  onConfirm,
+}: {
+  catalog: CatalogWithLabels;
+  onCancel: () => void;
+  onConfirm: () => Promise<void> | void;
+}) {
+  const [input, setInput] = useState("");
+  const [pending, startTransition] = useTransition();
+  const matches = input.trim() === catalog.customer_name.trim();
+
+  function handleConfirm() {
+    if (!matches || pending) return;
+    startTransition(async () => {
+      await onConfirm();
+    });
+  }
+
+  return (
+    <ModalContent size="sm" tone="danger">
+      <ModalHeader>
+        <ModalTitle>이 카탈로그를 삭제하시겠습니까?</ModalTitle>
+        <ModalDescription>
+          삭제된 카탈로그는 30일간 휴지통에 보관되며, 그 후 영구 삭제됩니다.
+        </ModalDescription>
+      </ModalHeader>
+      <ModalBody>
+        <div className="flex flex-col gap-sm p-lg">
+          <div className="flex flex-col gap-xs">
+            <Label htmlFor="detail-delete-confirm">
+              계속하려면{" "}
+              <span className="font-semibold text-text-heading">
+                {catalog.customer_name}
+              </span>{" "}
+              을(를) 정확히 입력해주세요
+            </Label>
+            <Input
+              id="detail-delete-confirm"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={catalog.customer_name}
+              autoComplete="off"
+              spellCheck={false}
+              autoFocus
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && matches) {
+                  e.preventDefault();
+                  handleConfirm();
+                }
+              }}
+            />
+            <p className="text-xs text-text-caption">
+              삭제 후 토스트의 ‘실행 취소’로 5초 내 되돌릴 수 있어요.
+            </p>
+          </div>
+        </div>
+      </ModalBody>
+      <ModalFooter>
+        <Button
+          type="button"
+          variant="default"
+          onClick={onCancel}
+          disabled={pending}
+        >
+          취소
+        </Button>
+        <Button
+          type="button"
+          variant="danger"
+          iconLeading={<Trash2 aria-hidden className="size-4" />}
+          onClick={handleConfirm}
+          disabled={!matches}
+          loading={pending}
+        >
+          삭제
+        </Button>
+      </ModalFooter>
+    </ModalContent>
   );
 }
 
