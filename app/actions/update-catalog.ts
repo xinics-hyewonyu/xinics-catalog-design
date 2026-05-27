@@ -192,11 +192,17 @@ export async function updateCatalogAction(
       .catch(() => {});
   }
 
-  await writeEditLog({
-    catalog_id: catalogId,
-    action: "updated",
-    changes: diff as unknown as Json,
-  }).catch(() => {});
+  try {
+    await writeEditLog({
+      catalog_id: catalogId,
+      action: "updated",
+      changes: diff as unknown as Json,
+    });
+  } catch (err) {
+    // Catalog was already updated; surface the log failure as a console warning
+    // rather than failing the whole action.
+    console.error("[updateCatalog] edit log write failed:", err);
+  }
 
   revalidatePath("/");
   return { ok: true, id: catalogId };

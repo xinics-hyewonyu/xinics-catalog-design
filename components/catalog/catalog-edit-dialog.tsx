@@ -1,6 +1,7 @@
 "use client";
 
 import { ImagePlus, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { updateCatalogAction } from "@/app/actions/update-catalog";
@@ -44,6 +45,7 @@ export function CatalogEditDialog({
   proposalTypes,
   siteTypes,
 }: Props) {
+  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -119,6 +121,7 @@ export function CatalogEditDialog({
       const result = await updateCatalogAction(fd);
       if (result.ok) {
         toast.success("수정이 저장되었습니다");
+        router.refresh();
         onOpenChange(false);
       } else {
         toast.error(result.error);

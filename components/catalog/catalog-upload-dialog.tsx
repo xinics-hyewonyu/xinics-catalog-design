@@ -2,6 +2,7 @@
 
 import { ImagePlus, X } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { uploadCatalog } from "@/app/actions/upload-catalog";
@@ -42,6 +43,7 @@ export function CatalogUploadDialog({
   proposalTypes,
   siteTypes,
 }: Props) {
+  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -116,6 +118,7 @@ export function CatalogUploadDialog({
       const result = await uploadCatalog(fd);
       if (result.ok) {
         toast.success("카탈로그가 등록되었습니다");
+        router.refresh();
         reset();
         onOpenChange(false);
       } else {

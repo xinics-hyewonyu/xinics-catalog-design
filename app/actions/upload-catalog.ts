@@ -6,6 +6,7 @@ import { z } from "zod";
 import { getAdminClient } from "@/lib/supabase/admin";
 import { createCatalog } from "@/lib/data/catalogs";
 import { writeEditLog } from "@/lib/data/edit-logs";
+import type { Json } from "@/types/database.types";
 
 const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
 const ACCEPTED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
@@ -130,11 +131,15 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
   }
 
   // Best-effort edit log; the row already saved, so a log failure shouldn't roll back.
-  await writeEditLog({
-    catalog_id: id,
-    action: "created",
-    changes: { snapshot: insertPayload },
-  }).catch(() => {});
+  try {
+    await writeEditLog({
+      catalog_id: id,
+      action: "created",
+      changes: { snapshot: insertPayload as unknown as Json },
+    });
+  } catch (err) {
+    console.error("[uploadCatalog] edit log write failed:", err);
+  }
 
   revalidatePath("/");
   return { ok: true, id };
