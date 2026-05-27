@@ -5,6 +5,11 @@ import { useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import {
+  restoreCatalogAction,
+  softDeleteCatalogAction,
+} from "@/app/actions/delete-catalog";
+import { DeleteConfirmDialog } from "./delete-confirm-dialog";
+import {
   Copy,
   Download,
   ExternalLink,
@@ -90,11 +95,13 @@ export function CatalogDetailModal({
   const [isDownloading, startDownload] = useTransition();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const open = Boolean(catalog);
 
   if (!open) {
     if (lightboxOpen) setLightboxOpen(false);
     if (editOpen) setEditOpen(false);
+    if (deleteOpen) setDeleteOpen(false);
   }
 
   function handleOpenChange(next: boolean) {
@@ -104,6 +111,34 @@ export function CatalogDetailModal({
       const qs = params.toString();
       router.replace(qs ? `/?${qs}` : "/", { scroll: false });
     }
+  }
+
+  async function handleConfirmedDelete() {
+    if (!catalog) return;
+    const result = await softDeleteCatalogAction(catalog.id);
+    if (!result.ok) {
+      toast.error(result.error);
+      return;
+    }
+    setDeleteOpen(false);
+    // Close detail modal — soft-deleted rows aren't on the home list anymore.
+    handleOpenChange(false);
+    router.refresh();
+    toast.success(`'${catalog.site_name}' 삭제됨`, {
+      duration: 5000,
+      action: {
+        label: "실행 취소",
+        onClick: async () => {
+          const undo = await restoreCatalogAction(catalog.id);
+          if (undo.ok) {
+            toast.success("복원되었습니다");
+            router.refresh();
+          } else {
+            toast.error(undo.error);
+          }
+        },
+      },
+    });
   }
 
   // The lightbox renders its own portal (no Radix Dialog); flipping modal=false
@@ -128,17 +163,30 @@ export function CatalogDetailModal({
             lightboxOpen={lightboxOpen}
             setLightboxOpen={setLightboxOpen}
             onEdit={() => setEditOpen(true)}
+            onDelete={() => setDeleteOpen(true)}
           />
         ) : null}
       </Modal>
       {catalog ? (
-        <CatalogEditDialog
-          open={editOpen}
-          onOpenChange={setEditOpen}
-          catalog={catalog}
-          proposalTypes={proposalTypes}
-          siteTypes={siteTypes}
-        />
+        <>
+          <CatalogEditDialog
+            open={editOpen}
+            onOpenChange={setEditOpen}
+            catalog={catalog}
+            proposalTypes={proposalTypes}
+            siteTypes={siteTypes}
+          />
+          <DeleteConfirmDialog
+            open={deleteOpen}
+            onOpenChange={setDeleteOpen}
+            confirmText={catalog.customer_name}
+            title="이 카탈로그를 삭제하시겠습니까?"
+            description="삭제된 카탈로그는 30일간 휴지통에 보관되며, 그 후 영구 삭제됩니다."
+            confirmLabel="삭제"
+            hint="삭제 후 토스트의 '실행 취소'로 5초 내 되돌릴 수 있어요."
+            onConfirm={handleConfirmedDelete}
+          />
+        </>
       ) : null}
     </>
   );
@@ -155,6 +203,7 @@ interface ContentProps {
   lightboxOpen: boolean;
   setLightboxOpen: (open: boolean) => void;
   onEdit: () => void;
+  onDelete: () => void;
 }
 
 function Content({
@@ -168,6 +217,7 @@ function Content({
   lightboxOpen,
   setLightboxOpen,
   onEdit,
+  onDelete,
 }: ContentProps) {
   function handleDownload() {
     if (!c.image_url) {
@@ -359,8 +409,7 @@ function Content({
           <Button
             variant="danger"
             iconLeading={<Trash2 aria-hidden className="size-4" />}
-            disabled
-            title="Stage 8에서 추가 예정"
+            onClick={onDelete}
           >
             삭제
           </Button>

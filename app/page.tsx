@@ -1,3 +1,5 @@
+import { Trash2 } from "lucide-react";
+import Link from "next/link";
 import { CatalogCard } from "@/components/catalog/catalog-card";
 import { CatalogDetailModal } from "@/components/catalog/catalog-detail-modal";
 import { CatalogEmpty } from "@/components/catalog/catalog-empty";
@@ -71,10 +73,19 @@ export default async function Home({
             전체 {catalogs.length}건
           </p>
         </div>
-        <NewCatalogButton
-          proposalTypes={proposalTypes}
-          siteTypes={siteTypes}
-        />
+        <div className="flex items-center gap-sm">
+          <Link
+            href="/trash"
+            className="inline-flex items-center gap-xxs text-sm text-text-caption transition-colors hover:text-text-body"
+          >
+            <Trash2 aria-hidden className="size-4" />
+            휴지통
+          </Link>
+          <NewCatalogButton
+            proposalTypes={proposalTypes}
+            siteTypes={siteTypes}
+          />
+        </div>
       </header>
 
       <CatalogListHeader
