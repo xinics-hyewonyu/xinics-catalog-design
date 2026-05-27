@@ -67,7 +67,7 @@ export default async function Home({
       <header className="flex flex-col gap-xs sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-xxs">
           <h1 className="text-xxl font-semibold text-text-heading">
-            카탈로그 아카이브
+            자이닉스 디자인 라이브러리
           </h1>
           <p className="text-sm text-text-caption">
             전체 {catalogs.length}건

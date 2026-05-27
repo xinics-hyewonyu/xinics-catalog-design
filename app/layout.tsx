@@ -4,8 +4,8 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Xinics 카탈로그 아카이브",
-  description: "사내 디자인 카탈로그 시안 아카이브",
+  title: "자이닉스 디자인 라이브러리",
+  description: "자이닉스 사내 디자인 시안 라이브러리",
 };
 
 export default function RootLayout({

@@ -7,7 +7,7 @@ import { listCatalogs } from "@/lib/data/catalogs";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "휴지통 | Xinics 카탈로그 아카이브",
+  title: "휴지통 | Xinics 자이닉스 디자인 라이브러리",
 };
 
 export default async function TrashPage() {
