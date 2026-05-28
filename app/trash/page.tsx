@@ -50,7 +50,7 @@ export default async function TrashPage() {
       ) : (
         <section
           aria-label="휴지통 카탈로그"
-          className="grid grid-cols-1 gap-md sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          className="grid grid-cols-1 gap-x-md gap-y-lg sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
           {catalogs.map((c) => (
             <TrashCard key={c.id} catalog={c} />

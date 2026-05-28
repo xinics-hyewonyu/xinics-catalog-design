@@ -12,10 +12,17 @@ import { X } from "lucide-react";
 type Size = "sm" | "md" | "lg";
 type Tone = "default" | "danger";
 
+// NOTE: avoid bare `max-w-md` / `max-w-sm` / `max-w-lg` / `max-w-xl` here —
+// the XDS preset overrides Tailwind's spacing scale with px-sized tokens
+// (e.g. `--xds-size-md` = 16px), and Tailwind v4 resolves `max-w-<key>`
+// against that spacing scale when the key collides. The result was a
+// `max-width: 16px` modal (the "thin red strip" bug). Use arbitrary
+// values so the rem-based widths are not subject to spacing-scale
+// override.
 const sizeClasses: Record<Size, string> = {
-  sm: "max-w-md",
-  md: "max-w-2xl",
-  lg: "max-w-4xl",
+  sm: "max-w-[28rem]",
+  md: "max-w-[42rem]",
+  lg: "max-w-[56rem]",
 };
 
 const toneRingClasses: Record<Tone, string> = {
@@ -76,7 +83,6 @@ export const ModalContent = forwardRef<
         ref={ref}
         className={[
           "fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2",
-          "w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]",
           "flex flex-col overflow-hidden",
           "rounded-lg border border-border-subtle bg-surface-elevated",
           "shadow-[0_10px_40px_rgba(0,0,0,0.18)]",
@@ -85,6 +91,7 @@ export const ModalContent = forwardRef<
           toneRingClasses[tone],
           className ?? "",
         ].join(" ")}
+        style={{ width: "calc(100vw - 2rem)", maxHeight: "calc(100vh - 2rem)" }}
         {...rest}
       >
         {children}

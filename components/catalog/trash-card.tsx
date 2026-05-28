@@ -60,26 +60,24 @@ export function TrashCard({ catalog }: Props) {
 
   return (
     <>
-      <Card elevation="raised" className="flex h-full flex-col">
-        <div className="relative aspect-video w-full overflow-hidden bg-surface-muted">
+      <Card elevation="raised" className="flex h-full flex-col !rounded-sm">
+        <div className="relative aspect-video w-full overflow-hidden border-b border-border-subtle bg-surface-muted">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={catalog.thumbnail_url ?? "/placeholder-16x9.svg"}
             alt=""
             className="size-full object-cover object-top opacity-70"
           />
-        </div>
-        <div className="flex flex-1 flex-col gap-xs p-md">
-          <div className="flex flex-col gap-xxs">
-            <h3 className="truncate text-md font-semibold text-text-heading">
-              {catalog.site_name}
-            </h3>
-            <p className="text-xs text-text-caption">{catalog.customer_name}</p>
-          </div>
-          <div className="flex flex-wrap gap-xs">
+          <div className="pointer-events-none absolute bottom-xs right-xs flex flex-wrap gap-xs">
             <Tag tone={remainingTone}>남은 보관 {remaining}일</Tag>
           </div>
-          <div className="mt-auto flex items-center gap-xs pt-md">
+        </div>
+        <div className="flex flex-1 flex-col gap-xxs px-md py-sm">
+          <h3 className="truncate text-md font-semibold text-text-heading">
+            {catalog.site_name}
+          </h3>
+          <p className="text-sm text-text-caption">{catalog.customer_name}</p>
+          <div className="mt-auto flex items-center gap-xs pt-sm">
             <Button
               type="button"
               variant="default"

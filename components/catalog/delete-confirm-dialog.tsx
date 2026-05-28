@@ -30,6 +30,13 @@ interface Props {
   onConfirm: () => Promise<void> | void;
   /** Optional: hint shown below the confirm input. */
   hint?: string;
+  /**
+   * Pass false when this dialog is rendered on top of another Radix Dialog
+   * (e.g. the Detail modal). Non-modal still renders overlay + content through
+   * the portal, but skips the focus trap / inert sibling marking that would
+   * otherwise hide this dialog underneath the parent dialog.
+   */
+  modal?: boolean;
 }
 
 export function DeleteConfirmDialog({
@@ -41,6 +48,7 @@ export function DeleteConfirmDialog({
   confirmLabel,
   onConfirm,
   hint,
+  modal = true,
 }: Props) {
   const [input, setInput] = useState("");
   const [pending, startTransition] = useTransition();
@@ -64,7 +72,7 @@ export function DeleteConfirmDialog({
   }
 
   return (
-    <Modal open={open} onOpenChange={handleOpenChange}>
+    <Modal open={open} onOpenChange={handleOpenChange} modal={modal}>
       <ModalContent size="sm" tone="danger">
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
