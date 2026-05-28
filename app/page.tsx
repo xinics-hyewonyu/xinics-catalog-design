@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Info, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import Link from "next/link";
 import { CatalogCard } from "@/components/catalog/catalog-card";
 import { CatalogDetailModal } from "@/components/catalog/catalog-detail-modal";
@@ -137,16 +137,6 @@ export default async function Home({
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-lg p-md sm:p-xl">
-      {!isAllowed ? (
-        <div className="flex items-center gap-xs rounded-md border border-info-border bg-info-bg px-md py-sm text-xs text-info-text">
-          <Info aria-hidden className="size-3.5 shrink-0" />
-          <span>
-            외부 공유 모드 — 최종 시안만 표시되며, 편집과 사내 자료는
-            지정된 IP에서만 가능합니다.
-          </span>
-        </div>
-      ) : null}
-
       <header className="flex flex-col gap-xs sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-xxs">
           <h1 className="text-xxl font-semibold text-text-heading">

@@ -320,7 +320,7 @@ export function CatalogUploadDialog({
                   id="up-author"
                   value={authorName}
                   onChange={(e) => setAuthorName(e.target.value)}
-                  placeholder="예: 유혜원"
+                  placeholder="예: 홍길동"
                 />
               </FieldRow>
 

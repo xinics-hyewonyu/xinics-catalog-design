@@ -65,7 +65,7 @@ export function AddIpForm({ currentIp }: Props) {
             id="add-ip-label"
             value={label}
             onChange={(e) => setLabel(e.target.value)}
-            placeholder="예: 회사 사무실, 유혜원 자택"
+            placeholder="예: 회사 사무실, 홍길동 자택"
           />
           {errors.label?.[0] ? (
             <p className="text-xs text-error">{errors.label[0]}</p>
