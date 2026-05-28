@@ -410,16 +410,16 @@ function ContentShell({
         </div>
       </ModalBody>
 
-      <ModalFooter className="justify-between">
-        <div className="flex items-center gap-sm">
-          <Button
-            variant="default"
-            iconLeading={<Link2 aria-hidden className="size-4" />}
-            onClick={handleCopyShareLink}
-          >
-            링크 복사
-          </Button>
-          {isAllowed ? (
+      {isAllowed ? (
+        <ModalFooter className="justify-between">
+          <div className="flex items-center gap-sm">
+            <Button
+              variant="default"
+              iconLeading={<Link2 aria-hidden className="size-4" />}
+              onClick={handleCopyShareLink}
+            >
+              링크 복사
+            </Button>
             <Button
               variant="default"
               iconLeading={<Download aria-hidden className="size-4" />}
@@ -429,9 +429,7 @@ function ContentShell({
             >
               다운로드
             </Button>
-          ) : null}
-        </div>
-        {isAllowed ? (
+          </div>
           <div className="flex items-center gap-sm">
             <Button
               variant="default"
@@ -448,8 +446,8 @@ function ContentShell({
               삭제
             </Button>
           </div>
-        ) : null}
-      </ModalFooter>
+        </ModalFooter>
+      ) : null}
     </>
   );
 }

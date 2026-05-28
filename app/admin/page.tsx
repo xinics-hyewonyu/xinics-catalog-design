@@ -24,7 +24,7 @@ export default async function AdminPage() {
   // 비번 cookie 없고 IP도 허용되지 않은 경우 → 비번 입력 폼
   if (!cookieValid && !isAllowed) {
     return (
-      <main className="mx-auto flex w-full max-w-md flex-1 flex-col gap-lg p-md sm:p-xl">
+      <main className="mx-auto flex w-full max-w-[28rem] flex-1 flex-col gap-lg p-md sm:p-xl">
         <header className="flex flex-col gap-xs">
           <h1 className="text-xxl font-semibold text-text-heading">
             관리자 인증
