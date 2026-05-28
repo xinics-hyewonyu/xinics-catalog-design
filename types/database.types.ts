@@ -123,6 +123,7 @@ export type Database = {
           memo: string | null;
           image_url: string | null;
           thumbnail_url: string | null;
+          author_name: string | null;
           created_by: string | null;
           created_at: string;
           updated_at: string;
@@ -140,6 +141,7 @@ export type Database = {
           memo?: string | null;
           image_url?: string | null;
           thumbnail_url?: string | null;
+          author_name?: string | null;
           created_by?: string | null;
           created_at?: string;
           updated_at?: string;
@@ -157,6 +159,7 @@ export type Database = {
           memo?: string | null;
           image_url?: string | null;
           thumbnail_url?: string | null;
+          author_name?: string | null;
           created_by?: string | null;
           created_at?: string;
           updated_at?: string;
@@ -185,6 +188,30 @@ export type Database = {
             isOneToOne: false;
           },
         ];
+      };
+      allowed_ips: {
+        Row: {
+          id: string;
+          ip_address: string;
+          label: string;
+          is_active: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          ip_address: string;
+          label: string;
+          is_active?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          ip_address?: string;
+          label?: string;
+          is_active?: boolean;
+          created_at?: string;
+        };
+        Relationships: [];
       };
       catalog_edit_logs: {
         Row: {

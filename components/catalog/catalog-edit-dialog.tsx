@@ -30,6 +30,11 @@ import type { ProposalType, SiteType } from "@/lib/data/types";
 
 const DESIGN_TOOLS = ["피그마", "HTML", "XD", "포토샵"];
 
+/** ISO → YYYY-MM-DD in Asia/Seoul. en-CA locale formats as YYYY-MM-DD. */
+function isoToKstDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
+}
+
 interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -61,6 +66,10 @@ export function CatalogEditDialog({
   const [filePath, setFilePath] = useState(catalog.file_path ?? "");
   const [catalogUrl, setCatalogUrl] = useState(catalog.catalog_url ?? "");
   const [memo, setMemo] = useState(catalog.memo ?? "");
+  const [authorName, setAuthorName] = useState(catalog.author_name ?? "");
+  const [createdAtDate, setCreatedAtDate] = useState(
+    isoToKstDate(catalog.created_at),
+  );
 
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [pending, startTransition] = useTransition();
@@ -76,6 +85,8 @@ export function CatalogEditDialog({
     setFilePath(catalog.file_path ?? "");
     setCatalogUrl(catalog.catalog_url ?? "");
     setMemo(catalog.memo ?? "");
+    setAuthorName(catalog.author_name ?? "");
+    setCreatedAtDate(isoToKstDate(catalog.created_at));
     setFile(null);
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     setPreviewUrl(null);
@@ -116,6 +127,8 @@ export function CatalogEditDialog({
     fd.set("file_path", filePath);
     fd.set("catalog_url", catalogUrl);
     fd.set("memo", memo);
+    fd.set("author_name", authorName);
+    fd.set("created_at_date", createdAtDate);
 
     startTransition(async () => {
       const result = await updateCatalogAction(fd);
@@ -277,6 +290,20 @@ export function CatalogEditDialog({
                 </FieldRow>
               </div>
 
+              <FieldRow
+                label="게시일"
+                htmlFor="edit-created-at"
+                hint="카탈로그 페이지가 처음 공개된 날짜 (KST)"
+                error={errors.created_at_date?.[0]}
+              >
+                <Input
+                  id="edit-created-at"
+                  type="date"
+                  value={createdAtDate}
+                  onChange={(e) => setCreatedAtDate(e.target.value)}
+                />
+              </FieldRow>
+
               <FieldRow label="디자인 툴" error={errors.design_tool?.[0]}>
                 <Select value={designTool} onValueChange={setDesignTool}>
                   <SelectTrigger>
@@ -316,6 +343,19 @@ export function CatalogEditDialog({
                   type="url"
                   value={catalogUrl}
                   onChange={(e) => setCatalogUrl(e.target.value)}
+                />
+              </FieldRow>
+
+              <FieldRow
+                label="작성자"
+                htmlFor="edit-author"
+                hint="비워두면 '자이닉스'로 표시됩니다"
+                error={errors.author_name?.[0]}
+              >
+                <Input
+                  id="edit-author"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
                 />
               </FieldRow>
 

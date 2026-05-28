@@ -20,7 +20,7 @@ export function NewCatalogButton({ proposalTypes, siteTypes }: Props) {
         iconLeading={<Plus aria-hidden className="size-4" />}
         onClick={() => setOpen(true)}
       >
-        새 카탈로그 등록
+        디자인 등록
       </Button>
       <CatalogUploadDialog
         open={open}

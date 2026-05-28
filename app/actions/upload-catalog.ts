@@ -34,6 +34,7 @@ const schema = z.object({
       "http(s):// 로 시작하는 주소여야 합니다",
     ),
   memo: z.string().optional().or(z.literal("")),
+  author_name: z.string().optional().or(z.literal("")),
 });
 
 export type UploadResult =
@@ -67,6 +68,7 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
     file_path: formData.get("file_path") ?? "",
     catalog_url: formData.get("catalog_url") ?? "",
     memo: formData.get("memo") ?? "",
+    author_name: formData.get("author_name") ?? "",
   });
 
   if (!parsed.success) {
@@ -111,6 +113,7 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
     file_path: nullish(parsed.data.file_path ?? null),
     catalog_url: nullish(parsed.data.catalog_url ?? null),
     memo: nullish(parsed.data.memo ?? null),
+    author_name: nullish(parsed.data.author_name ?? null),
     image_url: publicUrl,
     thumbnail_url: publicUrl,
   };

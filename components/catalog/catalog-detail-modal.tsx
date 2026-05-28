@@ -13,9 +13,11 @@ import {
   Download,
   ExternalLink,
   History,
+  Link2,
   Pencil,
   Trash2,
 } from "lucide-react";
+import { useIsAllowed } from "@/components/providers/access-provider";
 import { Button } from "@/components/xds/button";
 import {
   Modal,
@@ -26,8 +28,6 @@ import {
   ModalHeader,
   ModalTitle,
 } from "@/components/xds/modal";
-import { Input } from "@/components/xds/input";
-import { Label } from "@/components/xds/label";
 import { Tag } from "@/components/xds/tag";
 import { Tooltip } from "@/components/xds/tooltip";
 import {
@@ -43,8 +43,7 @@ import type { EditLog } from "@/lib/data/edit-logs";
 import type { ProposalType, SiteType } from "@/lib/data/types";
 import { CatalogEditDialog } from "./catalog-edit-dialog";
 import { CatalogLightbox } from "./catalog-lightbox";
-// DeleteConfirmDialog is still used by /trash; the detail modal swaps content
-// inline via DeleteConfirmInside below to avoid nesting Radix Dialogs.
+import { DeleteConfirmDialog } from "./delete-confirm-dialog";
 
 interface Props {
   catalog: CatalogWithLabels | null;
@@ -74,6 +73,7 @@ const FIELD_LABELS: Record<string, string> = {
   file_path: "파일 경로",
   catalog_url: "카탈로그 주소",
   memo: "메모",
+  author_name: "작성자",
   image_url: "이미지",
   thumbnail_url: "썸네일",
 };
@@ -154,14 +154,19 @@ export function CatalogDetailModal({
     <>
       <Modal open={open} onOpenChange={handleOpenChange} modal={isModal}>
         {catalog ? (
-          deleteOpen ? (
-            <DeleteConfirmInside
-              catalog={catalog}
-              onCancel={() => setDeleteOpen(false)}
-              onConfirm={handleConfirmedDelete}
-            />
-          ) : (
-            <Content
+          <ModalContent
+            size="lg"
+            onPointerDownOutside={(e) => {
+              if (lightboxOpen) e.preventDefault();
+            }}
+            onInteractOutside={(e) => {
+              if (lightboxOpen) e.preventDefault();
+            }}
+            onEscapeKeyDown={(e) => {
+              if (lightboxOpen) e.preventDefault();
+            }}
+          >
+            <ContentShell
               catalog={catalog}
               downloadIndex={downloadIndex}
               editLogs={editLogs}
@@ -169,15 +174,22 @@ export function CatalogDetailModal({
               siteTypes={siteTypes}
               isDownloading={isDownloading}
               startDownload={startDownload}
-              lightboxOpen={lightboxOpen}
               setLightboxOpen={setLightboxOpen}
               onEdit={() => setEditOpen(true)}
               onDelete={() => setDeleteOpen(true)}
             />
-          )
+          </ModalContent>
         ) : null}
       </Modal>
-      {catalog ? (
+      {catalog && catalog.image_url ? (
+        <CatalogLightbox
+          open={lightboxOpen}
+          onOpenChange={setLightboxOpen}
+          imageUrl={catalog.image_url}
+          alt={`${catalog.site_name} 시안 이미지`}
+        />
+      ) : null}
+      {catalog && editOpen ? (
         <CatalogEditDialog
           open={editOpen}
           onOpenChange={setEditOpen}
@@ -186,94 +198,23 @@ export function CatalogDetailModal({
           siteTypes={siteTypes}
         />
       ) : null}
+      {catalog && deleteOpen ? (
+        <DeleteConfirmDialog
+          open={deleteOpen}
+          onOpenChange={setDeleteOpen}
+          confirmText={catalog.customer_name}
+          title="이 카탈로그를 삭제하시겠습니까?"
+          description="삭제된 카탈로그는 30일간 휴지통에 보관되며, 그 후 영구 삭제됩니다."
+          confirmLabel="삭제"
+          hint="삭제 후 토스트의 '실행 취소'로 5초 내 되돌릴 수 있어요."
+          onConfirm={handleConfirmedDelete}
+        />
+      ) : null}
     </>
   );
 }
 
-function DeleteConfirmInside({
-  catalog,
-  onCancel,
-  onConfirm,
-}: {
-  catalog: CatalogWithLabels;
-  onCancel: () => void;
-  onConfirm: () => Promise<void> | void;
-}) {
-  const [input, setInput] = useState("");
-  const [pending, startTransition] = useTransition();
-  const matches = input.trim() === catalog.customer_name.trim();
-
-  function handleConfirm() {
-    if (!matches || pending) return;
-    startTransition(async () => {
-      await onConfirm();
-    });
-  }
-
-  return (
-    <ModalContent size="sm" tone="danger">
-      <ModalHeader>
-        <ModalTitle>이 카탈로그를 삭제하시겠습니까?</ModalTitle>
-        <ModalDescription>
-          삭제된 카탈로그는 30일간 휴지통에 보관되며, 그 후 영구 삭제됩니다.
-        </ModalDescription>
-      </ModalHeader>
-      <ModalBody>
-        <div className="flex flex-col gap-sm p-lg">
-          <div className="flex flex-col gap-xs">
-            <Label htmlFor="detail-delete-confirm">
-              계속하려면{" "}
-              <span className="font-semibold text-text-heading">
-                {catalog.customer_name}
-              </span>{" "}
-              을(를) 정확히 입력해주세요
-            </Label>
-            <Input
-              id="detail-delete-confirm"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={catalog.customer_name}
-              autoComplete="off"
-              spellCheck={false}
-              autoFocus
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && matches) {
-                  e.preventDefault();
-                  handleConfirm();
-                }
-              }}
-            />
-            <p className="text-xs text-text-caption">
-              삭제 후 토스트의 ‘실행 취소’로 5초 내 되돌릴 수 있어요.
-            </p>
-          </div>
-        </div>
-      </ModalBody>
-      <ModalFooter>
-        <Button
-          type="button"
-          variant="default"
-          onClick={onCancel}
-          disabled={pending}
-        >
-          취소
-        </Button>
-        <Button
-          type="button"
-          variant="danger"
-          iconLeading={<Trash2 aria-hidden className="size-4" />}
-          onClick={handleConfirm}
-          disabled={!matches}
-          loading={pending}
-        >
-          삭제
-        </Button>
-      </ModalFooter>
-    </ModalContent>
-  );
-}
-
-interface ContentProps {
+interface ContentShellProps {
   catalog: CatalogWithLabels;
   downloadIndex: number;
   editLogs: EditLog[];
@@ -281,13 +222,12 @@ interface ContentProps {
   siteTypes: SiteType[];
   isDownloading: boolean;
   startDownload: (cb: () => void) => void;
-  lightboxOpen: boolean;
   setLightboxOpen: (open: boolean) => void;
   onEdit: () => void;
   onDelete: () => void;
 }
 
-function Content({
+function ContentShell({
   catalog: c,
   downloadIndex: idx,
   editLogs,
@@ -295,11 +235,11 @@ function Content({
   siteTypes,
   isDownloading,
   startDownload,
-  lightboxOpen,
   setLightboxOpen,
   onEdit,
   onDelete,
-}: ContentProps) {
+}: ContentShellProps) {
+  const isAllowed = useIsAllowed();
   function handleDownload() {
     if (!c.image_url) {
       toast.error("다운로드할 이미지가 없습니다");
@@ -330,125 +270,120 @@ function Content({
     else toast.error("복사에 실패했습니다");
   }
 
+  async function handleCopyShareLink() {
+    const origin =
+      typeof window !== "undefined" ? window.location.origin : "";
+    const url = `${origin}/design/${c.id}`;
+    const ok = await copyToClipboard(url);
+    if (ok) toast.success("공유 링크를 복사했습니다");
+    else toast.error("복사에 실패했습니다");
+  }
+
   return (
     <>
-      <ModalContent
-        size="lg"
-        onPointerDownOutside={(e) => {
-          if (lightboxOpen) e.preventDefault();
-        }}
-        onInteractOutside={(e) => {
-          if (lightboxOpen) e.preventDefault();
-        }}
-        onEscapeKeyDown={(e) => {
-          if (lightboxOpen) e.preventDefault();
-        }}
-      >
-        <ModalHeader>
-          <ModalTitle>{c.site_name}</ModalTitle>
-          <ModalDescription>{c.customer_name}</ModalDescription>
-        </ModalHeader>
+      <ModalHeader>
+        <ModalTitle>{c.site_name}</ModalTitle>
+        <ModalDescription>{c.customer_name}</ModalDescription>
+      </ModalHeader>
 
-        <ModalBody>
-          <div className="grid gap-md p-lg md:grid-cols-[3fr_2fr] md:gap-lg">
-            {/* 이미지 영역 */}
-            <div className="flex min-w-0 flex-col gap-sm">
-              <button
-                type="button"
-                onClick={() => c.image_url && setLightboxOpen(true)}
-                aria-label="이미지 크게 보기"
-                disabled={!c.image_url}
-                className="group relative block w-full cursor-pointer overflow-hidden rounded-md bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] disabled:cursor-not-allowed"
+      <ModalBody>
+        <div className="grid gap-md p-lg md:grid-cols-[3fr_2fr] md:gap-lg">
+          {/* 이미지 영역 */}
+          <div className="flex min-w-0 flex-col gap-sm">
+            <button
+              type="button"
+              onClick={() => c.image_url && setLightboxOpen(true)}
+              aria-label="이미지 크게 보기"
+              disabled={!c.image_url}
+              className="group relative block w-full cursor-pointer overflow-hidden rounded-md bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] disabled:cursor-not-allowed"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={c.image_url ?? "/placeholder-16x9.svg"}
+                alt={`${c.site_name} 시안 이미지`}
+                className="block h-auto w-full transition-transform duration-200 group-hover:scale-[1.01] motion-reduce:transition-none"
+              />
+              <span
+                aria-hidden
+                className="absolute inset-0 flex items-center justify-center bg-black/0 text-sm font-medium text-transparent transition-colors group-hover:bg-black/40 group-hover:text-white motion-reduce:transition-none"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={c.image_url ?? "/placeholder-16x9.svg"}
-                  alt={`${c.site_name} 시안 이미지`}
-                  className="block h-auto w-full transition-transform duration-200 group-hover:scale-[1.01] motion-reduce:transition-none"
-                />
-                <span
-                  aria-hidden
-                  className="absolute inset-0 flex items-center justify-center bg-black/0 text-sm font-medium text-transparent transition-colors group-hover:bg-black/40 group-hover:text-white motion-reduce:transition-none"
-                >
-                  크게 보기
-                </span>
-              </button>
-              <Button
-                variant="default"
-                iconLeading={<Download aria-hidden className="size-4" />}
-                onClick={handleDownload}
-                loading={isDownloading}
-                disabled={!c.image_url}
-              >
-                다운로드
-              </Button>
+                크게 보기
+              </span>
+            </button>
+          </div>
+
+          {/* 정보 패널 */}
+          <div className="flex min-w-0 flex-col gap-md">
+            <div className="flex flex-wrap gap-xs">
+              {isAllowed && c.proposal_type ? (
+                <Tag tone="info">{c.proposal_type.name}</Tag>
+              ) : null}
+              {c.site_type ? <Tag>{c.site_type.name}</Tag> : null}
             </div>
 
-            {/* 정보 패널 */}
-            <div className="flex min-w-0 flex-col gap-md">
-              <div className="flex flex-wrap gap-xs">
-                {c.proposal_type ? (
-                  <Tag tone="info">{c.proposal_type.name}</Tag>
-                ) : null}
-                {c.site_type ? <Tag>{c.site_type.name}</Tag> : null}
-              </div>
-
-              <dl className="grid grid-cols-[auto_1fr] gap-x-md gap-y-sm text-sm">
-                <InfoRow label="게시일시">
-                  {dateFormatter.format(new Date(c.created_at))}
-                </InfoRow>
-
-                <InfoRow label="작성자">xinics</InfoRow>
-
-                {c.design_tool ? (
-                  <InfoRow label="디자인 툴">{c.design_tool}</InfoRow>
-                ) : null}
-
-                {c.catalog_url ? (
-                  <InfoRow label="카탈로그 주소">
-                    <Link
-                      href={c.catalog_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex min-w-0 items-center gap-xxs text-primary hover:underline"
-                    >
-                      <span className="min-w-0 flex-1 truncate">
-                        {c.catalog_url}
-                      </span>
-                      <ExternalLink aria-hidden className="size-3 shrink-0" />
-                    </Link>
+            <dl className="grid grid-cols-[auto_1fr] gap-x-md gap-y-sm text-sm">
+              {isAllowed ? (
+                <>
+                  <InfoRow label="게시일시">
+                    {dateFormatter.format(new Date(c.created_at))}
                   </InfoRow>
-                ) : null}
 
-                {c.file_path ? (
-                  <InfoRow label="파일 경로">
-                    <span className="flex items-center gap-xs">
-                      <code className="flex-1 min-w-0 truncate rounded bg-surface-muted px-xs py-[2px] text-xs font-mono text-text-body">
-                        {c.file_path}
-                      </code>
-                      <Tooltip content="경로 복사">
-                        <button
-                          type="button"
-                          onClick={handleCopyPath}
-                          aria-label="파일 경로 복사"
-                          className="inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-text-caption transition-colors hover:bg-surface-muted hover:text-text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] motion-reduce:transition-none"
-                        >
-                          <Copy aria-hidden className="size-3.5" />
-                        </button>
-                      </Tooltip>
+                  <InfoRow label="작성자">
+                    {c.author_name ?? "자이닉스"}
+                  </InfoRow>
+
+                  {c.design_tool ? (
+                    <InfoRow label="디자인 툴">{c.design_tool}</InfoRow>
+                  ) : null}
+                </>
+              ) : null}
+
+              {c.catalog_url ? (
+                <InfoRow label="카탈로그 주소">
+                  <Link
+                    href={c.catalog_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex min-w-0 items-center gap-xxs text-primary hover:underline"
+                  >
+                    <span className="min-w-0 flex-1 truncate">
+                      {c.catalog_url}
                     </span>
-                  </InfoRow>
-                ) : null}
+                    <ExternalLink aria-hidden className="size-3 shrink-0" />
+                  </Link>
+                </InfoRow>
+              ) : null}
 
-                {c.memo ? (
-                  <InfoRow label="메모">
-                    <p className="whitespace-pre-wrap leading-korean text-text-body">
-                      {c.memo}
-                    </p>
-                  </InfoRow>
-                ) : null}
-              </dl>
+              {isAllowed && c.file_path ? (
+                <InfoRow label="파일 경로">
+                  <span className="flex items-center gap-xs">
+                    <code className="flex-1 min-w-0 truncate rounded bg-surface-muted px-xs py-[2px] text-xs font-mono text-text-body">
+                      {c.file_path}
+                    </code>
+                    <Tooltip content="경로 복사">
+                      <button
+                        type="button"
+                        onClick={handleCopyPath}
+                        aria-label="파일 경로 복사"
+                        className="inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-text-caption transition-colors hover:bg-surface-muted hover:text-text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] motion-reduce:transition-none"
+                      >
+                        <Copy aria-hidden className="size-3.5" />
+                      </button>
+                    </Tooltip>
+                  </span>
+                </InfoRow>
+              ) : null}
 
+              {isAllowed && c.memo ? (
+                <InfoRow label="메모">
+                  <p className="whitespace-pre-wrap leading-korean text-text-body">
+                    {c.memo}
+                  </p>
+                </InfoRow>
+              ) : null}
+            </dl>
+
+            {isAllowed ? (
               <Accordion
                 type="single"
                 collapsible
@@ -470,35 +405,51 @@ function Content({
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
-            </div>
+            ) : null}
           </div>
-        </ModalBody>
+        </div>
+      </ModalBody>
 
-        <ModalFooter>
+      <ModalFooter className="justify-between">
+        <div className="flex items-center gap-sm">
           <Button
             variant="default"
-            iconLeading={<Pencil aria-hidden className="size-4" />}
-            onClick={onEdit}
+            iconLeading={<Link2 aria-hidden className="size-4" />}
+            onClick={handleCopyShareLink}
           >
-            수정
+            링크 복사
           </Button>
-          <Button
-            variant="danger"
-            iconLeading={<Trash2 aria-hidden className="size-4" />}
-            onClick={onDelete}
-          >
-            삭제
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-      {c.image_url ? (
-        <CatalogLightbox
-          open={lightboxOpen}
-          onOpenChange={setLightboxOpen}
-          imageUrl={c.image_url}
-          alt={`${c.site_name} 시안 이미지`}
-        />
-      ) : null}
+          {isAllowed ? (
+            <Button
+              variant="default"
+              iconLeading={<Download aria-hidden className="size-4" />}
+              onClick={handleDownload}
+              loading={isDownloading}
+              disabled={!c.image_url}
+            >
+              다운로드
+            </Button>
+          ) : null}
+        </div>
+        {isAllowed ? (
+          <div className="flex items-center gap-sm">
+            <Button
+              variant="default"
+              iconLeading={<Pencil aria-hidden className="size-4" />}
+              onClick={onEdit}
+            >
+              수정
+            </Button>
+            <Button
+              variant="danger"
+              iconLeading={<Trash2 aria-hidden className="size-4" />}
+              onClick={onDelete}
+            >
+              삭제
+            </Button>
+          </div>
+        ) : null}
+      </ModalFooter>
     </>
   );
 }

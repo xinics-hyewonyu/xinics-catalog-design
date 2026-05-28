@@ -70,7 +70,14 @@ function decorate(
 export async function listCatalogs(
   params: ListCatalogsParams = {},
 ): Promise<CatalogWithLabels[]> {
-  const supabase = await createClient();
+  // RLS: deleted rows are only visible to authenticated users
+  // (see catalogs_select_visible policy). While Stage 2 auth is deferred,
+  // /trash relies on the admin client to bypass that check — matching the
+  // restore / hard-delete actions which already use admin.
+  const scope = params.scope ?? "active";
+  // Admin client across the board — deleted-row visibility is enforced via the
+  // explicit `deleted_at` filter below rather than RLS (auth deferred in V1).
+  const supabase = getAdminClient();
   const { proposalRows, siteRows } = await fetchTypeLookups();
 
   const proposalById = new Map(proposalRows.map((t) => [t.id, t]));
@@ -87,7 +94,6 @@ export async function listCatalogs(
 
   let query = supabase.from("catalogs").select("*");
 
-  const scope = params.scope ?? "active";
   if (scope === "active") query = query.is("deleted_at", null);
   else if (scope === "deleted")
     query = query.not("deleted_at", "is", null);

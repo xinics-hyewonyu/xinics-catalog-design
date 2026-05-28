@@ -9,6 +9,7 @@ import {
   useTransition,
 } from "react";
 import { Search } from "lucide-react";
+import { useIsAllowed } from "@/components/providers/access-provider";
 import { Input } from "@/components/xds/input";
 import {
   Select,
@@ -32,6 +33,10 @@ const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: "customer", label: "고객명 가나다순" },
 ];
 
+// Mirrors DEFAULT_SITE_SLUGS in app/page.tsx — the preset applied when the
+// URL has no `site` param. A present-but-empty `site=` means cleared.
+const DEFAULT_SITE_SLUGS = ["basic", "open_campus"];
+
 interface Props {
   proposalTypes: ProposalType[];
   siteTypes: SiteType[];
@@ -41,16 +46,18 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
   const router = useRouter();
   const search = useSearchParams();
   const [, startTransition] = useTransition();
+  const isAllowed = useIsAllowed();
 
   const initialQ = search.get("q") ?? "";
   const selectedProposal = useMemo(
     () => new Set((search.get("proposal") ?? "").split(",").filter(Boolean)),
     [search],
   );
-  const selectedSite = useMemo(
-    () => new Set((search.get("site") ?? "").split(",").filter(Boolean)),
-    [search],
-  );
+  const selectedSite = useMemo(() => {
+    const raw = search.get("site");
+    if (raw === null) return new Set(DEFAULT_SITE_SLUGS);
+    return new Set(raw.split(",").filter(Boolean));
+  }, [search]);
   const sort = (search.get("sort") as SortKey) ?? "newest";
 
   const [qInput, setQInput] = useState(initialQ);
@@ -86,13 +93,25 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
 
   function toggleSetParam(key: "proposal" | "site", id: string) {
     setParam((p) => {
-      const current = new Set(
-        (p.get(key) ?? "").split(",").filter(Boolean),
-      );
+      // For `site`, an absent param means the default preset is active —
+      // seed `current` from the preset so toggling off a default chip
+      // doesn't accidentally re-add the others.
+      const raw = p.get(key);
+      const current =
+        key === "site" && raw === null
+          ? new Set(DEFAULT_SITE_SLUGS)
+          : new Set((raw ?? "").split(",").filter(Boolean));
       if (current.has(id)) current.delete(id);
       else current.add(id);
-      if (current.size === 0) p.delete(key);
-      else p.set(key, Array.from(current).join(","));
+      if (key === "site") {
+        // Always write explicitly once the user has touched the filter so
+        // an empty selection stays empty (rather than reverting to default).
+        p.set("site", Array.from(current).join(","));
+      } else if (current.size === 0) {
+        p.delete(key);
+      } else {
+        p.set(key, Array.from(current).join(","));
+      }
     });
   }
 
@@ -148,12 +167,14 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
       </div>
 
       <div className="flex flex-wrap items-center gap-x-xl gap-y-sm">
-        <FilterRow
-          legend="시안 종류"
-          options={proposalTypes}
-          selected={selectedProposal}
-          onToggle={(id) => toggleSetParam("proposal", id)}
-        />
+        {isAllowed ? (
+          <FilterRow
+            legend="시안 종류"
+            options={proposalTypes}
+            selected={selectedProposal}
+            onToggle={(id) => toggleSetParam("proposal", id)}
+          />
+        ) : null}
         <FilterRow
           legend="사이트 종류"
           options={siteTypes}

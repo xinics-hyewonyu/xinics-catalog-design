@@ -57,6 +57,7 @@ export function CatalogUploadDialog({
   const [filePath, setFilePath] = useState("");
   const [catalogUrl, setCatalogUrl] = useState("");
   const [memo, setMemo] = useState("");
+  const [authorName, setAuthorName] = useState("");
 
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [pending, startTransition] = useTransition();
@@ -74,6 +75,7 @@ export function CatalogUploadDialog({
     setFilePath("");
     setCatalogUrl("");
     setMemo("");
+    setAuthorName("");
     setErrors({});
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
@@ -113,6 +115,7 @@ export function CatalogUploadDialog({
     fd.set("file_path", filePath);
     fd.set("catalog_url", catalogUrl);
     fd.set("memo", memo);
+    fd.set("author_name", authorName);
 
     startTransition(async () => {
       const result = await uploadCatalog(fd);
@@ -303,6 +306,21 @@ export function CatalogUploadDialog({
                   value={catalogUrl}
                   onChange={(e) => setCatalogUrl(e.target.value)}
                   placeholder="https://catalog.example.com/..."
+                />
+              </FieldRow>
+
+              {/* Author */}
+              <FieldRow
+                label="작성자"
+                htmlFor="up-author"
+                hint="비워두면 '자이닉스'로 표시됩니다"
+                error={errors.author_name?.[0]}
+              >
+                <Input
+                  id="up-author"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
+                  placeholder="예: 유혜원"
                 />
               </FieldRow>
 

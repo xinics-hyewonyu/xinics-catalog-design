@@ -37,6 +37,11 @@ const schema = z.object({
       "http(s):// 로 시작하는 주소여야 합니다",
     ),
   memo: z.string().optional().or(z.literal("")),
+  author_name: z.string().optional().or(z.literal("")),
+  // YYYY-MM-DD in Asia/Seoul. Converted to a KST-midnight timestamptz below.
+  created_at_date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "YYYY-MM-DD 형식이어야 합니다"),
 });
 
 export type UpdateResult =
@@ -58,9 +63,16 @@ const TRACKED_FIELDS = [
   "file_path",
   "catalog_url",
   "memo",
+  "author_name",
   "image_url",
+  "created_at",
 ] as const;
 type Tracked = (typeof TRACKED_FIELDS)[number];
+
+/** Same locale trick as the client: en-CA → YYYY-MM-DD. */
+function isoToKstDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
+}
 
 export async function updateCatalogAction(
   formData: FormData,
@@ -84,6 +96,9 @@ export async function updateCatalogAction(
     file_path: formData.get("file_path") ?? "",
     catalog_url: formData.get("catalog_url") ?? "",
     memo: formData.get("memo") ?? "",
+    author_name: formData.get("author_name") ?? "",
+    created_at_date:
+      formData.get("created_at_date") ?? isoToKstDate(current.created_at),
   });
 
   if (!parsed.success) {
@@ -137,6 +152,14 @@ export async function updateCatalogAction(
     }
   }
 
+  // If the user picked a new date, store it as KST-midnight; otherwise keep
+  // the exact existing timestamp so we don't drop sub-day precision (e.g.
+  // backfilled Jira resolutiondates).
+  const nextCreatedAt =
+    parsed.data.created_at_date === isoToKstDate(current.created_at)
+      ? current.created_at
+      : `${parsed.data.created_at_date}T00:00:00+09:00`;
+
   const nextPatch = {
     site_name: parsed.data.site_name,
     customer_name: parsed.data.customer_name,
@@ -146,8 +169,10 @@ export async function updateCatalogAction(
     file_path: nullish(parsed.data.file_path ?? null),
     catalog_url: nullish(parsed.data.catalog_url ?? null),
     memo: nullish(parsed.data.memo ?? null),
+    author_name: nullish(parsed.data.author_name ?? null),
     image_url: nextImageUrl,
     thumbnail_url: nextImageUrl,
+    created_at: nextCreatedAt,
   };
 
   // Compute diff against tracked fields.
