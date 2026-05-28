@@ -40,7 +40,7 @@ export function AddIpForm({ currentIp }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-md rounded-md border border-border-default bg-surface-default p-md"
+      className="flex flex-col gap-md rounded-md border border-border-default bg-white p-md"
     >
       <div className="grid gap-md sm:grid-cols-[2fr_3fr_auto] sm:items-end">
         <div className="flex flex-col gap-xs">

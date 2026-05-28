@@ -64,24 +64,21 @@ export default async function AdminPage() {
 
       <nav>
         <ul className="flex flex-col gap-sm">
-          <li>
-            <Link
-              href="/admin/allowed-ips"
-              className="flex items-center justify-between rounded-md border border-border-default bg-surface-default p-md transition-colors hover:bg-surface-muted"
-            >
-              <span className="flex flex-col gap-xxs">
-                <span className="font-medium text-text-body">
-                  허용 IP 관리
-                </span>
-                <span className="text-xs text-text-caption">
-                  내부 모드를 자동으로 받는 IP 목록을 관리합니다.
-                </span>
-              </span>
-              <span aria-hidden className="text-text-caption">
-                →
-              </span>
-            </Link>
-          </li>
+          <AdminMenuItem
+            href="/admin/proposal-types"
+            title="시안 종류 관리"
+            description="1차 / 2차 / 최종 같은 시안 분류를 추가·수정합니다."
+          />
+          <AdminMenuItem
+            href="/admin/site-types"
+            title="사이트 종류 관리"
+            description="기본 / 오픈캠퍼스 / CMS 등 사이트 분류를 관리합니다."
+          />
+          <AdminMenuItem
+            href="/admin/allowed-ips"
+            title="허용 IP 관리"
+            description="내부 모드를 자동으로 받는 IP 목록을 관리합니다."
+          />
         </ul>
       </nav>
 
@@ -91,5 +88,32 @@ export default async function AdminPage() {
         </div>
       ) : null}
     </main>
+  );
+}
+
+function AdminMenuItem({
+  href,
+  title,
+  description,
+}: {
+  href: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <li>
+      <Link
+        href={href}
+        className="flex items-center justify-between rounded-md border border-border-default bg-white p-md transition-colors hover:bg-surface-muted"
+      >
+        <span className="flex flex-col gap-xxs">
+          <span className="font-medium text-text-body">{title}</span>
+          <span className="text-xs text-text-caption">{description}</span>
+        </span>
+        <span aria-hidden className="text-text-caption">
+          →
+        </span>
+      </Link>
+    </li>
   );
 }
