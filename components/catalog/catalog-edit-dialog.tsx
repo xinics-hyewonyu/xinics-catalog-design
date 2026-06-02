@@ -155,7 +155,7 @@ export function CatalogEditDialog({
     <Modal open={open} onOpenChange={handleOpenChange}>
       <ModalContent size="lg">
         <ModalHeader>
-          <ModalTitle>카탈로그 수정</ModalTitle>
+          <ModalTitle>디자인 수정</ModalTitle>
           <ModalDescription>
             변경한 내용은 수정 로그에 기록됩니다.
           </ModalDescription>
@@ -293,7 +293,7 @@ export function CatalogEditDialog({
               <FieldRow
                 label="게시일"
                 htmlFor="edit-created-at"
-                hint="카탈로그 페이지가 처음 공개된 날짜 (KST)"
+                hint="디자인이 처음 공개된 날짜 (KST)"
                 error={errors.created_at_date?.[0]}
               >
                 <Input
@@ -333,9 +333,9 @@ export function CatalogEditDialog({
               </FieldRow>
 
               <FieldRow
-                label="카탈로그 주소"
+                label="디자인 주소"
                 htmlFor="edit-catalog-url"
-                hint="공개된 카탈로그 페이지 URL"
+                hint="공개된 디자인 페이지 URL"
                 error={errors.catalog_url?.[0]}
               >
                 <Input

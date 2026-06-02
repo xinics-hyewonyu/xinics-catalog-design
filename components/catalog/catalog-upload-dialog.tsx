@@ -120,7 +120,7 @@ export function CatalogUploadDialog({
     startTransition(async () => {
       const result = await uploadCatalog(fd);
       if (result.ok) {
-        toast.success("카탈로그가 등록되었습니다");
+        toast.success("디자인이 등록되었습니다");
         router.refresh();
         reset();
         onOpenChange(false);
@@ -141,7 +141,7 @@ export function CatalogUploadDialog({
     <Modal open={open} onOpenChange={handleOpenChange}>
       <ModalContent size="lg">
         <ModalHeader>
-          <ModalTitle>새 카탈로그 등록</ModalTitle>
+          <ModalTitle>디자인 등록</ModalTitle>
           <ModalDescription>
             이미지와 분류 정보를 입력해주세요. <span className="text-error">*</span>{" "}
             표시는 필수.
@@ -216,7 +216,7 @@ export function CatalogUploadDialog({
                   id="up-site-name"
                   value={siteName}
                   onChange={(e) => setSiteName(e.target.value)}
-                  placeholder="예: 한양대학교 입학처 2026 카탈로그"
+                  placeholder="예: 한양대학교 입학처 2026 디자인"
                 />
               </FieldRow>
 
@@ -295,9 +295,9 @@ export function CatalogUploadDialog({
 
               {/* Catalog URL */}
               <FieldRow
-                label="카탈로그 주소"
+                label="디자인 주소"
                 htmlFor="up-catalog-url"
-                hint="공개된 카탈로그 페이지 URL"
+                hint="공개된 디자인 페이지 URL"
                 error={errors.catalog_url?.[0]}
               >
                 <Input

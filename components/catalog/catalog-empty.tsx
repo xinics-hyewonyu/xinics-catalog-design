@@ -10,7 +10,7 @@ export function CatalogEmpty({ filtered }: Props) {
       <Inbox aria-hidden className="size-10 text-text-disabled" />
       <div className="flex flex-col gap-xs">
         <h2 className="text-md font-semibold text-text-heading">
-          {filtered ? "조건에 맞는 카탈로그가 없습니다" : "등록된 카탈로그가 없습니다"}
+          {filtered ? "조건에 맞는 디자인이 없습니다" : "등록된 디자인이 없습니다"}
         </h2>
         <p className="text-sm text-text-caption">
           {filtered

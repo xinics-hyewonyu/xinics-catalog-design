@@ -25,7 +25,7 @@ export default async function SiteTypesPage() {
           사이트 종류 관리
         </h1>
         <p className="text-sm text-text-caption">
-          기본 사이트 / 오픈캠퍼스 / CMS 등 카탈로그의 사이트 분류를
+          기본 사이트 / 오픈캠퍼스 / CMS 등 디자인의 사이트 분류를
           관리합니다.
         </p>
       </header>

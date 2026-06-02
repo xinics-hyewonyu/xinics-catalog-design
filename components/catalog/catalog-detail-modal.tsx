@@ -71,7 +71,7 @@ const FIELD_LABELS: Record<string, string> = {
   site_type_id: "사이트 종류",
   design_tool: "디자인 툴",
   file_path: "파일 경로",
-  catalog_url: "카탈로그 주소",
+  catalog_url: "디자인 주소",
   memo: "메모",
   author_name: "작성자",
   image_url: "이미지",
@@ -203,8 +203,8 @@ export function CatalogDetailModal({
           open={deleteOpen}
           onOpenChange={setDeleteOpen}
           confirmText={catalog.customer_name}
-          title="이 카탈로그를 삭제하시겠습니까?"
-          description="삭제된 카탈로그는 30일간 휴지통에 보관되며, 그 후 영구 삭제됩니다."
+          title="이 디자인을 삭제하시겠습니까?"
+          description="삭제된 디자인은 30일간 휴지통에 보관되며, 그 후 영구 삭제됩니다."
           confirmLabel="삭제"
           hint="삭제 후 토스트의 '실행 취소'로 5초 내 되돌릴 수 있어요."
           onConfirm={handleConfirmedDelete}
@@ -339,7 +339,7 @@ function ContentShell({
               ) : null}
 
               {c.catalog_url ? (
-                <InfoRow label="카탈로그 주소">
+                <InfoRow label="디자인 주소">
                   <Link
                     href={c.catalog_url}
                     target="_blank"

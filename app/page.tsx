@@ -172,7 +172,7 @@ export default async function Home({
         <CatalogEmpty filtered={filtered} />
       ) : (
         <section
-          aria-label="카탈로그 목록"
+          aria-label="디자인 목록"
           className="grid grid-cols-1 gap-x-md gap-y-lg sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
           {catalogs.map((c) => (

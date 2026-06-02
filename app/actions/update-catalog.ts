@@ -84,7 +84,7 @@ export async function updateCatalogAction(
 
   const current = await getCatalog(catalogId);
   if (!current) {
-    return { ok: false, error: "이미 삭제된 카탈로그예요" };
+    return { ok: false, error: "이미 삭제된 디자인이에요" };
   }
 
   const parsed = schema.safeParse({

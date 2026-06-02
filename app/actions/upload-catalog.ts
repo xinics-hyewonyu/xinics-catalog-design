@@ -127,7 +127,7 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
       .catch(() => {});
     return {
       ok: false,
-      error: `카탈로그 저장에 실패했어요: ${
+      error: `디자인 저장에 실패했어요: ${
         err instanceof Error ? err.message : String(err)
       }`,
     };

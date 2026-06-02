@@ -22,7 +22,7 @@ export default async function TrashPage() {
             className="inline-flex items-center gap-xxs text-xs text-text-caption hover:text-text-body"
           >
             <ArrowLeft aria-hidden className="size-3" />
-            카탈로그로 돌아가기
+            디자인으로 돌아가기
           </Link>
           <h1 className="inline-flex items-center gap-xs text-xxl font-semibold text-text-heading">
             <Trash2 aria-hidden className="size-5" />
@@ -43,13 +43,13 @@ export default async function TrashPage() {
               휴지통이 비어 있습니다
             </h2>
             <p className="text-sm text-text-caption">
-              삭제한 카탈로그가 여기에 30일간 보관됩니다.
+              삭제한 디자인이 여기에 30일간 보관됩니다.
             </p>
           </div>
         </div>
       ) : (
         <section
-          aria-label="휴지통 카탈로그"
+          aria-label="휴지통 디자인"
           className="grid grid-cols-1 gap-x-md gap-y-lg sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
           {catalogs.map((c) => (

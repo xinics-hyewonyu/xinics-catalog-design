@@ -24,7 +24,7 @@ export async function softDeleteCatalogAction(
   catalogId: string,
 ): Promise<ActionResult> {
   const current = await getCatalog(catalogId);
-  if (!current) return { ok: false, error: "이미 삭제된 카탈로그예요" };
+  if (!current) return { ok: false, error: "이미 삭제된 디자인이에요" };
   if (current.deleted_at) {
     return { ok: false, error: "이미 휴지통에 있어요" };
   }
@@ -76,7 +76,7 @@ export async function hardDeleteCatalogAction(
   catalogId: string,
 ): Promise<ActionResult> {
   const current = await getCatalog(catalogId);
-  if (!current) return { ok: false, error: "이미 삭제된 카탈로그예요" };
+  if (!current) return { ok: false, error: "이미 삭제된 디자인이에요" };
 
   const admin = getAdminClient();
 

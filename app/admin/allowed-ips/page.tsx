@@ -29,7 +29,7 @@ export default async function AllowedIpsPage() {
           허용 IP 관리
         </h1>
         <p className="text-sm text-text-caption">
-          여기에 등록된 IP에서만 카탈로그 편집·삭제와 어드민 페이지 접근이
+          여기에 등록된 IP에서만 디자인 편집·삭제와 어드민 페이지 접근이
           가능합니다. 그 외 사용자는 최종 시안만 읽기 전용으로 볼 수 있습니다.
         </p>
       </header>

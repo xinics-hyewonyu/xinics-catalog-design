@@ -122,7 +122,7 @@ export async function deleteCatalogTypeAction(
       return {
         ok: false,
         error:
-          "이 분류를 사용 중인 카탈로그가 있어 삭제할 수 없습니다. 비활성으로 숨기세요.",
+          "이 분류를 사용 중인 디자인이 있어 삭제할 수 없습니다. 비활성으로 숨기세요.",
       };
     }
     return { ok: false, error: `삭제 실패: ${msg}` };

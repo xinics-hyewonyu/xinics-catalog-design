@@ -106,7 +106,7 @@ export function TrashCard({ catalog }: Props) {
         onOpenChange={setPermOpen}
         confirmText={catalog.customer_name}
         title="영구 삭제 — 되돌릴 수 없어요"
-        description={`'${catalog.site_name}'을(를) 영구 삭제합니다. 카탈로그 row와 Storage 이미지 + 수정 로그가 모두 함께 사라집니다.`}
+        description={`'${catalog.site_name}'을(를) 영구 삭제합니다. 디자인 데이터와 이미지 + 수정 로그가 모두 함께 사라집니다.`}
         confirmLabel="영구 삭제"
         onConfirm={handlePermanentDelete}
       />

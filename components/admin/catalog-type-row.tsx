@@ -73,7 +73,7 @@ export function CatalogTypeRow({ kind, item }: Props) {
   function handleDelete() {
     if (
       !confirm(
-        `'${item.name}' (${item.slug}) 분류를 삭제하시겠습니까?\n사용 중인 카탈로그가 있으면 삭제할 수 없으니, 그 경우엔 비활성으로 숨기세요.`,
+        `'${item.name}' (${item.slug}) 분류를 삭제하시겠습니까?\n사용 중인 디자인이 있으면 삭제할 수 없으니, 그 경우엔 비활성으로 숨기세요.`,
       )
     )
       return;
