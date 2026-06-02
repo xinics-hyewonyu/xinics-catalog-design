@@ -6,12 +6,17 @@ import type { CatalogWithLabels } from "@/lib/data/catalogs";
 
 interface Props {
   catalog: CatalogWithLabels;
+  /** Current URL query string (without leading `?`) to preserve while opening the detail modal. */
+  baseQuery?: string;
 }
 
-export function CatalogCard({ catalog }: Props) {
+export function CatalogCard({ catalog, baseQuery }: Props) {
+  const params = new URLSearchParams(baseQuery ?? "");
+  params.set("catalog", catalog.id);
+  const href = `/?${params.toString()}`;
   return (
     <Link
-      href={`/?catalog=${catalog.id}`}
+      href={href}
       scroll={false}
       aria-label={`${catalog.site_name} (${catalog.customer_name}) 상세 보기`}
       className="block h-full focus-visible:outline-none"

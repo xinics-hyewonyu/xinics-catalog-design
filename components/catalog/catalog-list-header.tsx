@@ -5,10 +5,11 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   useTransition,
 } from "react";
-import { Search } from "lucide-react";
+import { RotateCcw, Search } from "lucide-react";
 import { useIsAllowed } from "@/components/providers/access-provider";
 import { Input } from "@/components/xds/input";
 import {
@@ -61,9 +62,15 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
   const sort = (search.get("sort") as SortKey) ?? "newest";
 
   const [qInput, setQInput] = useState(initialQ);
+  // The last value we either *wrote* to the URL or *read* from it. This lets
+  // us tell user-typing apart from a URL roundtrip: when initialQ catches up
+  // to a value we just wrote, we don't clobber qInput; when it changes to
+  // something we didn't write (back/forward, reset button), we re-sync.
+  const lastSyncedQ = useRef(initialQ);
 
-  // Keep input synced if URL changes from outside (e.g. back/forward).
   useEffect(() => {
+    if (initialQ === lastSyncedQ.current) return;
+    lastSyncedQ.current = initialQ;
     setQInput(initialQ);
   }, [initialQ]);
 
@@ -81,15 +88,16 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
 
   // Debounce search input -> URL
   useEffect(() => {
-    if (qInput === initialQ) return;
+    if (qInput === lastSyncedQ.current) return;
     const t = setTimeout(() => {
+      lastSyncedQ.current = qInput;
       setParam((p) => {
         if (qInput) p.set("q", qInput);
         else p.delete("q");
       });
     }, 250);
     return () => clearTimeout(t);
-  }, [qInput, initialQ, setParam]);
+  }, [qInput, setParam]);
 
   function toggleSetParam(key: "proposal" | "site", id: string) {
     setParam((p) => {
@@ -121,6 +129,29 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
       else p.set("sort", value);
     });
   }
+
+  // Reset filters/search/sort but keep an open detail modal (catalog param) intact.
+  function resetFilters() {
+    lastSyncedQ.current = "";
+    setQInput("");
+    const next = new URLSearchParams();
+    const cat = search.get("catalog");
+    if (cat) next.set("catalog", cat);
+    const qs = next.toString();
+    startTransition(() => {
+      router.replace(qs ? `/?${qs}` : "/", { scroll: false });
+    });
+  }
+
+  // The site filter is considered "default" when the URL has no `site` param.
+  // A present-but-different value (including empty) counts as a user change.
+  const siteParam = search.get("site");
+  const siteIsDefault = siteParam === null;
+  const hasActiveFilter =
+    qInput.length > 0 ||
+    selectedProposal.size > 0 ||
+    !siteIsDefault ||
+    sort !== "newest";
 
   return (
     <section className="flex flex-col gap-md">
@@ -181,6 +212,16 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
           selected={selectedSite}
           onToggle={(id) => toggleSetParam("site", id)}
         />
+        {hasActiveFilter ? (
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="ml-auto inline-flex shrink-0 cursor-pointer items-center gap-xxs rounded-md px-xs py-xxs text-xs text-text-caption transition-colors hover:bg-surface-muted hover:text-text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] motion-reduce:transition-none"
+          >
+            <RotateCcw aria-hidden className="size-3.5" />
+            초기화
+          </button>
+        ) : null}
       </div>
     </section>
   );

@@ -135,6 +135,15 @@ export default async function Home({
   const filtered =
     Boolean(q) || proposalSlugs.length > 0 || siteSlugs.length > 0;
 
+  // Query string carried into each card's link so clicking a card preserves
+  // the user's current search / filter / sort instead of resetting.
+  const baseQueryParams = new URLSearchParams();
+  if (q) baseQueryParams.set("q", q);
+  if (params.proposal) baseQueryParams.set("proposal", params.proposal);
+  if (params.site !== undefined) baseQueryParams.set("site", params.site);
+  if (params.sort) baseQueryParams.set("sort", params.sort);
+  const baseQuery = baseQueryParams.toString();
+
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-lg p-md sm:p-xl">
       <header className="flex flex-col gap-xs sm:flex-row sm:items-center sm:justify-between">
@@ -176,7 +185,7 @@ export default async function Home({
           className="grid grid-cols-1 gap-x-md gap-y-lg sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
           {catalogs.map((c) => (
-            <CatalogCard key={c.id} catalog={c} />
+            <CatalogCard key={c.id} catalog={c} baseQuery={baseQuery} />
           ))}
         </section>
       )}
