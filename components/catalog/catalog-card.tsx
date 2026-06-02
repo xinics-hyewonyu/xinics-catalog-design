@@ -23,7 +23,7 @@ export function CatalogCard({ catalog }: Props) {
             alt=""
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+            className="object-cover object-top transition-[object-position] duration-[2500ms] ease-linear group-hover:object-bottom motion-reduce:transition-none motion-reduce:group-hover:object-top"
           />
           {(catalog.proposal_type || catalog.site_type) && (
             <div className="pointer-events-none absolute bottom-xs right-xs flex flex-wrap gap-xs">
