@@ -1,0 +1,238 @@
+[
+  {
+    "reason": "한 catalog에 HIGH 매칭 여러 개 (버전 구분 불가)",
+    "catalog": {
+      "id": "ebf1d154-8ee1-467d-8c4e-650faac72501",
+      "customer": "카이스트",
+      "site": "KAIST Online"
+    },
+    "candidates": [
+      {
+        "figma_idx": 2,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "카이스트 Online-게시판 탭",
+        "figma_category": "기타/메인",
+        "figma_url": "https://www.figma.com/design/H2LNjec1qIkMjqlj3IJagM/"
+      },
+      {
+        "figma_idx": 13,
+        "confidence": "MED",
+        "score": 115,
+        "figma_filename": "OG-img_KAIST",
+        "figma_category": "OG/대표이미지",
+        "figma_url": "https://www.figma.com/design/ebUhNBU1QBtOj9jg2lr3CC/"
+      },
+      {
+        "figma_idx": 25,
+        "confidence": "MED",
+        "score": 115,
+        "figma_filename": "KAIST-라이선스",
+        "figma_category": "기타/메인",
+        "figma_url": "https://www.figma.com/design/NRcFJyqUtJbJEixpMMi3Yc/"
+      },
+      {
+        "figma_idx": 32,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "KAIST-Online_로그인",
+        "figma_category": "로그인",
+        "figma_url": "https://www.figma.com/design/5ZYb6L1BDyZMlx9R3rcGNC/"
+      },
+      {
+        "figma_idx": 53,
+        "confidence": "MED",
+        "score": 100,
+        "figma_filename": "[고객 검토용] 카이스트 로그인",
+        "figma_category": "로그인",
+        "figma_url": "https://www.figma.com/design/ScuAalDek5LZxiQQ3CBPAx/"
+      }
+    ]
+  },
+  {
+    "reason": "한 catalog에 HIGH 매칭 여러 개 (버전 구분 불가)",
+    "catalog": {
+      "id": "4410879e-1635-406a-a797-a5b65650dec9",
+      "customer": "청주교육대학교",
+      "site": "청주교육대학교"
+    },
+    "candidates": [
+      {
+        "figma_idx": 20,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "청주교대_LMS",
+        "figma_category": "LMS",
+        "figma_url": "https://www.figma.com/design/dk1cTdSH7wwhAKbUZi1uzY/"
+      },
+      {
+        "figma_idx": 30,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "청주교육대학교 원격연수시스템_로그인",
+        "figma_category": "로그인",
+        "figma_url": "https://www.figma.com/design/vustF8y9qkuyo2jYoaeAvv/"
+      },
+      {
+        "figma_idx": 31,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "청주교대_로그인",
+        "figma_category": "로그인",
+        "figma_url": "https://www.figma.com/design/Pemm2cVyTfe4DZa4ne55zF/"
+      },
+      {
+        "figma_idx": 60,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "청주교육대학교",
+        "figma_category": "기타/메인",
+        "figma_url": "https://www.figma.com/design/vBZWVOLlSNvLTUkdg5WasP/"
+      }
+    ]
+  },
+  {
+    "reason": "한 catalog에 HIGH 매칭 여러 개 (버전 구분 불가)",
+    "catalog": {
+      "id": "ceeef613-f13b-4de6-98d2-7c0f73612283",
+      "customer": "경성대학교",
+      "site": "경성대학교 오픈캠퍼스"
+    },
+    "candidates": [
+      {
+        "figma_idx": 37,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "경성대학교-오픈캠퍼스_로그인",
+        "figma_category": "로그인",
+        "figma_url": "https://www.figma.com/design/V32iw5M2hQOJHyL3Kp0ZZo/"
+      },
+      {
+        "figma_idx": 45,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "경성대학교-오픈캠퍼스_로그인 (복사)",
+        "figma_category": "로그인",
+        "figma_url": "https://www.figma.com/design/MltCcwqNSCOrTbEHA4y8X9/"
+      },
+      {
+        "figma_idx": 75,
+        "confidence": "MED",
+        "score": 115,
+        "figma_filename": "경성대학교",
+        "figma_category": "기타/메인",
+        "figma_url": "https://www.figma.com/design/xEEJN22hNkZ0eIT6LHXhii/"
+      }
+    ]
+  },
+  {
+    "reason": "한 catalog에 HIGH 매칭 여러 개 (버전 구분 불가)",
+    "catalog": {
+      "id": "2071f227-35d8-434a-b826-736775c80b23",
+      "customer": "선문대학교",
+      "site": "선문대학교"
+    },
+    "candidates": [
+      {
+        "figma_idx": 39,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "선문대학교 오픈캠퍼스_로그인",
+        "figma_category": "로그인",
+        "figma_url": "https://www.figma.com/design/iN85h1OAkZTGxg2nFBMr5m/"
+      },
+      {
+        "figma_idx": 40,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "선문대학교_로그인",
+        "figma_category": "로그인",
+        "figma_url": "https://www.figma.com/design/cbduhcRZNmV4h7P6aC4b6Y/"
+      },
+      {
+        "figma_idx": 48,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "선문대학교_commons_로그인",
+        "figma_category": "로그인",
+        "figma_url": "https://www.figma.com/design/KZKdzITJ2hUOC15aoRSV93/"
+      },
+      {
+        "figma_idx": 77,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "선문대학교_시안",
+        "figma_category": "기타/메인",
+        "figma_url": "https://www.figma.com/design/FkgOXubYEmtdISQZFw72dt/"
+      }
+    ]
+  },
+  {
+    "reason": "한 catalog에 HIGH 매칭 여러 개 (버전 구분 불가)",
+    "catalog": {
+      "id": "ad575234-3464-4840-803f-c815f36027a8",
+      "customer": "카이스트",
+      "site": "STAR-MOOC"
+    },
+    "candidates": [
+      {
+        "figma_idx": 43,
+        "confidence": "HIGH",
+        "score": 200,
+        "figma_filename": "KAIST-STARMOOC",
+        "figma_category": "MOOC",
+        "figma_url": "https://www.figma.com/design/hhG7TqKxQA42CtDcR7pp51/"
+      },
+      {
+        "figma_idx": 72,
+        "confidence": "HIGH",
+        "score": 200,
+        "figma_filename": "KAIST_STAR-MOOC_v2.1_20240805",
+        "figma_category": "MOOC",
+        "figma_url": "https://www.figma.com/design/Xdv5Rv8RbiWpthpJwDMVYY/"
+      },
+      {
+        "figma_idx": 91,
+        "confidence": "HIGH",
+        "score": 200,
+        "figma_filename": "KAIST_Star-mooc_20240719",
+        "figma_category": "MOOC",
+        "figma_url": "https://www.figma.com/design/93lYcBT9VFAaDy0lixz0w5/"
+      },
+      {
+        "figma_idx": 94,
+        "confidence": "MED",
+        "score": 100,
+        "figma_filename": "starmooc",
+        "figma_category": "MOOC",
+        "figma_url": "https://www.figma.com/design/UKUr0aeyeWq6fipkHkskPB/"
+      }
+    ]
+  },
+  {
+    "reason": "한 catalog에 HIGH 매칭 여러 개 (버전 구분 불가)",
+    "catalog": {
+      "id": "cb14fa86-68cb-4c11-8d59-6c2d150f6da8",
+      "customer": "대구교육대학교",
+      "site": "대구교육대학교"
+    },
+    "candidates": [
+      {
+        "figma_idx": 58,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "대구교대 원격연수원-서브페이지수정_20240611",
+        "figma_category": "서브페이지",
+        "figma_url": "https://www.figma.com/design/IzBw4PnjdGAuUcnafaWPVL/"
+      },
+      {
+        "figma_idx": 71,
+        "confidence": "HIGH",
+        "score": 180,
+        "figma_filename": "대구교대 원격연수원_20240718",
+        "figma_category": "기타/메인",
+        "figma_url": "https://www.figma.com/design/WyjcoduPQqigPCrRXh7VZP/"
+      }
+    ]
+  }
+]

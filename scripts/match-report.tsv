@@ -1,0 +1,97 @@
+idx	confidence	score	figma_filename	figma_category	match_customer	match_site	reasons	note	figma_url	catalog_id
+1	MED	100	한국에너지공과대-비교과시안	기타/메인	한국에너지공과대학교	KENTECH LMS Catalog	customer "한국에너지공과대학교" in filename		https://www.figma.com/design/sRO7oy71DkbB1zD98zXdCT/	a7a464f0-f446-418d-9927-9e39e3ae3c5b
+2	HIGH	180	카이스트 Online-게시판 탭	기타/메인	카이스트	KAIST Online	customer "카이스트" in filename; site "KAIST Online" in filename		https://www.figma.com/design/H2LNjec1qIkMjqlj3IJagM/	ebf1d154-8ee1-467d-8c4e-650faac72501
+3	NONE	0	favicon	파비콘					https://www.figma.com/design/gPvjnHK01CV1sqxfgoyIkB/	
+4	MED	115	서울대 eTL_슬라이드_20240304	슬라이드/이미지	서울대학교	서울대학교 New eTL	customer "서울대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/f1IXktLcy7S5cpianIVUzn/	a719ab3d-3e7f-4a45-a29e-bbbe1ed7e01e
+5	MED	100	광운대 원격교육지원센터	기타/메인	광운대학교	KWMOOC	customer "광운대학교" in filename	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/tW0QMLYgrHDYschcDvdMUD/	70453af0-67d3-451a-9a17-9e6c2807d839
+6	MED	115	동아대학교_학습동행	기타/메인	동아대학교	동아대학교 LMS	customer "동아대학교" in filename; 1 site-token hit(s)		https://www.figma.com/design/8OskCiR2t7kuqFiQ2HinX3/	99c0d1ee-14f1-4038-ab65-ada195df8dee
+7	MED	100	마산대_아이콘	아이콘	마산대학교	마산대학교 LMS	customer "마산대학교" in filename		https://www.figma.com/design/BzRhdbnYKk4saO8IoYEVVh/	2898e783-f408-4079-a61f-6d5fda86864b
+8	HIGH	180	성균관대_반도체소부장-배지	배지	반도체소부장	반도체소부장 혁신융합대학	customer "반도체소부장" in filename; site "반도체소부장 혁신융합대학" in filename		https://www.figma.com/design/6Tph2u5QNv0fA1R0GAmOpX/	48b8cb1c-2952-4d9e-a7d3-10bf18a77453
+9	MED	115	서정대학교 슬라이드 수정 가이드	슬라이드/이미지	서정대학교	서정대학교 LMS	customer "서정대학교" in filename; 1 site-token hit(s)		https://www.figma.com/design/Ty9FQ1xM98EPmHWIFfYCs0/	c3fc8cfb-a7b1-45ff-a12a-82d45ff19dee
+10	MED	100	충북PRIDE-OG이미지	OG/대표이미지	충북PRIDE공유대학	충북권역 대학원격 교육지원센터	customer "충북PRIDE공유대학" in filename	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/GujbhJ3JvRDPlup3UMQgW8/	8c280666-68e2-4458-9aa3-d4d0a83b531c
+11	MED	100	서정대 로고	로고	서정대학교	서정대학교 LMS	customer "서정대학교" in filename		https://www.figma.com/design/S2URxAnjc4TmmQaRfPreEK/	c3fc8cfb-a7b1-45ff-a12a-82d45ff19dee
+12	MED	100	광운대 로고	로고	광운대학교	KWMOOC	customer "광운대학교" in filename	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/z5izeDD7gNRzspFiFWFZqR/	70453af0-67d3-451a-9a17-9e6c2807d839
+13	MED	115	OG-img_KAIST	OG/대표이미지	카이스트	KAIST Online	customer "카이스트" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/ebUhNBU1QBtOj9jg2lr3CC/	ebf1d154-8ee1-467d-8c4e-650faac72501
+14	MED	100	충북PRIDE공유대학 로고	로고	충북PRIDE공유대학	충북권역 대학원격 교육지원센터	customer "충북PRIDE공유대학" in filename	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/SnJAV0AOxc5F8YqmBpvuTj/	8c280666-68e2-4458-9aa3-d4d0a83b531c
+15	NONE	0	ai-chat-floating-icon	아이콘					https://www.figma.com/design/bBhBZV5tkZSdJrqlpMYsOG/	
+16	MED	115	단국대학교 뱃지 2026	배지	단국대학교	단국대학교 이러닝 캠퍼스	customer "단국대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/aH5SyJcCeNqsF0CDYG0qPc/	f3c8596a-793c-4a5a-9f5e-362503cded82
+17	LOW	80	김해글로컬시민대학	기타/메인	인제대학교	김해글로컬시민대학	site "김해글로컬시민대학" in filename	기존 file_path 있음: https://www.figma.com/design/yWei1FElZNB | 경쟁 후보 점수 80 (애매)	https://www.figma.com/design/fE9X8C9HLABje4Cbu6SqW6/	b2dc949d-2c7a-4e85-9b3c-c5e7373be6cf
+18	NONE	0	경기과학기술대학교	기타/메인					https://www.figma.com/design/zQABDSfTwJ6q5TiqPHwm8a/	
+19	MED	100	한남대학교_Hi-Class_매뉴얼 버튼	기타/메인	한남대학교	HNU MOOC	customer "한남대학교" in filename		https://www.figma.com/design/D0ri3ewcjNJHiWevVCtiFO/	95c1c408-c0cc-4b14-9a72-af6708b01fe3
+20	HIGH	180	청주교대_LMS	LMS	청주교육대학교	청주교육대학교	customer "청주교육대학교" in filename; site "청주교육대학교" in filename		https://www.figma.com/design/dk1cTdSH7wwhAKbUZi1uzY/	4410879e-1635-406a-a797-a5b65650dec9
+21	NONE	0	국립창원대학교	기타/메인					https://www.figma.com/design/AAhPn7lWYs0rqUt6FQ3ZzZ/	
+22	MED	100	경희대 웹 배너_20251107	배너	경희대학교	경희대학교 e-campus	customer "경희대학교" in filename		https://www.figma.com/design/LA4af3Mx3R27tldWulCdmb/	8700fc54-0f1d-4642-b25d-f73cc59ef237
+23	MED	115	성균관대학교_마이페이지	기타/메인	성균관대학교	성균관대학교 아이캠퍼스	customer "성균관대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/A8yWyCknEYftUDooU2UWT6/	58e6c91d-a78f-4621-88b1-38f6c9a7cc35
+24	NONE	0	스튜디오 위치 안내도	기타/메인					https://www.figma.com/design/KLN5uTHWPaRLTXnDC0OgI8/	
+25	MED	115	KAIST-라이선스	기타/메인	카이스트	KAIST Online	customer "카이스트" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/NRcFJyqUtJbJEixpMMi3Yc/	ebf1d154-8ee1-467d-8c4e-650faac72501
+26	NONE	30	AAU 글로컬 연합대학 로고	로고			2 site-token hit(s)		https://www.figma.com/design/RcnoL5H4jA2WSFAor82QiT/	
+27	MED	135	고려대 lms 원격지원	LMS	고려대학교	고려대학교 LMS	customer "고려대학교" in filename; 1 site-token hit(s); category "LMS" ↔ site keyword	기존 file_path 있음: https://www.figma.com/design/JSriwbE7EUp	https://www.figma.com/design/1S10BdM93jl0OD9GuTuJoJ/	308aace8-ea81-465a-8ddb-f27df50fc894
+28	MED	100	충북PRIDE공유대학_hero	OG/대표이미지	충북PRIDE공유대학	충북권역 대학원격 교육지원센터	customer "충북PRIDE공유대학" in filename	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/naKEvxyMJQtkliuHKgFcaX/	8c280666-68e2-4458-9aa3-d4d0a83b531c
+29	MED	100	충청대학교-로그인	로그인	충청대학교	충청대 LMS	customer "충청대학교" in filename		https://www.figma.com/design/0VvTlsbBInCUX2mh534fSS/	cd7a9a77-9917-451f-acc0-ae4700662b7f
+30	HIGH	180	청주교육대학교 원격연수시스템_로그인	로그인	청주교육대학교	청주교육대학교	customer "청주교육대학교" in filename; site "청주교육대학교" in filename		https://www.figma.com/design/vustF8y9qkuyo2jYoaeAvv/	4410879e-1635-406a-a797-a5b65650dec9
+31	HIGH	180	청주교대_로그인	로그인	청주교육대학교	청주교육대학교	customer "청주교육대학교" in filename; site "청주교육대학교" in filename		https://www.figma.com/design/Pemm2cVyTfe4DZa4ne55zF/	4410879e-1635-406a-a797-a5b65650dec9
+32	HIGH	180	KAIST-Online_로그인	로그인	카이스트	KAIST Online	customer "카이스트" in filename; site "KAIST Online" in filename		https://www.figma.com/design/5ZYb6L1BDyZMlx9R3rcGNC/	ebf1d154-8ee1-467d-8c4e-650faac72501
+33	MED	115	[한동대 유니트윈] 로그인 분기 페이지 디자인	로그인	한동대학교	한동대 LMS	customer "한동대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/D2fNksEVoDbQFNXiW4pLKS/	dc66eb0f-ba4e-474b-9dc6-bb4d098429d3
+34	MED	115	인제대학교_CMS_로그인	로그인	인제대학교	인제대학교 LMS	customer "인제대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/BrKiOjL12OG7mgOcnoXizo/	e54d85ea-4b1f-4b07-8a45-61eb09c28dfb
+35	MED	115	한동대학교_로그인	로그인	한동대학교	한동대학교 글로벌미래평생교육원	customer "한동대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/OzkbvxzuTTXPjIhWO9KJL0/	b0d609f6-d439-4267-9ae1-a92a9feba428
+36	MED	100	울산경남권역	기타/메인	울산경남권역	울산 · 경남권역 대학원격교육지원센터	customer "울산경남권역" in filename	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/faYvdHAFnJnd8L37EniR85/	33853720-cc2a-42ea-ab68-df14fb3fe9eb
+37	HIGH	180	경성대학교-오픈캠퍼스_로그인	로그인	경성대학교	경성대학교 오픈캠퍼스	customer "경성대학교" in filename; site "경성대학교 오픈캠퍼스" in filename		https://www.figma.com/design/V32iw5M2hQOJHyL3Kp0ZZo/	ceeef613-f13b-4de6-98d2-7c0f73612283
+38	MED	115	경북대학교_로그인	로그인	경북대학교	경북대학교 학습관리시스템	customer "경북대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/rhXLmtwT47hG9KtqlwQrg4/	5171a5d3-48f5-4b9d-9b99-728e6bdf33ec
+39	HIGH	180	선문대학교 오픈캠퍼스_로그인	로그인	선문대학교	선문대학교	customer "선문대학교" in filename; site "선문대학교" in filename	경쟁 후보 점수 180 (애매)	https://www.figma.com/design/iN85h1OAkZTGxg2nFBMr5m/	2071f227-35d8-434a-b826-736775c80b23
+40	HIGH	180	선문대학교_로그인	로그인	선문대학교	선문대학교	customer "선문대학교" in filename; site "선문대학교" in filename		https://www.figma.com/design/cbduhcRZNmV4h7P6aC4b6Y/	2071f227-35d8-434a-b826-736775c80b23
+41	MED	100	USG공유대학2.0_로그인	로그인	USG공유대학	USG 공통교양플랫폼	customer "USG공유대학" in filename		https://www.figma.com/design/mTTucXRbVZoLO8C3q1Q5sl/	9dd497ec-622a-4acf-9a52-c8f185fd23ef
+42	MED	115	공주대학교	기타/메인	공주대학교	공주대학교 LMS	customer "공주대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/8TUToPcPCeSMw8if7HVpE5/	3369c973-7312-420f-b787-f6b47f3adb37
+43	HIGH	200	KAIST-STARMOOC	MOOC	카이스트	STAR-MOOC	customer "카이스트" in filename; site "STAR-MOOC" in filename; category "MOOC" ↔ site keyword		https://www.figma.com/design/hhG7TqKxQA42CtDcR7pp51/	ad575234-3464-4840-803f-c815f36027a8
+44	HIGH	180	단국대학교 AID사업단_로그인	로그인	단국대학교	단국대학교 AID 사업단	customer "단국대학교" in filename; site "단국대학교 AID 사업단" in filename		https://www.figma.com/design/Z257Irn9fxmPZeVe10MgKb/	0f6c3221-6e7f-43a8-802d-de43e708f4e2
+45	HIGH	180	경성대학교-오픈캠퍼스_로그인 (복사)	로그인	경성대학교	경성대학교 오픈캠퍼스	customer "경성대학교" in filename; site "경성대학교 오픈캠퍼스" in filename		https://www.figma.com/design/MltCcwqNSCOrTbEHA4y8X9/	ceeef613-f13b-4de6-98d2-7c0f73612283
+46	MED	115	성균관대학교_로그인-보안-모달	로그인	성균관대학교	성균관대학교 아이캠퍼스	customer "성균관대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/psrU6EdfF4Pzvua6fTlnqD/	58e6c91d-a78f-4621-88b1-38f6c9a7cc35
+47	MED	115	한서대학교_로그인	로그인	한서대학교	한서대학교 Open Campus	customer "한서대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/brBYNP85dr9F54iwyPxsMO/	8a9bc033-dc20-4a1e-867d-b12db79dac05
+48	HIGH	180	선문대학교_commons_로그인	로그인	선문대학교	선문대학교	customer "선문대학교" in filename; site "선문대학교" in filename		https://www.figma.com/design/KZKdzITJ2hUOC15aoRSV93/	2071f227-35d8-434a-b826-736775c80b23
+49	MED	115	숙명여자대학교_로그인	로그인	숙명여자대학교	숙명여자대학교 MOOC	customer "숙명여자대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/NRNpc7K6fqbCQHNknbR3kQ/	f6e5fbfb-1884-407d-b359-66f5d6cb28f9
+50	LOW	80	JOY 공유대학_로그인	로그인	제주대학교	JOY공유대학	site "JOY공유대학" in filename		https://www.figma.com/design/qbA8My9oj3nivAW5Wp76F3/	5b0fb1a9-ff3e-4805-aa12-6f8605640245
+51	NONE	20	에너지기술공유대학 로그인	로그인			category "로그인" ↔ site keyword	기존 file_path 있음: \\etc\디자인공유\Xinics_UI&디자인공유\#서비스_고객별 디자인	https://www.figma.com/design/BkpFD4spIUGCMO3lJTuXhL/	
+52	MED	115	고려대학교_로그인	로그인	고려대학교	고려대학교 LMS	customer "고려대학교" in filename; 1 site-token hit(s)	기존 file_path 있음: https://www.figma.com/design/JSriwbE7EUp	https://www.figma.com/design/n33MGkP6suW2HJc71Ytrma/	308aace8-ea81-465a-8ddb-f27df50fc894
+53	MED	100	[고객 검토용] 카이스트 로그인	로그인	카이스트	KAIST Online	customer "카이스트" in filename	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/ScuAalDek5LZxiQQ3CBPAx/	ebf1d154-8ee1-467d-8c4e-650faac72501
+54	MED	115	영산대학교-로그인	로그인	영산대학교	영산대학교 LMS	customer "영산대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/RoMvElmT0tg06rXj6SGhOh/	11947541-f487-4b63-b6a6-be73afd79f3e
+55	MED	115	인덕대학교_로그인	로그인	인덕대학교	인덕대학교 오픈캠퍼스	customer "인덕대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/YM9QT7TD7XXNnuiMzvQd1k/	75e9123f-c972-4cd8-b695-0a149e95d6ba
+56	MED	115	단국대학교_D-MOOC_SNS아이콘추가	아이콘	단국대학교	단국대학교 이러닝 캠퍼스	customer "단국대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/I6iSiXzAqrUFUnio5a5rN3/	f3c8596a-793c-4a5a-9f5e-362503cded82
+57	MED	115	한동대학교	기타/메인	한동대학교	한동대학교 글로벌미래평생교육원	customer "한동대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/RGQOynfZWD8Z7lXQjHd4j3/	b0d609f6-d439-4267-9ae1-a92a9feba428
+58	HIGH	180	대구교대 원격연수원-서브페이지수정_20240611	서브페이지	대구교육대학교	대구교육대학교	customer "대구교육대학교" in filename; site "대구교육대학교" in filename	경쟁 후보 점수 180 (애매)	https://www.figma.com/design/IzBw4PnjdGAuUcnafaWPVL/	cb14fa86-68cb-4c11-8d59-6c2d150f6da8
+59	MED	115	경북대학교	기타/메인	경북대학교	경북대학교 학습관리시스템	customer "경북대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/tKp15w0Rbmvim0dtsKjW38/	5171a5d3-48f5-4b9d-9b99-728e6bdf33ec
+60	HIGH	180	청주교육대학교	기타/메인	청주교육대학교	청주교육대학교	customer "청주교육대학교" in filename; site "청주교육대학교" in filename		https://www.figma.com/design/vBZWVOLlSNvLTUkdg5WasP/	4410879e-1635-406a-a797-a5b65650dec9
+61	MED	115	영남이공대학교_오픈캠퍼스_서브페이지_20251201	서브페이지	영남이공대학교	영남이공대학교 LMS	customer "영남이공대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/1ionDNfavLEFlsl43jK1PM/	ea968a35-8f9c-412e-ad2d-1715d0fe80ec
+62	LOW	80	지능형로봇 혁신융합대학_온라인 예약시스템	예약시스템	경상국립대학교	예약 시스템	site "예약 시스템" in filename		https://www.figma.com/design/G9U82XyAlW4Zc6qZK1AoGC/	60013c19-e0cf-4b54-b4bc-69a233664b6e
+63	MED	115	인덕대학교_제안시안	제안/입찰 시안	인덕대학교	인덕대학교 오픈캠퍼스	customer "인덕대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/iToskKWWJjKgahJc3sx3qH/	75e9123f-c972-4cd8-b695-0a149e95d6ba
+64	MED	115	순천향대 홈페이지 수정요청사항	기타/메인	순천향대학교	순천향대 Canvas	customer "순천향대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/JniXEKcCVcCAPjhTfKIgJp/	eefe535f-2ce9-426d-ba99-6a757adbc049
+65	MED	130	숭실대학교 입학사정관 연수 서브페이지+서브 카탈로그	서브페이지	숭실대학교	숭실대 ADMIT (입학사정관 연수)	customer "숭실대학교" in filename; 2 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/UfqoN83Tjqgx2CPvxvofHv/	27b1cb60-1640-431b-b1e6-0f22bb2b462e
+66	MED	115	숭실대학교	기타/메인	숭실대학교	숭실대학교 LMS	customer "숭실대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/CO7nmjD6qKx3e2hEOnOfmM/	3cc57143-ca1d-4ebe-a32f-d28c0487aea6
+67	MED	100	동서대 로고	로고	동서대학교	동서대학교 e-Class	customer "동서대학교" in filename		https://www.figma.com/design/JimmgfJ6cYE5A4apjIYada/	b67e7566-2ed4-4406-96f8-50d6dc5b6bd4
+68	HIGH	200	영산대학교_오픈캠퍼스	오픈캠퍼스	영산대학교	영산대학교 오픈캠퍼스	customer "영산대학교" in filename; site "영산대학교 오픈캠퍼스" in filename; category "오픈캠퍼스" ↔ site keyword		https://www.figma.com/design/m5kS9EakW2baZCGP6HWyxt/	77fb1f89-56ca-4058-a55b-346c35d52891
+69	MED	130	한서대_OER	기타/메인	한서대학교	한서대 HSOC OER	customer "한서대학교" in filename; 2 site-token hit(s)		https://www.figma.com/design/oEGvlOA3fAFFrPFx5gPy8k/	7ae1c44b-d4f6-4dd3-82d1-acdf0b59c4af
+70	MED	115	한동대학교	기타/메인	한동대학교	한동대학교 글로벌미래평생교육원	customer "한동대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/IBQatrQQFhx79xrjqT7szY/	b0d609f6-d439-4267-9ae1-a92a9feba428
+71	HIGH	180	대구교대 원격연수원_20240718	기타/메인	대구교육대학교	대구교육대학교	customer "대구교육대학교" in filename; site "대구교육대학교" in filename	경쟁 후보 점수 180 (애매)	https://www.figma.com/design/WyjcoduPQqigPCrRXh7VZP/	cb14fa86-68cb-4c11-8d59-6c2d150f6da8
+72	HIGH	200	KAIST_STAR-MOOC_v2.1_20240805	MOOC	카이스트	STAR-MOOC	customer "카이스트" in filename; site "STAR-MOOC" in filename; category "MOOC" ↔ site keyword		https://www.figma.com/design/Xdv5Rv8RbiWpthpJwDMVYY/	ad575234-3464-4840-803f-c815f36027a8
+73	MED	115	한서대학교-UAM	기타/메인	한서대학교	한서대학교 Open Campus	customer "한서대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/JicCn5MsYNwGLG4wwFDKJQ/	8a9bc033-dc20-4a1e-867d-b12db79dac05
+74	MED	135	인제대학교-GOU 오픈캠퍼스	오픈캠퍼스	인제대학교	인제대 오픈캠퍼스	customer "인제대학교" in filename; 1 site-token hit(s); category "오픈캠퍼스" ↔ site keyword	기존 file_path 있음: https://www.figma.com/design/zcQ4jyaUG3p | 경쟁 후보 점수 115 (애매)	https://www.figma.com/design/zcQ4jyaUG3pd1C0mWVaL9x/	56403634-51ca-4913-9174-ef21f22f4c8e
+75	MED	115	경성대학교	기타/메인	경성대학교	경성대학교 오픈캠퍼스	customer "경성대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/xEEJN22hNkZ0eIT6LHXhii/	ceeef613-f13b-4de6-98d2-7c0f73612283
+76	MED	115	순천향대학교_메인수정+교육성과관리센터	메인페이지	순천향대학교	순천향대학교 e-class	customer "순천향대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/DPBstxepnjJ6RcmDqowpJg/	9d8385bb-2442-4a8d-84c5-f537b99d98ff
+77	HIGH	180	선문대학교_시안	기타/메인	선문대학교	선문대학교	customer "선문대학교" in filename; site "선문대학교" in filename		https://www.figma.com/design/FkgOXubYEmtdISQZFw72dt/	2071f227-35d8-434a-b826-736775c80b23
+78	MED	115	영남대학교	기타/메인	영남대학교	영남대학교 LMS	customer "영남대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/GXojDYdJZtVtIO9pq9Vncb/	e3a430cf-3c45-44bf-b393-56b1776b6869
+79	HIGH	180	[고객 자료] 한동대학교 HOPE 원본	기타/메인	한동대학교	한동대학교 HOPE	customer "한동대학교" in filename; site "한동대학교 HOPE" in filename		https://www.figma.com/design/lAwZBkp9PueRfzueQsXURI/	b7de2275-4a06-4bac-be1c-1fde19a5b3b4
+80	MED	115	영남이공대학교	기타/메인	영남이공대학교	영남이공대학교 LMS	customer "영남이공대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/htnID828y186ew6MhY0V2g/	ea968a35-8f9c-412e-ad2d-1715d0fe80ec
+81	MED	115	영남대학교_서브페이지	서브페이지	영남대학교	영남대학교 LMS	customer "영남대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/D3xkC39GAHltJ6D0eAOCFv/	e3a430cf-3c45-44bf-b393-56b1776b6869
+82	MED	130	숭실대_입학사정관	기타/메인	숭실대학교	숭실대 ADMIT (입학사정관 연수)	customer "숭실대학교" in filename; 2 site-token hit(s)		https://www.figma.com/design/HrvlWhD38F0OEa00jYawiy/	27b1cb60-1640-431b-b1e6-0f22bb2b462e
+83	MED	115	한서대학교 메인 슬라이드	슬라이드/이미지	한서대학교	한서대학교 Open Campus	customer "한서대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/S0tNFxKMZpxcT5l8fun0EW/	8a9bc033-dc20-4a1e-867d-b12db79dac05
+84	HIGH	180	한국해양대	기타/메인	한국해양대학교	국립한국해양대학교	customer "한국해양대학교" in filename; site "국립한국해양대학교" in filename		https://www.figma.com/design/ha82mGLOUGrQHMsK8CBon3/	1730163c-2a30-43f2-9b1a-9698de97526a
+85	HIGH	180	한동대학교 HIFA	기타/메인	한동대학교	한동대학교 HIFA	customer "한동대학교" in filename; site "한동대학교 HIFA" in filename		https://www.figma.com/design/KCXNzs9mCwEsBXr5q71pTO/	a1717090-7252-4379-93ee-02137021a14c
+86	MED	115	한서대학교 UAM 서브페이지	서브페이지	한서대학교	한서대학교 Open Campus	customer "한서대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 115 (애매)	https://www.figma.com/design/AS1zZjhUZQ2AlxTHfoCRfG/	8a9bc033-dc20-4a1e-867d-b12db79dac05
+87	HIGH	180	항공드론혁신융합대학_서브페이지+로그인	로그인	항공드론혁신융합대학	항공드론혁신융합대학	customer "항공드론혁신융합대학" in filename; site "항공드론혁신융합대학" in filename		https://www.figma.com/design/OXMNWJOFWjT2FfDLVamG8c/	95c452c7-8321-4c10-a0bd-59b3ef5814ae
+88	MED	100	가톨릭대학교_헤더 이미지 수정_20251126	슬라이드/이미지	가톨릭대학교	CUK ON	customer "가톨릭대학교" in filename		https://www.figma.com/design/e5KxURK8c3hsgtPpPOu7YI/	2ea05e4d-1532-4e62-b030-ea77fd3c8c07
+89	MED	100	단국대AID사업단_개편_20240530_v2	기타/메인	단국대학교	단국대학교 이러닝 캠퍼스	customer "단국대학교" in filename	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/BFmpKV5NHMyQHSH1qymlqr/	f3c8596a-793c-4a5a-9f5e-362503cded82
+90	LOW	80	HYMOOC-서브카탈로그_페이지	서브페이지	대구대학교	카탈로그	site "카탈로그" in filename		https://www.figma.com/design/DyLY8EJ9kUp4a5EJVTjUsK/	3e63969f-2c29-4397-ac60-420d5b812a62
+91	HIGH	200	KAIST_Star-mooc_20240719	MOOC	카이스트	STAR-MOOC	customer "카이스트" in filename; site "STAR-MOOC" in filename; category "MOOC" ↔ site keyword		https://www.figma.com/design/93lYcBT9VFAaDy0lixz0w5/	ad575234-3464-4840-803f-c815f36027a8
+92	MED	100	usg공유대학_지역교육혁신센터	기타/메인	USG공유대학	USG 공통교양플랫폼	customer "USG공유대학" in filename		https://www.figma.com/design/pSKHXJHAcKhKGkUjfjzfoW/	9dd497ec-622a-4acf-9a52-c8f185fd23ef
+93	MED	100	단국대AID사업단_개편_20240520_v1	기타/메인	단국대학교	단국대학교 이러닝 캠퍼스	customer "단국대학교" in filename	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/Rxpg33O0RW5nb5dqFgaZMB/	f3c8596a-793c-4a5a-9f5e-362503cded82
+94	MED	100	starmooc	MOOC	카이스트	STAR-MOOC	site "STAR-MOOC" in filename; category "MOOC" ↔ site keyword		https://www.figma.com/design/UKUr0aeyeWq6fipkHkskPB/	ad575234-3464-4840-803f-c815f36027a8
+95	MED	115	인덕대학교_서브페이지	서브페이지	인덕대학교	인덕대학교 오픈캠퍼스	customer "인덕대학교" in filename; 1 site-token hit(s)	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/mySCKQmVBn5ms1BR1aAYZ4/	75e9123f-c972-4cd8-b695-0a149e95d6ba
+96	MED	100	경인교대	기타/메인	경인교육대학교	경인교육대학교 LMS	customer "경인교육대학교" in filename	경쟁 후보 점수 100 (애매)	https://www.figma.com/design/HTsoXS9njah85DODjbFwCr/	16ad63d6-0ca8-4efb-a963-e25c18c34a27
