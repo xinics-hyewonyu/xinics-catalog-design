@@ -3,11 +3,26 @@ import { Toaster } from "sonner";
 import { AccessProvider } from "@/components/providers/access-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { getRequestAccess } from "@/lib/auth/ip-check";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "자이닉스 디자인 라이브러리",
-  description: "자이닉스 사내 디자인 시안 라이브러리",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s · ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    type: "website",
+    url: SITE_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default async function RootLayout({
