@@ -1,7 +1,7 @@
 "use server";
 
 import { randomUUID } from "node:crypto";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import { getAdminClient } from "@/lib/supabase/admin";
 import {
@@ -229,6 +229,7 @@ export async function updateCatalogAction(
     console.error("[updateCatalog] edit log write failed:", err);
   }
 
+  revalidateTag("catalogs");
   revalidatePath("/");
   return { ok: true, id: catalogId };
 }

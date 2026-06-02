@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useTransition } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   restoreCatalogAction,
   softDeleteCatalogAction,
 } from "@/app/actions/delete-catalog";
+import {
+  fetchDownloadIndexAction,
+  fetchEditLogsAction,
+} from "@/app/actions/catalog-meta";
 import {
   Copy,
   Download,
@@ -18,6 +22,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { useIsAllowed } from "@/components/providers/access-provider";
+import { useSelectedCatalog } from "@/components/providers/selected-catalog-provider";
 import { Button } from "@/components/xds/button";
 import {
   Modal,
@@ -46,9 +51,6 @@ import { CatalogLightbox } from "./catalog-lightbox";
 import { DeleteConfirmDialog } from "./delete-confirm-dialog";
 
 interface Props {
-  catalog: CatalogWithLabels | null;
-  downloadIndex: number;
-  editLogs: EditLog[];
   proposalTypes: ProposalType[];
   siteTypes: SiteType[];
 }
@@ -85,19 +87,37 @@ const ACTION_LABELS: Record<string, string> = {
   restored: "복원",
 };
 
-export function CatalogDetailModal({
-  catalog,
-  downloadIndex,
-  editLogs,
-  proposalTypes,
-  siteTypes,
-}: Props) {
+export function CatalogDetailModal({ proposalTypes, siteTypes }: Props) {
+  const { selected: catalog, close } = useSelectedCatalog();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [isDownloading, startDownload] = useTransition();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  // editLogs are fetched lazily once the modal is open. null = not loaded yet.
+  // Re-fetched whenever `catalog.id` changes; this keeps modal open itself
+  // free of server roundtrips, while the log section streams in.
+  const [editLogs, setEditLogs] = useState<EditLog[] | null>(null);
+
+  useEffect(() => {
+    if (!catalog) {
+      setEditLogs(null);
+      return;
+    }
+    let cancelled = false;
+    fetchEditLogsAction(catalog.id)
+      .then((logs) => {
+        if (!cancelled) setEditLogs(logs);
+      })
+      .catch(() => {
+        if (!cancelled) setEditLogs([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [catalog?.id]);
+
   const open = Boolean(catalog);
 
   if (!open) {
@@ -107,12 +127,7 @@ export function CatalogDetailModal({
   }
 
   function handleOpenChange(next: boolean) {
-    if (!next) {
-      const params = new URLSearchParams(searchParams.toString());
-      params.delete("catalog");
-      const qs = params.toString();
-      router.replace(qs ? `/?${qs}` : "/", { scroll: false });
-    }
+    if (!next) close();
   }
 
   async function handleConfirmedDelete() {
@@ -123,8 +138,7 @@ export function CatalogDetailModal({
       return;
     }
     setDeleteOpen(false);
-    // Close detail modal — soft-deleted rows aren't on the home list anymore.
-    handleOpenChange(false);
+    close();
     router.refresh();
     toast.success(`'${catalog.site_name}' 삭제됨`, {
       duration: 5000,
@@ -144,10 +158,7 @@ export function CatalogDetailModal({
   }
 
   // Lightbox uses a plain portal (no Radix Dialog) — flipping modal=false
-  // is what lets it receive pointer events. Edit + delete dialogs are
-  // sibling Radix Dialogs; we keep Detail modal=true and pass modal={false}
-  // on those instead so toggling Detail's modal prop (which remounts its
-  // DialogContent and flickers) is unnecessary.
+  // is what lets it receive pointer events.
   const isModal = !lightboxOpen;
 
   return (
@@ -168,7 +179,6 @@ export function CatalogDetailModal({
           >
             <ContentShell
               catalog={catalog}
-              downloadIndex={downloadIndex}
               editLogs={editLogs}
               proposalTypes={proposalTypes}
               siteTypes={siteTypes}
@@ -216,8 +226,7 @@ export function CatalogDetailModal({
 
 interface ContentShellProps {
   catalog: CatalogWithLabels;
-  downloadIndex: number;
-  editLogs: EditLog[];
+  editLogs: EditLog[] | null;
   proposalTypes: ProposalType[];
   siteTypes: SiteType[];
   isDownloading: boolean;
@@ -229,7 +238,6 @@ interface ContentShellProps {
 
 function ContentShell({
   catalog: c,
-  downloadIndex: idx,
   editLogs,
   proposalTypes,
   siteTypes,
@@ -240,19 +248,21 @@ function ContentShell({
   onDelete,
 }: ContentShellProps) {
   const isAllowed = useIsAllowed();
+
   function handleDownload() {
     if (!c.image_url) {
       toast.error("다운로드할 이미지가 없습니다");
       return;
     }
-    const filename = buildCatalogFilename({
-      customerName: c.customer_name,
-      proposalTypeName: c.proposal_type?.name ?? null,
-      index: idx,
-      imageUrl: c.image_url,
-    });
     startDownload(async () => {
       try {
+        const idx = await fetchDownloadIndexAction(c.id);
+        const filename = buildCatalogFilename({
+          customerName: c.customer_name,
+          proposalTypeName: c.proposal_type?.name ?? null,
+          index: idx,
+          imageUrl: c.image_url!,
+        });
         await downloadImage(c.image_url!, filename);
         toast.success("다운로드를 시작했습니다", { description: filename });
       } catch (err) {
@@ -393,15 +403,19 @@ function ContentShell({
                   <AccordionTrigger>
                     <span className="inline-flex items-center gap-xs">
                       <History aria-hidden className="size-4" />
-                      로그 ({editLogs.length})
+                      로그{editLogs ? ` (${editLogs.length})` : ""}
                     </span>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <EditLogList
-                      logs={editLogs}
-                      proposalTypes={proposalTypes}
-                      siteTypes={siteTypes}
-                    />
+                    {editLogs ? (
+                      <EditLogList
+                        logs={editLogs}
+                        proposalTypes={proposalTypes}
+                        siteTypes={siteTypes}
+                      />
+                    ) : (
+                      <p className="text-xs text-text-caption">불러오는 중…</p>
+                    )}
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>

@@ -6,13 +6,9 @@ import { CatalogDetailModal } from "@/components/catalog/catalog-detail-modal";
 import { CatalogEmpty } from "@/components/catalog/catalog-empty";
 import { CatalogListHeader } from "@/components/catalog/catalog-list-header";
 import { NewCatalogButton } from "@/components/catalog/new-catalog-button";
+import { SelectedCatalogProvider } from "@/components/providers/selected-catalog-provider";
 import { getRequestAccess } from "@/lib/auth/ip-check";
-import {
-  getCatalog,
-  getCatalogDownloadIndex,
-  listCatalogs,
-} from "@/lib/data/catalogs";
-import { listEditLogsForCatalog } from "@/lib/data/edit-logs";
+import { getCatalog, listCatalogs } from "@/lib/data/catalogs";
 import { listProposalTypes, listSiteTypes } from "@/lib/data/types";
 
 export const dynamic = "force-dynamic";
@@ -104,99 +100,93 @@ export default async function Home({
   // 비허용 IP: 시안 종류 필터를 무조건 'final'로 덮어씀 (외부 노출은 최종 시안만)
   const effectiveProposalSlugs = isAllowed ? proposalSlugs : ["final"];
 
-  const [proposalTypes, siteTypes, catalogs, rawCatalog] =
-    await Promise.all([
-      listProposalTypes(),
-      listSiteTypes(),
-      listCatalogs({
-        q,
-        proposalSlugs: effectiveProposalSlugs,
-        siteSlugs,
-        sort,
-      }),
-      params.catalog ? getCatalog(params.catalog) : Promise.resolve(null),
-    ]);
+  const [proposalTypes, siteTypes, catalogs] = await Promise.all([
+    listProposalTypes(),
+    listSiteTypes(),
+    listCatalogs({
+      q,
+      proposalSlugs: effectiveProposalSlugs,
+      siteSlugs,
+      sort,
+    }),
+  ]);
+
+  // The detail modal opens via client-side state; on a deep-link with
+  // `?catalog=<id>`, we still need the initial catalog so the modal can
+  // render on first paint. Look it up in the list first (already cached) and
+  // fall back to a direct fetch only if it isn't on the current page (e.g.
+  // the link targets a catalog hidden by the active filter).
+  const directCatalog = params.catalog
+    ? (catalogs.find((c) => c.id === params.catalog) ??
+       (await getCatalog(params.catalog)))
+    : null;
 
   // 직링크로 final 외 카탈로그 접근 시 모달 안 열림
-  const selectedCatalog =
-    rawCatalog &&
+  const initialCatalog =
+    directCatalog &&
     !isAllowed &&
-    rawCatalog.proposal_type?.slug !== "final"
+    directCatalog.proposal_type?.slug !== "final"
       ? null
-      : rawCatalog;
-
-  const downloadIndex = selectedCatalog
-    ? await getCatalogDownloadIndex(selectedCatalog)
-    : 1;
-  const editLogs = selectedCatalog
-    ? await listEditLogsForCatalog(selectedCatalog.id)
-    : [];
+      : (directCatalog ?? null);
 
   const filtered =
     Boolean(q) || proposalSlugs.length > 0 || siteSlugs.length > 0;
 
-  // Query string carried into each card's link so clicking a card preserves
-  // the user's current search / filter / sort instead of resetting.
-  const baseQueryParams = new URLSearchParams();
-  if (q) baseQueryParams.set("q", q);
-  if (params.proposal) baseQueryParams.set("proposal", params.proposal);
-  if (params.site !== undefined) baseQueryParams.set("site", params.site);
-  if (params.sort) baseQueryParams.set("sort", params.sort);
-  const baseQuery = baseQueryParams.toString();
-
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-lg p-md sm:p-xl">
-      <header className="flex flex-col gap-xs sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-col gap-xxs">
-          <h1 className="text-xxl font-semibold text-text-heading">
-            자이닉스 디자인 라이브러리
-          </h1>
-          <p className="text-sm text-text-caption">
-            전체 {catalogs.length}건
-          </p>
-        </div>
-        {isAllowed ? (
-          <div className="flex items-center gap-sm">
-            <Link
-              href="/trash"
-              className="inline-flex items-center gap-xxs text-sm text-text-caption transition-colors hover:text-text-body"
-            >
-              <Trash2 aria-hidden className="size-4" />
-              휴지통
-            </Link>
-            <NewCatalogButton
-              proposalTypes={proposalTypes}
-              siteTypes={siteTypes}
-            />
+    <SelectedCatalogProvider
+      initialCatalog={initialCatalog}
+      pageCatalogs={catalogs}
+    >
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-lg p-md sm:p-xl">
+        <header className="flex flex-col gap-xs sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-xxs">
+            <h1 className="text-xxl font-semibold text-text-heading">
+              자이닉스 디자인 라이브러리
+            </h1>
+            <p className="text-sm text-text-caption">
+              전체 {catalogs.length}건
+            </p>
           </div>
-        ) : null}
-      </header>
+          {isAllowed ? (
+            <div className="flex items-center gap-sm">
+              <Link
+                href="/trash"
+                className="inline-flex items-center gap-xxs text-sm text-text-caption transition-colors hover:text-text-body"
+              >
+                <Trash2 aria-hidden className="size-4" />
+                휴지통
+              </Link>
+              <NewCatalogButton
+                proposalTypes={proposalTypes}
+                siteTypes={siteTypes}
+              />
+            </div>
+          ) : null}
+        </header>
 
-      <CatalogListHeader
-        proposalTypes={proposalTypes}
-        siteTypes={siteTypes}
-      />
+        <CatalogListHeader
+          proposalTypes={proposalTypes}
+          siteTypes={siteTypes}
+        />
 
-      {catalogs.length === 0 ? (
-        <CatalogEmpty filtered={filtered} />
-      ) : (
-        <section
-          aria-label="디자인 목록"
-          className="grid grid-cols-1 gap-x-md gap-y-lg sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        >
-          {catalogs.map((c) => (
-            <CatalogCard key={c.id} catalog={c} baseQuery={baseQuery} />
-          ))}
-        </section>
-      )}
+        {catalogs.length === 0 ? (
+          <CatalogEmpty filtered={filtered} />
+        ) : (
+          <section
+            aria-label="디자인 목록"
+            className="grid grid-cols-1 gap-x-md gap-y-lg sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          >
+            {catalogs.map((c) => (
+              <CatalogCard key={c.id} catalog={c} />
+            ))}
+          </section>
+        )}
 
-      <CatalogDetailModal
-        catalog={selectedCatalog}
-        downloadIndex={downloadIndex}
-        editLogs={editLogs}
-        proposalTypes={proposalTypes}
-        siteTypes={siteTypes}
-      />
-    </main>
+        <CatalogDetailModal
+          proposalTypes={proposalTypes}
+          siteTypes={siteTypes}
+        />
+      </main>
+    </SelectedCatalogProvider>
   );
 }

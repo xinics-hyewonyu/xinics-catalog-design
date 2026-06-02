@@ -1,4 +1,5 @@
 import "server-only";
+import { unstable_cache } from "next/cache";
 import { getAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import type { Database } from "@/types/database.types";
@@ -9,28 +10,39 @@ export type SiteType =
   Database["public"]["Tables"]["catalog_site_types"]["Row"];
 
 // --- Public reads (활성만, 카탈로그 폼/필터용) -------------------------------
+// Type lookups change rarely — cache aggressively and invalidate via the
+// `types` tag from the admin type-mgmt actions.
 
-export async function listProposalTypes(): Promise<ProposalType[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("catalog_proposal_types")
-    .select("*")
-    .eq("is_active", true)
-    .order("sort_order", { ascending: true });
-  if (error) throw error;
-  return data ?? [];
-}
+export const listProposalTypes = unstable_cache(
+  async (): Promise<ProposalType[]> => {
+    // Admin client — no cookies inside unstable_cache (anon client uses cookies()).
+    const supabase = getAdminClient();
+    const { data, error } = await supabase
+      .from("catalog_proposal_types")
+      .select("*")
+      .eq("is_active", true)
+      .order("sort_order", { ascending: true });
+    if (error) throw error;
+    return data ?? [];
+  },
+  ["listProposalTypes"],
+  { tags: ["types"], revalidate: 300 },
+);
 
-export async function listSiteTypes(): Promise<SiteType[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("catalog_site_types")
-    .select("*")
-    .eq("is_active", true)
-    .order("sort_order", { ascending: true });
-  if (error) throw error;
-  return data ?? [];
-}
+export const listSiteTypes = unstable_cache(
+  async (): Promise<SiteType[]> => {
+    const supabase = getAdminClient();
+    const { data, error } = await supabase
+      .from("catalog_site_types")
+      .select("*")
+      .eq("is_active", true)
+      .order("sort_order", { ascending: true });
+    if (error) throw error;
+    return data ?? [];
+  },
+  ["listSiteTypes"],
+  { tags: ["types"], revalidate: 300 },
+);
 
 // --- Admin reads (비활성 포함) ---------------------------------------------
 

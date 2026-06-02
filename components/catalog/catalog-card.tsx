@@ -1,25 +1,23 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
 import { Card } from "@/components/xds/card";
 import { Tag } from "@/components/xds/tag";
+import { useSelectedCatalog } from "@/components/providers/selected-catalog-provider";
 import type { CatalogWithLabels } from "@/lib/data/catalogs";
 
 interface Props {
   catalog: CatalogWithLabels;
-  /** Current URL query string (without leading `?`) to preserve while opening the detail modal. */
-  baseQuery?: string;
 }
 
-export function CatalogCard({ catalog, baseQuery }: Props) {
-  const params = new URLSearchParams(baseQuery ?? "");
-  params.set("catalog", catalog.id);
-  const href = `/?${params.toString()}`;
+export function CatalogCard({ catalog }: Props) {
+  const { open } = useSelectedCatalog();
   return (
-    <Link
-      href={href}
-      scroll={false}
+    <button
+      type="button"
+      onClick={() => open(catalog)}
       aria-label={`${catalog.site_name} (${catalog.customer_name}) 상세 보기`}
-      className="block h-full focus-visible:outline-none"
+      className="block h-full w-full cursor-pointer text-left focus-visible:outline-none"
     >
       <Card elevation="interactive" className="group flex h-full flex-col !rounded-sm">
         <div className="relative aspect-video w-full overflow-hidden border-b border-border-subtle bg-surface-muted">
@@ -28,7 +26,7 @@ export function CatalogCard({ catalog, baseQuery }: Props) {
             alt=""
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover object-top transition-[object-position] duration-[2500ms] ease-linear group-hover:object-bottom motion-reduce:transition-none motion-reduce:group-hover:object-top"
+            className="object-cover object-top group-hover:object-bottom group-hover:transition-[object-position] group-hover:duration-[2500ms] group-hover:ease-linear motion-reduce:group-hover:object-top"
           />
           {(catalog.proposal_type || catalog.site_type) && (
             <div className="pointer-events-none absolute bottom-xs right-xs flex flex-wrap gap-xs">
@@ -50,6 +48,6 @@ export function CatalogCard({ catalog, baseQuery }: Props) {
           </p>
         </div>
       </Card>
-    </Link>
+    </button>
   );
 }

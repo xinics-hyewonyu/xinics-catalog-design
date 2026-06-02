@@ -1,4 +1,5 @@
 import "server-only";
+import { unstable_cache } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminClient } from "@/lib/supabase/admin";
 import type { Database } from "@/types/database.types";
@@ -32,7 +33,8 @@ async function fetchTypeLookups(): Promise<{
   proposalRows: TypeStub[];
   siteRows: TypeStub[];
 }> {
-  const supabase = await createClient();
+  // Admin client — no cookies dependency, safe inside unstable_cache.
+  const supabase = getAdminClient();
   const [pt, st] = await Promise.all([
     supabase
       .from("catalog_proposal_types")
@@ -67,7 +69,17 @@ function decorate(
   };
 }
 
-export async function listCatalogs(
+// Cache wrapper: the same {q, proposalSlugs, siteSlugs, sort, scope} args hit
+// in-memory cache. CRUD actions invalidate via `revalidateTag("catalogs")`.
+// This is what makes carousel-style modal open/close fast — the list query
+// doesn't re-hit Supabase on every URL roundtrip.
+export const listCatalogs = unstable_cache(
+  listCatalogsImpl,
+  ["listCatalogs"],
+  { tags: ["catalogs"], revalidate: 60 },
+);
+
+async function listCatalogsImpl(
   params: ListCatalogsParams = {},
 ): Promise<CatalogWithLabels[]> {
   // RLS: deleted rows are only visible to authenticated users
@@ -128,44 +140,50 @@ export async function listCatalogs(
   return (data ?? []).map((row) => decorate(row, proposalById, siteById));
 }
 
-export async function getCatalog(
-  id: string,
-): Promise<CatalogWithLabels | null> {
-  const supabase = await createClient();
-  const { proposalRows, siteRows } = await fetchTypeLookups();
-  const proposalById = new Map(proposalRows.map((t) => [t.id, t]));
-  const siteById = new Map(siteRows.map((t) => [t.id, t]));
+export const getCatalog = unstable_cache(
+  async (id: string): Promise<CatalogWithLabels | null> => {
+    const supabase = getAdminClient();
+    const { proposalRows, siteRows } = await fetchTypeLookups();
+    const proposalById = new Map(proposalRows.map((t) => [t.id, t]));
+    const siteById = new Map(siteRows.map((t) => [t.id, t]));
 
-  const { data, error } = await supabase
-    .from("catalogs")
-    .select("*")
-    .eq("id", id)
-    .maybeSingle();
-  if (error) throw error;
-  if (!data) return null;
-  return decorate(data, proposalById, siteById);
-}
+    const { data, error } = await supabase
+      .from("catalogs")
+      .select("*")
+      .eq("id", id)
+      .maybeSingle();
+    if (error) throw error;
+    if (!data) return null;
+    return decorate(data, proposalById, siteById);
+  },
+  ["getCatalog"],
+  { tags: ["catalogs"], revalidate: 60 },
+);
 
-export async function getCatalogDownloadIndex(
-  catalog: Pick<
-    Catalog,
-    "id" | "customer_name" | "proposal_type_id" | "created_at"
-  >,
-): Promise<number> {
-  if (!catalog.proposal_type_id) return 1;
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("catalogs")
-    .select("id, created_at")
-    .is("deleted_at", null)
-    .eq("customer_name", catalog.customer_name)
-    .eq("proposal_type_id", catalog.proposal_type_id)
-    .order("created_at", { ascending: true })
-    .returns<Array<{ id: string; created_at: string }>>();
-  if (error) throw error;
-  const idx = (data ?? []).findIndex((r) => r.id === catalog.id);
-  return idx >= 0 ? idx + 1 : 1;
-}
+export const getCatalogDownloadIndex = unstable_cache(
+  async (
+    catalog: Pick<
+      Catalog,
+      "id" | "customer_name" | "proposal_type_id" | "created_at"
+    >,
+  ): Promise<number> => {
+    if (!catalog.proposal_type_id) return 1;
+    const supabase = getAdminClient();
+    const { data, error } = await supabase
+      .from("catalogs")
+      .select("id, created_at")
+      .is("deleted_at", null)
+      .eq("customer_name", catalog.customer_name)
+      .eq("proposal_type_id", catalog.proposal_type_id)
+      .order("created_at", { ascending: true })
+      .returns<Array<{ id: string; created_at: string }>>();
+    if (error) throw error;
+    const idx = (data ?? []).findIndex((r) => r.id === catalog.id);
+    return idx >= 0 ? idx + 1 : 1;
+  },
+  ["getCatalogDownloadIndex"],
+  { tags: ["catalogs"], revalidate: 60 },
+);
 
 // --- Writes (admin client, bypasses RLS) -----------------------------------
 
