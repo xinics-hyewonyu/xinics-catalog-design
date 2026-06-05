@@ -72,7 +72,7 @@ const FIELD_LABELS: Record<string, string> = {
   site_type_id: "사이트 종류",
   design_tool: "디자인 툴",
   file_path: "파일 경로",
-  catalog_url: "디자인 주소",
+  catalog_url: "도메인",
   memo: "메모",
   author_name: "작성자",
   image_url: "이미지",
@@ -342,26 +342,29 @@ function ContentShell({
                     {c.author_name ?? "자이닉스"}
                   </InfoRow>
 
+                  {c.catalog_url ? (
+                    <InfoRow label="도메인">
+                      <Link
+                        href={c.catalog_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex min-w-0 items-center gap-xxs text-primary hover:underline"
+                      >
+                        <span className="min-w-0 flex-1 truncate">
+                          {c.catalog_url}
+                        </span>
+                        <ExternalLink
+                          aria-hidden
+                          className="size-3 shrink-0"
+                        />
+                      </Link>
+                    </InfoRow>
+                  ) : null}
+
                   {c.design_tool ? (
                     <InfoRow label="디자인 툴">{c.design_tool}</InfoRow>
                   ) : null}
                 </>
-              ) : null}
-
-              {c.catalog_url ? (
-                <InfoRow label="디자인 주소">
-                  <Link
-                    href={c.catalog_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex min-w-0 items-center gap-xxs text-primary hover:underline"
-                  >
-                    <span className="min-w-0 flex-1 truncate">
-                      {c.catalog_url}
-                    </span>
-                    <ExternalLink aria-hidden className="size-3 shrink-0" />
-                  </Link>
-                </InfoRow>
               ) : null}
 
               {isAllowed && c.file_path ? (
