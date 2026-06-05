@@ -8,7 +8,7 @@ export type Catalog = Database["public"]["Tables"]["catalogs"]["Row"];
 export type CatalogInsert = Database["public"]["Tables"]["catalogs"]["Insert"];
 export type CatalogUpdate = Database["public"]["Tables"]["catalogs"]["Update"];
 
-type TypeStub = { id: string; slug: string; name: string };
+type TypeStub = { id: string; slug: string; name: string; sort_order: number };
 
 export type CatalogWithLabels = Catalog & {
   proposal_type: TypeStub | null;
@@ -38,11 +38,11 @@ async function fetchTypeLookups(): Promise<{
   const [pt, st] = await Promise.all([
     supabase
       .from("catalog_proposal_types")
-      .select("id, slug, name")
+      .select("id, slug, name, sort_order")
       .returns<TypeStub[]>(),
     supabase
       .from("catalog_site_types")
-      .select("id, slug, name")
+      .select("id, slug, name, sort_order")
       .returns<TypeStub[]>(),
   ]);
   if (pt.error) throw pt.error;
@@ -137,7 +137,23 @@ async function listCatalogsImpl(
   const { data, error } = await query;
   if (error) throw error;
 
-  return (data ?? []).map((row) => decorate(row, proposalById, siteById));
+  const decorated = (data ?? []).map((row) =>
+    decorate(row, proposalById, siteById),
+  );
+
+  // Tie-break for newest/oldest: when created_at is identical, sort by
+  // proposal_type.sort_order DESC so 최종 시안 → 2차 시안 → 1차 시안.
+  // JS Array.sort is stable, so other ties keep DB order.
+  if (sort === "newest" || sort === "oldest") {
+    decorated.sort((a, b) => {
+      if (a.created_at !== b.created_at) return 0;
+      const ao = a.proposal_type?.sort_order ?? 0;
+      const bo = b.proposal_type?.sort_order ?? 0;
+      return bo - ao;
+    });
+  }
+
+  return decorated;
 }
 
 export const getCatalog = unstable_cache(
