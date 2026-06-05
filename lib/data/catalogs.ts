@@ -70,7 +70,7 @@ function decorate(
 }
 
 // Cache wrapper: the same {q, proposalSlugs, siteSlugs, sort, scope} args hit
-// in-memory cache. CRUD actions invalidate via `revalidateTag("catalogs")`.
+// in-memory cache. CRUD actions invalidate via `updateTag("catalogs")`.
 // This is what makes carousel-style modal open/close fast — the list query
 // doesn't re-hit Supabase on every URL roundtrip.
 export const listCatalogs = unstable_cache(

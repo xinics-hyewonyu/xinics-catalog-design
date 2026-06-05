@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { getAdminClient } from "@/lib/supabase/admin";
 import {
   getCatalog,
@@ -43,7 +43,7 @@ export async function softDeleteCatalogAction(
     console.error("[softDeleteCatalog] log failed:", err),
   );
 
-  revalidateTag("catalogs");
+  updateTag("catalogs");
   revalidatePath("/");
   revalidatePath("/trash");
   return { ok: true, id: catalogId };
@@ -64,7 +64,7 @@ export async function restoreCatalogAction(
     changes: {} as unknown as Json,
   }).catch((err) => console.error("[restoreCatalog] log failed:", err));
 
-  revalidateTag("catalogs");
+  updateTag("catalogs");
   revalidatePath("/");
   revalidatePath("/trash");
   return { ok: true, id: catalogId };
@@ -96,7 +96,7 @@ export async function hardDeleteCatalogAction(
   const ok = await hardDeleteCatalog(catalogId);
   if (!ok) return { ok: false, error: "영구 삭제에 실패했어요" };
 
-  revalidateTag("catalogs");
+  updateTag("catalogs");
   revalidatePath("/");
   revalidatePath("/trash");
   return { ok: true, id: catalogId };

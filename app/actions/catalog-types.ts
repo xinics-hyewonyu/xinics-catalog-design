@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { z } from "zod";
 import {
   createProposalType,
@@ -64,7 +64,7 @@ export async function addCatalogTypeAction(
     }
     return { ok: false, error: `등록 실패: ${msg}` };
   }
-  revalidateTag("types");
+  updateTag("types");
   revalidatePath(pathsForKind(kind));
   revalidatePath("/");
   return { ok: true };
@@ -86,7 +86,7 @@ export async function renameCatalogTypeAction(
       error: err instanceof Error ? err.message : String(err),
     };
   }
-  revalidateTag("types");
+  updateTag("types");
   revalidatePath(pathsForKind(kind));
   revalidatePath("/");
   return { ok: true };
@@ -106,7 +106,7 @@ export async function toggleCatalogTypeActiveAction(
       error: err instanceof Error ? err.message : String(err),
     };
   }
-  revalidateTag("types");
+  updateTag("types");
   revalidatePath(pathsForKind(kind));
   revalidatePath("/");
   return { ok: true };
@@ -130,7 +130,7 @@ export async function deleteCatalogTypeAction(
     }
     return { ok: false, error: `삭제 실패: ${msg}` };
   }
-  revalidateTag("types");
+  updateTag("types");
   revalidatePath(pathsForKind(kind));
   revalidatePath("/");
   return { ok: true };
