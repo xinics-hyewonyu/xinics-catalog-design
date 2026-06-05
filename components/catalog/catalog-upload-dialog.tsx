@@ -30,6 +30,11 @@ import type { ProposalType, SiteType } from "@/lib/data/types";
 
 const DESIGN_TOOLS = ["피그마", "HTML", "XD", "포토샵"];
 
+/** Today's date in Asia/Seoul as YYYY-MM-DD (en-CA locale shape). */
+function todayKstDate(): string {
+  return new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
+}
+
 interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -58,6 +63,7 @@ export function CatalogUploadDialog({
   const [catalogUrl, setCatalogUrl] = useState("");
   const [memo, setMemo] = useState("");
   const [authorName, setAuthorName] = useState("");
+  const [createdAtDate, setCreatedAtDate] = useState(todayKstDate());
 
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [pending, startTransition] = useTransition();
@@ -76,6 +82,7 @@ export function CatalogUploadDialog({
     setCatalogUrl("");
     setMemo("");
     setAuthorName("");
+    setCreatedAtDate(todayKstDate());
     setErrors({});
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
@@ -116,6 +123,7 @@ export function CatalogUploadDialog({
     fd.set("catalog_url", catalogUrl);
     fd.set("memo", memo);
     fd.set("author_name", authorName);
+    fd.set("created_at_date", createdAtDate);
 
     startTransition(async () => {
       const result = await uploadCatalog(fd);
@@ -262,6 +270,21 @@ export function CatalogUploadDialog({
                 </FieldRow>
               </div>
 
+              {/* Created at */}
+              <FieldRow
+                label="게시일"
+                htmlFor="up-created-at"
+                hint="디자인이 처음 공개된 날짜 (KST)"
+                error={errors.created_at_date?.[0]}
+              >
+                <Input
+                  id="up-created-at"
+                  type="date"
+                  value={createdAtDate}
+                  onChange={(e) => setCreatedAtDate(e.target.value)}
+                />
+              </FieldRow>
+
               {/* Design tool */}
               <FieldRow label="디자인 툴" error={errors.design_tool?.[0]}>
                 <Select value={designTool} onValueChange={setDesignTool}>
@@ -295,7 +318,7 @@ export function CatalogUploadDialog({
 
               {/* Catalog URL */}
               <FieldRow
-                label="디자인 주소"
+                label="도메인"
                 htmlFor="up-catalog-url"
                 hint="공개된 디자인 페이지 URL"
                 error={errors.catalog_url?.[0]}

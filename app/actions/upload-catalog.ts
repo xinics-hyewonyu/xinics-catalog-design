@@ -35,6 +35,13 @@ const schema = z.object({
     ),
   memo: z.string().optional().or(z.literal("")),
   author_name: z.string().optional().or(z.literal("")),
+  // YYYY-MM-DD in Asia/Seoul. Optional — if omitted, the DB default (now())
+  // is used. When provided, stored as KST-midnight timestamptz.
+  created_at_date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "YYYY-MM-DD 형식이어야 합니다")
+    .optional()
+    .or(z.literal("")),
 });
 
 export type UploadResult =
@@ -69,6 +76,7 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
     catalog_url: formData.get("catalog_url") ?? "",
     memo: formData.get("memo") ?? "",
     author_name: formData.get("author_name") ?? "",
+    created_at_date: formData.get("created_at_date") ?? "",
   });
 
   if (!parsed.success) {
@@ -103,6 +111,12 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
     .getPublicUrl(objectPath);
   const publicUrl = urlData.publicUrl;
 
+  // KST midnight when the user picked a date; otherwise let the DB default
+  // (now()) win by omitting created_at from the insert.
+  const createdAtIso = parsed.data.created_at_date
+    ? `${parsed.data.created_at_date}T00:00:00+09:00`
+    : undefined;
+
   const insertPayload = {
     id,
     site_name: parsed.data.site_name,
@@ -116,6 +130,7 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
     author_name: nullish(parsed.data.author_name ?? null),
     image_url: publicUrl,
     thumbnail_url: publicUrl,
+    ...(createdAtIso ? { created_at: createdAtIso } : {}),
   };
 
   try {
