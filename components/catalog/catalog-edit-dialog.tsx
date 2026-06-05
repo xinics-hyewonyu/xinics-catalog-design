@@ -333,7 +333,7 @@ export function CatalogEditDialog({
               </FieldRow>
 
               <FieldRow
-                label="디자인 주소"
+                label="도메인"
                 htmlFor="edit-catalog-url"
                 hint="공개된 디자인 페이지 URL"
                 error={errors.catalog_url?.[0]}
