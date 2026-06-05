@@ -123,6 +123,15 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
     });
   }
 
+  // "전체" chip handler: clears all selections in that group so the list
+  // shows every row (no in-filter applied for that category).
+  function clearGroup(key: "proposal" | "site") {
+    setParam((p) => {
+      if (key === "site") p.set("site", "");
+      else p.delete(key);
+    });
+  }
+
   function changeSort(value: SortKey) {
     setParam((p) => {
       if (value === "newest") p.delete("sort");
@@ -204,6 +213,7 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
             options={proposalTypes}
             selected={selectedProposal}
             onToggle={(id) => toggleSetParam("proposal", id)}
+            onClearAll={() => clearGroup("proposal")}
           />
         ) : null}
         <FilterRow
@@ -211,6 +221,7 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
           options={siteTypes}
           selected={selectedSite}
           onToggle={(id) => toggleSetParam("site", id)}
+          onClearAll={() => clearGroup("site")}
         />
         {hasActiveFilter ? (
           <button
@@ -232,13 +243,16 @@ function FilterRow({
   options,
   selected,
   onToggle,
+  onClearAll,
 }: {
   legend: string;
   options: { id: string; slug: string; name: string }[];
   selected: Set<string>;
   onToggle: (slug: string) => void;
+  onClearAll: () => void;
 }) {
   if (options.length === 0) return null;
+  const allActive = selected.size === 0;
   return (
     <div
       role="group"
@@ -248,6 +262,25 @@ function FilterRow({
       <span className="mr-xs shrink-0 text-xs text-text-caption">
         {legend}
       </span>
+      <button
+        type="button"
+        onClick={onClearAll}
+        aria-pressed={allActive}
+        className="appearance-none rounded-full transition-transform duration-150 hover:-translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      >
+        <Tag
+          tone={allActive ? "info" : "default"}
+          size="md"
+          className={[
+            "transition-colors duration-150 motion-reduce:transition-none",
+            allActive
+              ? "ring-1 ring-info-border hover:bg-info-bg-hover"
+              : "hover:bg-neutral-bg-hover hover:border-neutral-border-hover",
+          ].join(" ")}
+        >
+          전체
+        </Tag>
+      </button>
       {options.map((o) => {
         const active = selected.has(o.slug);
         return (
