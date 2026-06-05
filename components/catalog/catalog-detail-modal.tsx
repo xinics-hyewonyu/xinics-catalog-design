@@ -77,6 +77,7 @@ const FIELD_LABELS: Record<string, string> = {
   author_name: "작성자",
   image_url: "이미지",
   thumbnail_url: "썸네일",
+  created_at: "게시일",
 };
 
 const ACTION_LABELS: Record<string, string> = {
