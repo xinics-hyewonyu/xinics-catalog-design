@@ -57,7 +57,6 @@ interface Props {
 
 const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
   dateStyle: "medium",
-  timeStyle: "short",
 });
 
 function formatLogDate(iso: string): string {
@@ -334,7 +333,7 @@ function ContentShell({
             <dl className="grid grid-cols-[auto_1fr] gap-x-md gap-y-sm text-sm">
               {isAllowed ? (
                 <>
-                  <InfoRow label="게시일시">
+                  <InfoRow label="게시일">
                     {dateFormatter.format(new Date(c.created_at))}
                   </InfoRow>
 
