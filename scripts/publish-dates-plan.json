@@ -1,0 +1,902 @@
+[
+  {
+    "input_name": "가톨릭대학교",
+    "catalog_id": "2ea05e4d-1532-4e62-b030-ea77fd3c8c07",
+    "customer_name": "가톨릭대학교",
+    "site_name": "CUK ON",
+    "host": "on.catholic.ac.kr",
+    "current_created_at": "2026-05-27T04:08:15.305907+00:00",
+    "next_created_at": "2017-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "경북대학교",
+    "catalog_id": "5171a5d3-48f5-4b9d-9b99-728e6bdf33ec",
+    "customer_name": "경북대학교",
+    "site_name": "경북대학교 학습관리시스템",
+    "host": "lms1.knu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:15.503281+00:00",
+    "next_created_at": "2021-05-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "경성대학교",
+    "catalog_id": "9b3de6cb-0951-46a1-bd2f-75f7cb031d51",
+    "customer_name": "경성대학교",
+    "site_name": "경성대학교 LMS",
+    "host": "eclass.ks.ac.kr",
+    "current_created_at": "2026-05-27T04:08:16.707371+00:00",
+    "next_created_at": "2019-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "경성대학교 오픈캠퍼스",
+    "catalog_id": "ceeef613-f13b-4de6-98d2-7c0f73612283",
+    "customer_name": "경성대학교",
+    "site_name": "경성대학교 오픈캠퍼스",
+    "host": "opencampus.ks.ac.kr",
+    "current_created_at": "2025-12-22T01:03:43.557+00:00",
+    "next_created_at": "2025-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "경인교육대학교",
+    "catalog_id": "16ad63d6-0ca8-4efb-a963-e25c18c34a27",
+    "customer_name": "경인교육대학교",
+    "site_name": "경인교육대학교 LMS",
+    "host": "lms.ginue.ac.kr",
+    "current_created_at": "2026-05-27T04:08:17.12636+00:00",
+    "next_created_at": "2021-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "경인교육대학교",
+    "catalog_id": "a718e1d9-7351-480b-9864-3467ac5519bf",
+    "customer_name": "경인교육대학교",
+    "site_name": "경인교육대학교 GCC MOOC",
+    "host": "lms.ginue.ac.kr",
+    "current_created_at": "2026-05-27T04:08:17.443428+00:00",
+    "next_created_at": "2021-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "경일대학교",
+    "catalog_id": "b6069cb3-c294-4c80-a9cd-efadc39d975f",
+    "customer_name": "경일대학교",
+    "site_name": "경일대학교 키움보드",
+    "host": "lms.kiu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:17.611526+00:00",
+    "next_created_at": "2019-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "경일대학교 오픈캠퍼스",
+    "catalog_id": "c470a4b6-83f7-4c1b-8a6e-74de213f6448",
+    "customer_name": "경일대학교",
+    "site_name": "울진 K-U시티",
+    "host": "uljincampus.kiu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:17.792632+00:00",
+    "next_created_at": "2026-03-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "경희대학교",
+    "catalog_id": "8700fc54-0f1d-4642-b25d-f73cc59ef237",
+    "customer_name": "경희대학교",
+    "site_name": "경희대학교 e-campus",
+    "host": "e-campus.khu.ac.kr",
+    "current_created_at": "2026-03-01T15:00:00+00:00",
+    "next_created_at": "2020-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "고려대학교",
+    "catalog_id": "308aace8-ea81-465a-8ddb-f27df50fc894",
+    "customer_name": "고려대학교",
+    "site_name": "고려대학교 LMS",
+    "host": "lms.korea.ac.kr",
+    "current_created_at": "2026-05-27T04:08:18.532751+00:00",
+    "next_created_at": "2024-11-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "공주대학교",
+    "catalog_id": "3369c973-7312-420f-b787-f6b47f3adb37",
+    "customer_name": "공주대학교",
+    "site_name": "공주대학교 LMS",
+    "host": "kncu.kongju.ac.kr",
+    "current_created_at": "2026-05-27T04:08:18.791016+00:00",
+    "next_created_at": "2019-11-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "광운대학교",
+    "catalog_id": "70453af0-67d3-451a-9a17-9e6c2807d839",
+    "customer_name": "광운대학교",
+    "site_name": "KWMOOC",
+    "host": "kwmooc.kw.ac.kr",
+    "current_created_at": "2026-05-27T04:08:19.215361+00:00",
+    "next_created_at": "2021-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "단국대학교",
+    "catalog_id": "f3c8596a-793c-4a5a-9f5e-362503cded82",
+    "customer_name": "단국대학교",
+    "site_name": "단국대학교 이러닝 캠퍼스",
+    "host": "nlms.dankook.ac.kr",
+    "current_created_at": "2026-05-27T04:08:19.607808+00:00",
+    "next_created_at": "2020-08-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "단국대학교(AID)",
+    "catalog_id": "0f6c3221-6e7f-43a8-802d-de43e708f4e2",
+    "customer_name": "단국대학교",
+    "site_name": "단국대학교 AID 사업단",
+    "host": "aidlms.dankook.ac.kr",
+    "current_created_at": "2026-05-27T04:08:20.003128+00:00",
+    "next_created_at": "2021-09-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "단국대학교(D-MOOC)",
+    "catalog_id": "28265cd9-e3c3-402a-a5ce-ca715ac3ad81",
+    "customer_name": "단국대학교",
+    "site_name": ":D-MOOC",
+    "host": "mooc.dankook.ac.kr",
+    "current_created_at": "2026-05-27T04:08:19.820087+00:00",
+    "next_created_at": "2017-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "대구라이즈공유대학(대구경북권역)",
+    "catalog_id": "22a06021-6e85-4646-ab95-082a5b3f854f",
+    "customer_name": "경북대학교",
+    "site_name": "대구라이즈공유대학",
+    "host": "eclass.knu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:15.688049+00:00",
+    "next_created_at": "2021-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "대구교육대학교",
+    "catalog_id": "cb14fa86-68cb-4c11-8d59-6c2d150f6da8",
+    "customer_name": "대구교육대학교",
+    "site_name": "대구교육대학교",
+    "host": "eclass.dnue.ac.kr",
+    "current_created_at": "2026-05-27T04:08:20.204755+00:00",
+    "next_created_at": "2020-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "대구교육대학교(원격교육연수)",
+    "catalog_id": "e6be4933-6dc6-48d5-bef9-1181e8151772",
+    "customer_name": "대구교육대학교",
+    "site_name": "대구교육대학교 부설 원격교육연수원",
+    "host": "di.dnue.ac.kr",
+    "current_created_at": "2026-05-27T04:08:20.58912+00:00",
+    "next_created_at": "2023-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "대구대학교",
+    "catalog_id": "3e63969f-2c29-4397-ac60-420d5b812a62",
+    "customer_name": "대구대학교",
+    "site_name": "카탈로그",
+    "host": "mooc.daegu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:20.785888+00:00",
+    "next_created_at": "2019-08-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "대구한의대학교",
+    "catalog_id": "d419d7f7-326d-4233-9a51-6c07248861b9",
+    "customer_name": "대구한의대학교",
+    "site_name": "대구한의대학교 Haany아카데미",
+    "host": "mooc.dhu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:21.011005+00:00",
+    "next_created_at": "2021-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "동명대학교",
+    "catalog_id": "bdaf42c0-68a3-4d78-88a8-ee05bc35074c",
+    "customer_name": "동명대학교",
+    "site_name": "동명대학교 eCampus",
+    "host": "ecampus.tu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:21.189673+00:00",
+    "next_created_at": "2020-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "동서대학교",
+    "catalog_id": "b67e7566-2ed4-4406-96f8-50d6dc5b6bd4",
+    "customer_name": "동서대학교",
+    "site_name": "동서대학교 e-Class",
+    "host": "eclass1.dongseo.ac.kr",
+    "current_created_at": "2026-05-27T04:08:21.412896+00:00",
+    "next_created_at": "2019-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "동아대학교",
+    "catalog_id": "99c0d1ee-14f1-4038-ab65-ada195df8dee",
+    "customer_name": "동아대학교",
+    "site_name": "동아대학교 LMS",
+    "host": "eclass.donga.ac.kr",
+    "current_created_at": "2026-05-27T04:08:21.688756+00:00",
+    "next_created_at": "2019-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "로봇혁신공유대학교",
+    "catalog_id": "ae4f561d-77d7-4c09-84e5-31adc23319e7",
+    "customer_name": "로봇혁신공유대학",
+    "site_name": "지능형로봇 혁신융합대학 SHARE 공유교육 플랫폼",
+    "host": "shareschool.ac.kr",
+    "current_created_at": "2025-07-01T09:11:26.438+00:00",
+    "next_created_at": "2022-09-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "로봇혁신공유대학교",
+    "catalog_id": "c12c6dbb-c78b-40e3-8f9b-54dacd7484c2",
+    "customer_name": "로봇혁신공유대학",
+    "site_name": "CARE로봇직업교육센터",
+    "host": "shareschool.ac.kr",
+    "current_created_at": "2026-05-27T04:08:40.660371+00:00",
+    "next_created_at": "2022-09-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "마산대학교",
+    "catalog_id": "2898e783-f408-4079-a61f-6d5fda86864b",
+    "customer_name": "마산대학교",
+    "site_name": "마산대학교 LMS",
+    "host": "lms.masan.ac.kr",
+    "current_created_at": "2026-05-27T04:08:22.051486+00:00",
+    "next_created_at": "2018-10-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "목포해양대학교",
+    "catalog_id": "873fa98d-2ba1-4bcb-bc73-a3e93ad77c86",
+    "customer_name": "목포해양대학교",
+    "site_name": "목포해양대학교",
+    "host": "lms.mmu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:22.273836+00:00",
+    "next_created_at": "2019-04-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "부산과학기술대학교",
+    "catalog_id": "c32aa9a6-13da-45e7-a7cf-8cd52402d400",
+    "customer_name": "부산과학기술대학교",
+    "site_name": "부산과학기술대학교 LMS",
+    "host": "eclass.bist.ac.kr",
+    "current_created_at": "2026-05-27T04:08:22.492171+00:00",
+    "next_created_at": "2019-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "부산외국어대학교",
+    "catalog_id": "361b137d-9cd9-4537-b5ef-951d895c5521",
+    "customer_name": "부산외국어대학교",
+    "site_name": "부산외대",
+    "host": "eclass.bufs.ac.kr",
+    "current_created_at": "2026-05-27T04:08:22.703954+00:00",
+    "next_created_at": "2017-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "부천대학교",
+    "catalog_id": "c6451a15-9e05-4efd-a29b-97f464cb2603",
+    "customer_name": "부천대학교",
+    "site_name": "BU-ON",
+    "host": "eclass.bc.ac.kr",
+    "current_created_at": "2026-05-27T04:08:22.995705+00:00",
+    "next_created_at": "2019-10-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "서울과학기술대학교",
+    "catalog_id": "0bc4b334-d702-49cd-9373-e89e597c819c",
+    "customer_name": "서울과학기술대학교",
+    "site_name": "서울과학기술대학교 STOC",
+    "host": "stoc.seoultech.ac.kr",
+    "current_created_at": "2026-05-27T04:08:23.1457+00:00",
+    "next_created_at": "2019-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "서울대학교",
+    "catalog_id": "a719ab3d-3e7f-4a45-a29e-bbbe1ed7e01e",
+    "customer_name": "서울대학교",
+    "site_name": "서울대학교 New eTL",
+    "host": "etl.snu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:23.300634+00:00",
+    "next_created_at": "2021-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "서울대학교",
+    "catalog_id": "297ce1d9-9787-494b-90c6-45de9365c57e",
+    "customer_name": "서울대학교",
+    "site_name": "SNUON",
+    "host": "etl.snu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:23.563977+00:00",
+    "next_created_at": "2021-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "서정대학교",
+    "catalog_id": "c3fc8cfb-a7b1-45ff-a12a-82d45ff19dee",
+    "customer_name": "서정대학교",
+    "site_name": "서정대학교 LMS",
+    "host": "eclass.seojeong.ac.kr",
+    "current_created_at": "2026-05-27T04:08:23.886032+00:00",
+    "next_created_at": "2020-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "선문대학교",
+    "catalog_id": "2071f227-35d8-434a-b826-736775c80b23",
+    "customer_name": "선문대학교",
+    "site_name": "선문대학교",
+    "host": "lms.sunmoon.ac.kr",
+    "current_created_at": "2026-05-27T04:08:24.066281+00:00",
+    "next_created_at": "2024-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "선문대학교 오픈캠퍼스",
+    "catalog_id": "80039957-c82b-442c-964e-83d3c5ab94cf",
+    "customer_name": "선문대학교",
+    "site_name": "선문대학교 오픈캠퍼스",
+    "host": "opencampus.sunmoon.ac.kr",
+    "current_created_at": "2026-05-27T04:08:24.566427+00:00",
+    "next_created_at": "2025-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "성균관대인재교육원",
+    "catalog_id": "85d9c823-5403-44c2-8200-1bde67889c7b",
+    "customer_name": "성균관대학교",
+    "site_name": "eX-campus",
+    "host": "excampus.skku.edu",
+    "current_created_at": "2026-05-27T04:08:24.953946+00:00",
+    "next_created_at": "2021-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "성균관대학교",
+    "catalog_id": "58e6c91d-a78f-4621-88b1-38f6c9a7cc35",
+    "customer_name": "성균관대학교",
+    "site_name": "성균관대학교 아이캠퍼스",
+    "host": "icampus.skku.edu",
+    "current_created_at": "2026-05-27T04:08:25.121694+00:00",
+    "next_created_at": "2019-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "세계사이버대학",
+    "catalog_id": "2d31d2be-9ccd-4eeb-9a10-2feea8bd6db7",
+    "customer_name": "세계사이버대학",
+    "site_name": "세계사이버대학",
+    "host": "eclass.world.ac.kr",
+    "current_created_at": "2026-05-27T04:08:25.726797+00:00",
+    "next_created_at": "2021-11-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "세한대학교",
+    "catalog_id": "ba5e2af2-135b-4e9d-88f7-670bb0eea0af",
+    "customer_name": "세한대학교",
+    "site_name": "세한대학교",
+    "host": "lms.sehan.ac.kr",
+    "current_created_at": "2026-05-29T10:15:58.538854+00:00",
+    "next_created_at": "2026-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "세한대학교",
+    "catalog_id": "9076df1e-3a90-41e5-a6f0-2664af52f1d3",
+    "customer_name": "세한대학교",
+    "site_name": "세한대학교",
+    "host": "lms.sehan.ac.kr",
+    "current_created_at": "2026-05-29T10:18:09.936809+00:00",
+    "next_created_at": "2026-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "송원대학교",
+    "catalog_id": "d929e33d-5497-4bbc-9327-c9370b1fb2ea",
+    "customer_name": "송원대학교",
+    "site_name": "송원대학교 e-Class",
+    "host": "eclass.songwon.ac.kr",
+    "current_created_at": "2026-05-27T04:08:25.877954+00:00",
+    "next_created_at": "2018-08-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "수원대학교",
+    "catalog_id": "30471adf-fa1f-4cfa-b707-f0215411f0dd",
+    "customer_name": "수원대학교",
+    "site_name": "수원대학교 교수학습관리시스템",
+    "host": "canvas.suwon.ac.kr",
+    "current_created_at": "2026-05-27T04:08:26.058208+00:00",
+    "next_created_at": "2018-10-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "수원여자대학교",
+    "catalog_id": "803366a0-cbb6-43cf-89c7-6942254c1911",
+    "customer_name": "수원여자대학교",
+    "site_name": "수원여자대학교",
+    "host": "lms.swwu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:26.222906+00:00",
+    "next_created_at": "2024-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "숙명여자대학교",
+    "catalog_id": "f6e5fbfb-1884-407d-b359-66f5d6cb28f9",
+    "customer_name": "숙명여자대학교",
+    "site_name": "숙명여자대학교 MOOC",
+    "host": "mooc.sookmyung.ac.kr",
+    "current_created_at": "2026-05-27T04:08:26.436876+00:00",
+    "next_created_at": "2019-07-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "숙명여자대학교",
+    "catalog_id": "208e89ca-50c9-4ef4-8f1f-d2881f87ab94",
+    "customer_name": "숙명여자대학교",
+    "site_name": "숙명여대 OER",
+    "host": "mooc.sookmyung.ac.kr",
+    "current_created_at": "2026-05-27T04:08:26.629698+00:00",
+    "next_created_at": "2019-07-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "순천향대학교",
+    "catalog_id": "9d8385bb-2442-4a8d-84c5-f537b99d98ff",
+    "customer_name": "순천향대학교",
+    "site_name": "순천향대학교 e-class",
+    "host": "eclass.sch.ac.kr",
+    "current_created_at": "2026-05-27T04:08:26.789944+00:00",
+    "next_created_at": "2020-08-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "숭실대학교",
+    "catalog_id": "3cc57143-ca1d-4ebe-a32f-d28c0487aea6",
+    "customer_name": "숭실대학교",
+    "site_name": "숭실대학교 LMS",
+    "host": "lms.ssu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:27.644673+00:00",
+    "next_created_at": "2021-06-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "에너지공과대학교",
+    "catalog_id": "a7a464f0-f446-418d-9927-9e39e3ae3c5b",
+    "customer_name": "한국에너지공과대학교",
+    "site_name": "KENTECH LMS Catalog",
+    "host": "eclass.kentech.ac.kr",
+    "current_created_at": "2024-04-01T01:11:26.585+00:00",
+    "next_created_at": "2021-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "영남대학교",
+    "catalog_id": "e3a430cf-3c45-44bf-b393-56b1776b6869",
+    "customer_name": "영남대학교",
+    "site_name": "영남대학교 LMS",
+    "host": "nice.yu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:27.976079+00:00",
+    "next_created_at": "2023-11-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "영남대학교",
+    "catalog_id": "65ab3329-9c09-4472-b2d9-02afef2ac50c",
+    "customer_name": "영남대학교",
+    "site_name": "YU-MOOC",
+    "host": "nice.yu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:28.211663+00:00",
+    "next_created_at": "2023-11-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "영남대학교",
+    "catalog_id": "85eebe9a-d793-4290-bc64-7998a4eda9fb",
+    "customer_name": "영남대학교",
+    "site_name": "Open Education Resources",
+    "host": "nice.yu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:28.394222+00:00",
+    "next_created_at": "2023-11-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "영남대학교",
+    "catalog_id": "166dfe51-538a-488d-9f13-d151c8641daa",
+    "customer_name": "영남대학교",
+    "site_name": "온라인 학위과정",
+    "host": "nice.yu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:28.696491+00:00",
+    "next_created_at": "2023-11-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "영남대학교",
+    "catalog_id": "d215aa4c-6e12-404c-904c-526d3713c76c",
+    "customer_name": "영남대학교",
+    "site_name": "스마트교육센터",
+    "host": "nice.yu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:28.912342+00:00",
+    "next_created_at": "2023-11-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "영남이공대학교",
+    "catalog_id": "ea968a35-8f9c-412e-ad2d-1715d0fe80ec",
+    "customer_name": "영남이공대학교",
+    "site_name": "영남이공대학교 LMS",
+    "host": "yclass.ync.ac.kr",
+    "current_created_at": "2026-05-27T04:08:29.503395+00:00",
+    "next_created_at": "2020-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "영남이공대학교 오픈캠퍼스",
+    "catalog_id": "78d816fd-539c-44a4-b4d7-79c49fb6f796",
+    "customer_name": "영남이공대학교",
+    "site_name": "RISE 초광역 학점교류 플랫폼",
+    "host": "hyper.ync.ac.kr",
+    "current_created_at": "2025-12-09T01:08:58.894+00:00",
+    "next_created_at": "2025-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "영산대학교",
+    "catalog_id": "11947541-f487-4b63-b6a6-be73afd79f3e",
+    "customer_name": "영산대학교",
+    "site_name": "영산대학교 LMS",
+    "host": "lms.ysu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:29.703809+00:00",
+    "next_created_at": "2024-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "영산대학교",
+    "catalog_id": "77fb1f89-56ca-4058-a55b-346c35d52891",
+    "customer_name": "영산대학교",
+    "site_name": "영산대학교 오픈캠퍼스",
+    "host": "lms.ysu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:29.875867+00:00",
+    "next_created_at": "2024-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "울산경남권역",
+    "catalog_id": "a602bb33-d5d8-4bda-a8ad-90297374f133",
+    "customer_name": "경상국립대학교",
+    "site_name": "경상국립대학교 LMS",
+    "host": "rec.ac.kr",
+    "current_created_at": "2026-05-27T04:08:16.269984+00:00",
+    "next_created_at": "2021-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "울산경남권역",
+    "catalog_id": "33853720-cc2a-42ea-ab68-df14fb3fe9eb",
+    "customer_name": "울산경남권역",
+    "site_name": "울산 · 경남권역 대학원격교육지원센터",
+    "host": "rec.ac.kr",
+    "current_created_at": "2026-05-27T04:08:30.158262+00:00",
+    "next_created_at": "2021-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "울산과학대학교",
+    "catalog_id": "d1beeabe-bdd4-4e93-861c-bc4ba7c100fc",
+    "customer_name": "울산과학대학교",
+    "site_name": "울산과학대 XCLASS",
+    "host": "xclass.uc.ac.kr",
+    "current_created_at": "2026-05-27T04:08:30.388117+00:00",
+    "next_created_at": "2018-11-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "인덕대학교",
+    "catalog_id": "52a0681b-18f3-4f61-88d5-2063e6d0fd55",
+    "customer_name": "인덕대학교",
+    "site_name": "인덕대 대학 메인",
+    "host": "open.induk.ac.kr",
+    "current_created_at": "2025-10-14T06:45:18.902+00:00",
+    "next_created_at": "2025-10-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "인덕대학교",
+    "catalog_id": "75e9123f-c972-4cd8-b695-0a149e95d6ba",
+    "customer_name": "인덕대학교",
+    "site_name": "인덕대학교 오픈캠퍼스",
+    "host": "open.induk.ac.kr",
+    "current_created_at": "2025-10-01T06:12:50.729+00:00",
+    "next_created_at": "2025-10-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "인제대학교",
+    "catalog_id": "e54d85ea-4b1f-4b07-8a45-61eb09c28dfb",
+    "customer_name": "인제대학교",
+    "site_name": "인제대학교 LMS",
+    "host": "lms.inje.ac.kr",
+    "current_created_at": "2026-05-27T04:08:41.242973+00:00",
+    "next_created_at": "2026-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "인제대학교 오픈캠퍼스",
+    "catalog_id": "56403634-51ca-4913-9174-ef21f22f4c8e",
+    "customer_name": "인제대학교",
+    "site_name": "인제대 오픈캠퍼스",
+    "host": "gou.inje.ac.kr",
+    "current_created_at": "2026-05-27T04:08:40.996087+00:00",
+    "next_created_at": "2026-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "인제대학교 김해글로컬시민대학",
+    "catalog_id": "b2dc949d-2c7a-4e85-9b3c-c5e7373be6cf",
+    "customer_name": "인제대학교",
+    "site_name": "김해글로컬시민대학",
+    "host": "gcu.inje.ac.kr",
+    "current_created_at": "2026-05-29T10:05:30.182963+00:00",
+    "next_created_at": "2026-05-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "인제대학교 김해글로컬시민대학",
+    "catalog_id": "cabfcfc7-5dd4-4267-a52e-d464320a6854",
+    "customer_name": "인제대학교",
+    "site_name": "김해글로컬시민대학",
+    "host": "gcu.inje.ac.kr",
+    "current_created_at": "2026-05-29T10:06:20.050524+00:00",
+    "next_created_at": "2026-05-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "제주관광대",
+    "catalog_id": "05f41095-bc88-45ec-b5d2-95cf1cfdfcf3",
+    "customer_name": "제주관광대학교",
+    "site_name": "제주관광대학교 eclass",
+    "host": "eclass.jtu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:31.518915+00:00",
+    "next_created_at": "2024-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "제주대학교 JOY 공유대학",
+    "catalog_id": "5b0fb1a9-ff3e-4805-aa12-6f8605640245",
+    "customer_name": "제주대학교",
+    "site_name": "JOY공유대학",
+    "host": "lms.joy.ac.kr",
+    "current_created_at": "2026-05-27T04:08:31.932821+00:00",
+    "next_created_at": "2024-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "제주대학교",
+    "catalog_id": "35628832-6843-4f7e-8567-2dc53f7a927e",
+    "customer_name": "제주대학교",
+    "site_name": "제주대학교 JNUclass",
+    "host": "jnuclass.jejunu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:31.699485+00:00",
+    "next_created_at": "2021-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "제주한라대",
+    "catalog_id": "d21a5df7-f7a6-4631-b034-49dc79e8d393",
+    "customer_name": "제주한라대학교",
+    "site_name": "제주한라대학교 eclass",
+    "host": "eclass.chu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:32.318677+00:00",
+    "next_created_at": "2024-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "중부대학교",
+    "catalog_id": "81dca222-f156-4ed4-8249-36a3d7090ecf",
+    "customer_name": "중부대학교",
+    "site_name": "중부대학교 LMS",
+    "host": "edu.joongbu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:32.727276+00:00",
+    "next_created_at": "2019-09-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "중부대학교 원격대학원",
+    "catalog_id": "8cfc3a7a-dcb9-45eb-b2a0-527c1f929279",
+    "customer_name": "중부대학교",
+    "site_name": "중부대학교 원격대학원",
+    "host": "gclass.joongbu.ac.kr",
+    "current_created_at": "2026-05-27T04:08:32.53608+00:00",
+    "next_created_at": "2019-09-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "중앙대학교",
+    "catalog_id": "bc098064-6456-4564-b8c4-117f0de351a6",
+    "customer_name": "중앙대학교",
+    "site_name": "중앙대학교 CAU-ON",
+    "host": "canvas.cau.ac.kr",
+    "current_created_at": "2026-05-27T04:08:33.117342+00:00",
+    "next_created_at": "2017-09-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "청주교육대학교",
+    "catalog_id": "0db874c5-9d15-4760-a56b-cb4d8741d51e",
+    "customer_name": "청주교육대학교",
+    "site_name": "청주교대 비정규과정",
+    "host": "lms.cje.ac.kr",
+    "current_created_at": "2026-05-27T04:08:33.280494+00:00",
+    "next_created_at": "2024-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "청주교육대학교",
+    "catalog_id": "4410879e-1635-406a-a797-a5b65650dec9",
+    "customer_name": "청주교육대학교",
+    "site_name": "청주교육대학교",
+    "host": "lms.cje.ac.kr",
+    "current_created_at": "2026-05-27T04:08:33.244927+00:00",
+    "next_created_at": "2024-12-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "충북권역",
+    "catalog_id": "8c280666-68e2-4458-9aa3-d4d0a83b531c",
+    "customer_name": "충북PRIDE공유대학",
+    "site_name": "충북권역 대학원격 교육지원센터",
+    "host": "ecampus.cbpride.ac.kr",
+    "current_created_at": "2026-05-27T04:08:33.488845+00:00",
+    "next_created_at": "2021-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "충청대학교",
+    "catalog_id": "cd7a9a77-9917-451f-acc0-ae4700662b7f",
+    "customer_name": "충청대학교",
+    "site_name": "충청대 LMS",
+    "host": "lms.ok.ac.kr",
+    "current_created_at": "2026-05-27T04:08:33.880445+00:00",
+    "next_created_at": "2024-08-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "카이스트(KAIST-ON)",
+    "catalog_id": "ebf1d154-8ee1-467d-8c4e-650faac72501",
+    "customer_name": "카이스트",
+    "site_name": "KAIST Online",
+    "host": "online.kaist.ac.kr",
+    "current_created_at": "2026-05-27T04:08:34.049553+00:00",
+    "next_created_at": "2024-08-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "카이스트(STAR-MOOC)",
+    "catalog_id": "ad575234-3464-4840-803f-c815f36027a8",
+    "customer_name": "카이스트",
+    "site_name": "STAR-MOOC",
+    "host": "starmooc.kr",
+    "current_created_at": "2026-05-27T04:08:34.5266+00:00",
+    "next_created_at": "2024-08-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "태재대학교",
+    "catalog_id": "e5ce8b1e-7d40-4b3e-90a2-e1bddd2bebec",
+    "customer_name": "태재대학교",
+    "site_name": "TAEJAE LMS",
+    "host": "eclass.taejae.ac.kr",
+    "current_created_at": "2026-05-27T04:08:34.934101+00:00",
+    "next_created_at": "2023-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한국해양대학교",
+    "catalog_id": "1730163c-2a30-43f2-9b1a-9698de97526a",
+    "customer_name": "한국해양대학교",
+    "site_name": "국립한국해양대학교",
+    "host": "lms.kmou.ac.kr",
+    "current_created_at": "2026-05-27T04:08:35.75303+00:00",
+    "next_created_at": "2024-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한국해양대학교",
+    "catalog_id": "8523a9a8-2cad-40ab-abe6-929e1dbf1ede",
+    "customer_name": "한국해양대학교",
+    "site_name": "한국해양대 Open Camapus",
+    "host": "lms.kmou.ac.kr",
+    "current_created_at": "2026-05-27T04:08:35.964962+00:00",
+    "next_created_at": "2024-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한남대학교",
+    "catalog_id": "95c1c408-c0cc-4b14-9a72-af6708b01fe3",
+    "customer_name": "한남대학교",
+    "site_name": "HNU MOOC",
+    "host": "mooc.hannam.ac.kr",
+    "current_created_at": "2026-05-27T04:08:36.148096+00:00",
+    "next_created_at": "2018-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한동대 글로벌혁신처(HIFA)",
+    "catalog_id": "a1717090-7252-4379-93ee-02137021a14c",
+    "customer_name": "한동대학교",
+    "site_name": "한동대학교 HIFA",
+    "host": "hifa.handong.edu",
+    "current_created_at": "2025-01-07T06:12:38.85+00:00",
+    "next_created_at": "2025-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한동대학교",
+    "catalog_id": "dc66eb0f-ba4e-474b-9dc6-bb4d098429d3",
+    "customer_name": "한동대학교",
+    "site_name": "한동대 LMS",
+    "host": "online.handong.edu",
+    "current_created_at": "2026-05-27T04:08:36.853892+00:00",
+    "next_created_at": "2018-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한동대학교 글로벌미래평생",
+    "catalog_id": "b0d609f6-d439-4267-9ae1-a92a9feba428",
+    "customer_name": "한동대학교",
+    "site_name": "한동대학교 글로벌미래평생교육원",
+    "host": "lifelong.handong.edu",
+    "current_created_at": "2026-05-27T04:08:36.678909+00:00",
+    "next_created_at": "2023-10-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한동대학교 유니트윈",
+    "catalog_id": "bd76fb69-61a2-43cf-8ecc-1b6d3038aa22",
+    "customer_name": "한동대학교",
+    "site_name": "HANDONG UNESCO UNITWIN",
+    "host": "ecampus.handong.edu",
+    "current_created_at": "2026-05-27T04:08:36.441979+00:00",
+    "next_created_at": "2020-09-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한동대학교 유니트윈",
+    "catalog_id": "79689049-039f-492c-a91b-5907a3fd8725",
+    "customer_name": "한동대학교",
+    "site_name": "한동대 분기페이지",
+    "host": "ecampus.handong.edu",
+    "current_created_at": "2025-03-05T05:37:12.137+00:00",
+    "next_created_at": "2020-09-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한동대학교 HOPE",
+    "catalog_id": "b7de2275-4a06-4bac-be1c-1fde19a5b3b4",
+    "customer_name": "한동대학교",
+    "site_name": "한동대학교 HOPE",
+    "host": "hope.handong.edu",
+    "current_created_at": "2025-10-31T09:58:12.029+00:00",
+    "next_created_at": "2025-07-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한밭대학교",
+    "catalog_id": "a16e5607-90c3-4c91-9813-58f7c0d9fb5e",
+    "customer_name": "한밭대학교",
+    "site_name": "H-MOOC",
+    "host": "eclass.hanbat.ac.kr",
+    "current_created_at": "2026-05-27T04:08:37.986564+00:00",
+    "next_created_at": "2023-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한밭대학교",
+    "catalog_id": "800039a5-c713-4a9a-9078-6c4212f0c21c",
+    "customer_name": "한밭대학교",
+    "site_name": "한밭대학교 이러닝캠퍼스",
+    "host": "eclass.hanbat.ac.kr",
+    "current_created_at": "2026-05-27T04:08:38.16428+00:00",
+    "next_created_at": "2023-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한서대학교",
+    "catalog_id": "8a9bc033-dc20-4a1e-867d-b12db79dac05",
+    "customer_name": "한서대학교",
+    "site_name": "한서대학교 Open Campus",
+    "host": "oc.hanseo.ac.kr",
+    "current_created_at": "2026-05-27T04:08:38.570171+00:00",
+    "next_created_at": "2023-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한서대학교",
+    "catalog_id": "471919f2-218f-4407-8949-2e4c2563e5a0",
+    "customer_name": "한서대학교",
+    "site_name": "한서 HSOC",
+    "host": "oc.hanseo.ac.kr",
+    "current_created_at": "2026-05-27T04:08:38.335772+00:00",
+    "next_created_at": "2023-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한서대학교",
+    "catalog_id": "7ae1c44b-d4f6-4dd3-82d1-acdf0b59c4af",
+    "customer_name": "한서대학교",
+    "site_name": "한서대 HSOC OER",
+    "host": "oc.hanseo.ac.kr",
+    "current_created_at": "2026-05-27T04:08:38.787122+00:00",
+    "next_created_at": "2023-01-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한서대학교(UAM-AAV)",
+    "catalog_id": "32208f09-f2a7-44bf-bbb0-c97dc33bb591",
+    "customer_name": "한서대학교",
+    "site_name": "그린 UAM-AAV",
+    "host": "uamlms.hanseo.ac.kr",
+    "current_created_at": "2026-05-27T04:08:39.02957+00:00",
+    "next_created_at": "2023-11-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한양대학교",
+    "catalog_id": "af3474cd-948d-459a-8ae8-73c503356583",
+    "customer_name": "한양대학교",
+    "site_name": "한양대학교 LMS",
+    "host": "hy-mooc.hanyang.ac.kr",
+    "current_created_at": "2026-05-27T04:08:39.198158+00:00",
+    "next_created_at": "2020-09-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "한양대학교",
+    "catalog_id": "54bd1879-debc-4e4f-90ed-3826b1e0b6a0",
+    "customer_name": "한양대학교",
+    "site_name": "HY-MOOC 하이무크",
+    "host": "hy-mooc.hanyang.ac.kr",
+    "current_created_at": "2026-05-27T04:08:39.471185+00:00",
+    "next_created_at": "2020-09-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "항공드론혁신융합대학",
+    "catalog_id": "95c452c7-8321-4c10-a0bd-59b3ef5814ae",
+    "customer_name": "항공드론혁신융합대학",
+    "site_name": "항공드론혁신융합대학",
+    "host": "eclass.aerodrone.kr",
+    "current_created_at": "2026-05-27T04:08:40.210643+00:00",
+    "next_created_at": "2024-02-01T00:00:00+09:00"
+  },
+  {
+    "input_name": "USG공유대학",
+    "catalog_id": "9dd497ec-622a-4acf-9a52-c8f185fd23ef",
+    "customer_name": "USG공유대학",
+    "site_name": "USG 공통교양플랫폼",
+    "host": "eclass.usg.ac.kr",
+    "current_created_at": "2026-05-27T04:08:40.43972+00:00",
+    "next_created_at": "2021-04-01T00:00:00+09:00"
+  }
+]

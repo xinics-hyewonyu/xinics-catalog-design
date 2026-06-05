@@ -1,0 +1,74 @@
+[
+  {
+    "input_name": "사이버한국외국어대학교",
+    "catalog_url": null,
+    "build_yyyymm": "2020-07",
+    "reason": "catalog_url 없음/파싱 실패"
+  },
+  {
+    "input_name": "성균관대(반도체소부장)",
+    "catalog_url": "https://open.cosssemi.kr",
+    "build_yyyymm": "2023-10",
+    "reason": "DB에 호스트(open.cosssemi.kr) 일치 row 없음"
+  },
+  {
+    "input_name": "수도권역",
+    "catalog_url": "https://lms.smau.or.kr",
+    "build_yyyymm": "2020-12",
+    "reason": "DB에 호스트(lms.smau.or.kr) 일치 row 없음"
+  },
+  {
+    "input_name": "수원대학교 오픈캠퍼스",
+    "catalog_url": "https://canvas.suwon.ac.kr/",
+    "build_yyyymm": null,
+    "reason": "구축년월 비어있음"
+  },
+  {
+    "input_name": "순천향대학교 외국인플랫폼",
+    "catalog_url": "https://gcampus.sch.ac.kr/",
+    "build_yyyymm": null,
+    "reason": "구축년월 비어있음"
+  },
+  {
+    "input_name": "숭실대학교 입학사정관",
+    "catalog_url": "https://ao.ssu.ac.kr/",
+    "build_yyyymm": null,
+    "reason": "구축년월 비어있음"
+  },
+  {
+    "input_name": "영남이공대학교 평생교육원",
+    "catalog_url": "https://life.ync.ac.kr",
+    "build_yyyymm": "2020-01",
+    "reason": "DB에 호스트(life.ync.ac.kr) 일치 row 없음"
+  },
+  {
+    "input_name": "에너지기술공유대학",
+    "catalog_url": "https://nuclear.aerodrone.kr/",
+    "build_yyyymm": null,
+    "reason": "구축년월 비어있음"
+  },
+  {
+    "input_name": "제주권역",
+    "catalog_url": "https://jeju.udec.kr",
+    "build_yyyymm": "2021-01",
+    "reason": "DB에 호스트(jeju.udec.kr) 일치 row 없음"
+  },
+  {
+    "input_name": "청주교육대학교 원격연수시스템",
+    "catalog_url": "https://edu.cje.ac.kr/",
+    "build_yyyymm": "2024-12",
+    "reason": "DB에 호스트(edu.cje.ac.kr) 일치 row 없음"
+  },
+  {
+    "input_name": "한국과학창의재단",
+    "catalog_url": "https://sciclass.kofac.re.kr",
+    "build_yyyymm": "2022-08",
+    "reason": "DB에 호스트(sciclass.kofac.re.kr) 일치 row 없음"
+  },
+  {
+    "input_name": "K-MOOC",
+    "catalog_url": "https://cb.kmooc.kr",
+    "build_yyyymm": "2019-02",
+    "reason": "DB에 호스트(cb.kmooc.kr) 일치 row 없음"
+  }
+]
