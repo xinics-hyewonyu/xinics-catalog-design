@@ -9,7 +9,7 @@ import {
   useState,
   useTransition,
 } from "react";
-import { RotateCcw, Search } from "lucide-react";
+import { RotateCcw, Search, X } from "lucide-react";
 import { useIsAllowed } from "@/components/providers/access-provider";
 import { Input } from "@/components/xds/input";
 import {
@@ -176,6 +176,18 @@ export function CatalogListHeader({ proposalTypes, siteTypes }: Props) {
             onChange={(e) => setQInput(e.target.value)}
             placeholder="사이트명·고객명·주소 검색"
             iconLeading={<Search className="size-4" aria-hidden />}
+            iconTrailing={
+              qInput ? (
+                <button
+                  type="button"
+                  aria-label="검색어 지우기"
+                  onClick={() => setQInput("")}
+                  className="flex items-center justify-center rounded-sm text-text-caption transition-colors hover:text-text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--xds-focus-ring-color)]"
+                >
+                  <X className="size-4" aria-hidden />
+                </button>
+              ) : null
+            }
           />
         </div>
         <div className="flex items-center gap-sm">

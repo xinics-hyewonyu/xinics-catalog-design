@@ -16,11 +16,12 @@ interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   size?: Size;
   iconLeading?: ReactNode;
+  iconTrailing?: ReactNode;
   error?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { size = "md", iconLeading, error, className, ...rest },
+  { size = "md", iconLeading, iconTrailing, error, className, ...rest },
   ref,
 ) {
   return (
@@ -49,10 +50,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         aria-invalid={error || undefined}
         className={[
           "min-w-0 flex-1 bg-transparent outline-none placeholder:text-text-disabled",
-          iconLeading ? "pl-xs pr-sm" : "px-[var(--xds-control-padding-x)]",
+          // Hide the native search clear button (the "✕" glyph) in favor of iconTrailing.
+          "[&::-webkit-search-cancel-button]:appearance-none [&::-ms-clear]:hidden",
+          iconLeading ? "pl-xs" : "pl-[var(--xds-control-padding-x)]",
+          iconTrailing ? "pr-xs" : "pr-[var(--xds-control-padding-x)]",
         ].join(" ")}
         {...rest}
       />
+      {iconTrailing ? (
+        <span className="flex shrink-0 items-center pr-sm text-text-caption">
+          {iconTrailing}
+        </span>
+      ) : null}
     </div>
   );
 });
