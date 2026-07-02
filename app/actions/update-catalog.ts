@@ -1,6 +1,5 @@
 "use server";
 
-import { randomUUID } from "node:crypto";
 import { revalidatePath, updateTag } from "next/cache";
 import { z } from "zod";
 import { getAdminClient } from "@/lib/supabase/admin";
@@ -10,18 +9,16 @@ import {
   type Catalog,
 } from "@/lib/data/catalogs";
 import { writeEditLog } from "@/lib/data/edit-logs";
+import { assertUploadedObject } from "@/lib/supabase/storage";
 import type { Json } from "@/types/database.types";
 
-const MAX_BYTES = 10 * 1024 * 1024;
-const ACCEPTED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
-const EXT_BY_TYPE: Record<string, string> = {
-  "image/jpeg": "jpg",
-  "image/png": "png",
-  "image/webp": "webp",
-};
 const STORAGE_BUCKET = "catalog-images";
 
 const schema = z.object({
+  catalog_id: z.string().min(1),
+  // Present only when the user replaced the image; the browser has already
+  // uploaded it to Storage via a signed URL.
+  image_path: z.string().optional().or(z.literal("")),
   site_name: z.string().min(1, "사이트명을 입력해주세요"),
   customer_name: z.string().min(1, "고객명을 입력해주세요"),
   proposal_type_id: z.string().min(1, "시안 종류를 선택해주세요"),
@@ -74,11 +71,13 @@ function isoToKstDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
 }
 
+export type UpdateInput = z.infer<typeof schema>;
+
 export async function updateCatalogAction(
-  formData: FormData,
+  input: UpdateInput,
 ): Promise<UpdateResult> {
-  const catalogId = formData.get("catalog_id");
-  if (typeof catalogId !== "string" || !catalogId) {
+  const catalogId = input.catalog_id;
+  if (!catalogId) {
     return { ok: false, error: "잘못된 요청이에요" };
   }
 
@@ -88,17 +87,8 @@ export async function updateCatalogAction(
   }
 
   const parsed = schema.safeParse({
-    site_name: formData.get("site_name") ?? "",
-    customer_name: formData.get("customer_name") ?? "",
-    proposal_type_id: formData.get("proposal_type_id") ?? "",
-    site_type_id: formData.get("site_type_id") ?? "",
-    design_tool: formData.get("design_tool") ?? "",
-    file_path: formData.get("file_path") ?? "",
-    catalog_url: formData.get("catalog_url") ?? "",
-    memo: formData.get("memo") ?? "",
-    author_name: formData.get("author_name") ?? "",
-    created_at_date:
-      formData.get("created_at_date") ?? isoToKstDate(current.created_at),
+    ...input,
+    created_at_date: input.created_at_date || isoToKstDate(current.created_at),
   });
 
   if (!parsed.success) {
@@ -117,26 +107,18 @@ export async function updateCatalogAction(
   let oldObjectPath: string | null = null;
   let newObjectPath: string | null = null;
 
-  // Optional image replacement
-  const file = formData.get("image");
-  if (file instanceof File && file.size > 0) {
-    if (!ACCEPTED_TYPES.has(file.type)) {
-      return { ok: false, error: "jpg, png, webp 형식만 업로드할 수 있어요" };
-    }
-    if (file.size > MAX_BYTES) {
-      return { ok: false, error: "파일은 10MB 이하여야 해요" };
-    }
-    const ext = EXT_BY_TYPE[file.type] ?? "jpg";
-    newObjectPath = `${catalogId}/${randomUUID()}.${ext}`;
-    const bytes = new Uint8Array(await file.arrayBuffer());
-    const upload = await admin.storage
-      .from(STORAGE_BUCKET)
-      .upload(newObjectPath, bytes, { contentType: file.type, upsert: false });
-    if (upload.error) {
-      return {
-        ok: false,
-        error: `이미지 업로드에 실패했어요: ${upload.error.message}`,
-      };
+  // Optional image replacement: the browser has already uploaded the new
+  // image to Storage via a signed URL and hands us the object path.
+  if (parsed.data.image_path) {
+    newObjectPath = parsed.data.image_path;
+    const check = await assertUploadedObject(
+      admin,
+      STORAGE_BUCKET,
+      catalogId,
+      newObjectPath,
+    );
+    if (!check.ok) {
+      return { ok: false, error: check.error };
     }
     const { data: urlData } = admin.storage
       .from(STORAGE_BUCKET)

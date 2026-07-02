@@ -1,24 +1,18 @@
 "use server";
 
-import { randomUUID } from "node:crypto";
 import { revalidatePath, updateTag } from "next/cache";
 import { z } from "zod";
 import { getAdminClient } from "@/lib/supabase/admin";
 import { createCatalog } from "@/lib/data/catalogs";
 import { writeEditLog } from "@/lib/data/edit-logs";
+import { assertUploadedObject } from "@/lib/supabase/storage";
 import type { Json } from "@/types/database.types";
-
-const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
-const ACCEPTED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
-const EXT_BY_TYPE: Record<string, string> = {
-  "image/jpeg": "jpg",
-  "image/png": "png",
-  "image/webp": "webp",
-};
 
 const STORAGE_BUCKET = "catalog-images";
 
 const schema = z.object({
+  id: z.string().uuid(),
+  image_path: z.string().min(1, "이미지를 먼저 업로드해주세요"),
   site_name: z.string().min(1, "사이트명을 입력해주세요"),
   customer_name: z.string().min(1, "고객명을 입력해주세요"),
   proposal_type_id: z.string().min(1, "시안 종류를 선택해주세요"),
@@ -54,30 +48,10 @@ function nullish(value: FormDataEntryValue | string | null): string | null {
   return s.length === 0 ? null : s;
 }
 
-export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
-  const file = formData.get("image");
-  if (!(file instanceof File) || file.size === 0) {
-    return { ok: false, error: "이미지를 선택해주세요" };
-  }
-  if (!ACCEPTED_TYPES.has(file.type)) {
-    return { ok: false, error: "jpg, png, webp 형식만 업로드할 수 있어요" };
-  }
-  if (file.size > MAX_BYTES) {
-    return { ok: false, error: "파일은 10MB 이하여야 해요" };
-  }
+export type UploadInput = z.infer<typeof schema>;
 
-  const parsed = schema.safeParse({
-    site_name: formData.get("site_name") ?? "",
-    customer_name: formData.get("customer_name") ?? "",
-    proposal_type_id: formData.get("proposal_type_id") ?? "",
-    site_type_id: formData.get("site_type_id") ?? "",
-    design_tool: formData.get("design_tool") ?? "",
-    file_path: formData.get("file_path") ?? "",
-    catalog_url: formData.get("catalog_url") ?? "",
-    memo: formData.get("memo") ?? "",
-    author_name: formData.get("author_name") ?? "",
-    created_at_date: formData.get("created_at_date") ?? "",
-  });
+export async function uploadCatalog(input: UploadInput): Promise<UploadResult> {
+  const parsed = schema.safeParse(input);
 
   if (!parsed.success) {
     return {
@@ -90,20 +64,17 @@ export async function uploadCatalog(formData: FormData): Promise<UploadResult> {
     };
   }
 
-  const id = randomUUID();
-  const ext = EXT_BY_TYPE[file.type] ?? "jpg";
-  const objectPath = `${id}/original.${ext}`;
+  const id = parsed.data.id;
+  const objectPath = parsed.data.image_path;
   const admin = getAdminClient();
 
-  const bytes = new Uint8Array(await file.arrayBuffer());
-  const upload = await admin.storage
-    .from(STORAGE_BUCKET)
-    .upload(objectPath, bytes, { contentType: file.type, upsert: false });
-  if (upload.error) {
-    return {
-      ok: false,
-      error: `이미지 업로드에 실패했어요: ${upload.error.message}`,
-    };
+  // The browser already uploaded the image straight to Storage via a signed
+  // URL (bypassing Vercel's Server Action body limit). Confirm the object
+  // exists and belongs to this catalog's folder before we commit a row that
+  // points at it.
+  const check = await assertUploadedObject(admin, STORAGE_BUCKET, id, objectPath);
+  if (!check.ok) {
+    return { ok: false, error: check.error };
   }
 
   const { data: urlData } = admin.storage

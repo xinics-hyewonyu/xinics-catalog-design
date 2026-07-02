@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { uploadCatalog } from "@/app/actions/upload-catalog";
+import { createSignedUpload } from "@/app/actions/signed-upload";
+import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/xds/button";
 import { Input } from "@/components/xds/input";
 import { Label } from "@/components/xds/label";
@@ -29,6 +31,10 @@ import { Textarea } from "@/components/xds/textarea";
 import type { ProposalType, SiteType } from "@/lib/data/types";
 
 const DESIGN_TOOLS = ["피그마", "HTML", "XD", "포토샵"];
+
+const STORAGE_BUCKET = "catalog-images";
+const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
+const ACCEPTED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 
 /** Today's date in Asia/Seoul as YYYY-MM-DD (en-CA locale shape). */
 function todayKstDate(): string {
@@ -112,21 +118,51 @@ export function CatalogUploadDialog({
       setErrors({ image: ["이미지를 선택해주세요"] });
       return;
     }
-    const fd = new FormData();
-    fd.set("image", file);
-    fd.set("site_name", siteName);
-    fd.set("customer_name", customerName);
-    fd.set("proposal_type_id", proposalTypeId);
-    fd.set("site_type_id", siteTypeId);
-    fd.set("design_tool", designTool);
-    fd.set("file_path", filePath);
-    fd.set("catalog_url", catalogUrl);
-    fd.set("memo", memo);
-    fd.set("author_name", authorName);
-    fd.set("created_at_date", createdAtDate);
+    if (!ACCEPTED_TYPES.has(file.type)) {
+      setErrors({ image: ["jpg, png, webp 형식만 업로드할 수 있어요"] });
+      return;
+    }
+    if (file.size > MAX_BYTES) {
+      setErrors({ image: ["파일은 10MB 이하여야 해요"] });
+      return;
+    }
 
     startTransition(async () => {
-      const result = await uploadCatalog(fd);
+      // 1) Ask the server for a signed upload URL, then send the image bytes
+      //    straight to Supabase Storage — this avoids Vercel's 4.5 MB Server
+      //    Action body limit that a multipart submit would hit.
+      const signed = await createSignedUpload({ contentType: file.type });
+      if (!signed.ok) {
+        toast.error(signed.error);
+        return;
+      }
+
+      const supabase = createClient();
+      const { error: uploadError } = await supabase.storage
+        .from(STORAGE_BUCKET)
+        .uploadToSignedUrl(signed.path, signed.token, file, {
+          contentType: file.type,
+        });
+      if (uploadError) {
+        toast.error(`이미지 업로드에 실패했어요: ${uploadError.message}`);
+        return;
+      }
+
+      // 2) Persist the row; only tiny metadata crosses the Server Action.
+      const result = await uploadCatalog({
+        id: signed.id,
+        image_path: signed.path,
+        site_name: siteName,
+        customer_name: customerName,
+        proposal_type_id: proposalTypeId,
+        site_type_id: siteTypeId,
+        design_tool: designTool,
+        file_path: filePath,
+        catalog_url: catalogUrl,
+        memo,
+        author_name: authorName,
+        created_at_date: createdAtDate,
+      });
       if (result.ok) {
         toast.success("디자인이 등록되었습니다");
         router.refresh();

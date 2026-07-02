@@ -13,9 +13,11 @@ const supabaseHost = (() => {
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
-      // Catalog upload allows up to 10 MB images; the form + multipart
-      // framing adds a small overhead, so give a bit of headroom.
-      bodySizeLimit: "12mb",
+      // Images no longer travel through Server Actions — the browser uploads
+      // them straight to Supabase Storage via signed URLs (see
+      // app/actions/signed-upload.ts), sidestepping Vercel's ~4.5 MB request
+      // body limit. Actions now carry only small metadata payloads.
+      bodySizeLimit: "1mb",
     },
   },
   images: {
